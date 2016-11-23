@@ -1,0 +1,57 @@
+//- item/show.jade
+extends ../layout.jade
+block background-item
+	#background-item(style='background:url(#{item.url_img})')
+		if item
+			.item-show
+				a.left.btn.btn-success(href='/item/#{item._id}/edit') Editar
+				form.show-form(method='post', action='/item/#{item._id}?_method=delete')
+					input.left.btn.btn-danger(
+						type='submit'
+						value='Borrar'
+						onClick='return confirm("Eliminar: #{item.name ? item.name : "Sin nombre"}?")'
+					)
+		.content-title-item
+			h1.title-item #{item.name ? item.name : "Sin nombre"}
+block content
+	#show.container
+		.row
+			.col-md-12
+					table.table
+						thead
+							tr
+								th Nombre
+								th $
+								th Código
+								th Descripción
+								th Stock
+								th Inversión Total
+						tbody
+							tr
+								td #{item.name}
+								td #{item.price}
+								td #{item.code}
+								td #{item.desc}
+								td #{item.qty}
+								- var total = item.qty > 0 ? item.price * item.qty : 0;
+								td #{total.toFixed(2)}
+		.row
+			.col-md-3.col-sm-12
+				//- presentación
+				hr
+				br
+				h3 Presentacion:
+				br
+				.card
+					.card-block
+						h4.card-title #{item.name}
+						- var stocked = item.qty > 0 ? true : false;
+						a.card-subtitle.btn(
+							class='#{stocked ? "btn-success btn-sm" : "btn-danger btn-sm"}'
+						) #{stocked ? "En stock" : "Agotado"}
+					img.img-fluid(style='width:100%',src='/img/img.svg', alt='#{item.name}')
+					.card-block
+						p #{item.desc}
+						a.card-link(href='#') Añadir al carro
+						a.card-link(href='#') Ver más
+

@@ -1,0 +1,6 @@
+#find-input{
+	border-radius: 0px
+}
+#find-bar input[type='submit']{
+	border-radius: 0px .25rem .25rem 0px;
+}

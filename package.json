@@ -1,0 +1,26 @@
+{
+  "name": "stock-control",
+  "version": "1.0.0",
+  "description": "Aplicación web para controlar el stock de insumos",
+  "scripts": {
+    "build": "browserify ./src/main.js -o ./dist/public/js/bundle.js"
+  },
+  "author": "Rodolfo Valguarnera",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "cornershop": "^0.5.0",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "jade": "^1.11.0",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.6.6",
+    "mongoose-float": "^1.0.2",
+    "mongoose-unique-validator": "^1.0.2",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.1.1"
+  }
+}

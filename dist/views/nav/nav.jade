@@ -1,0 +1,57 @@
+ul.nav.navbar-nav.left
+
+	//- Registrar
+	li.nav-item.dropdown
+		a#registrar.nav-link.dropdown-toggle(
+			href='/#'
+			data-toggle="dropdown"
+			aria-haspopup="true"
+			aria-expanded="true"
+		) Registrar
+		.dropdown-menu(aria-labelledby='registrar')
+			a.dropdown-item.disabled(href='#') Cliente
+			a.dropdown-item(href='/item/new') Producto
+			a.dropdown-item.disabled(href='#') Proveedor
+			a.dropdown-item.disabled(href='#') Empleado
+
+	//- Operaciones
+	li.nav-item.dropdown
+		a#operaciones.nav-link.dropdown-toggle(
+			href='/#'
+			data-toggle="dropdown"
+			aria-haspopup="true"
+			aria-expanded="false"
+		) Operaciones
+		.dropdown-menu(aria-labelledby='operaciones')
+			a.dropdown-item.disabled(href='#') Venta
+			a.dropdown-item.disabled(href='#') Compra
+
+	//- Mantenimiento
+	li.nav-item.dropdown
+		a#operaciones.nav-link.dropdown-toggle(
+			href='/#'
+			data-toggle="dropdown"
+			aria-haspopup="true"
+			aria-expanded="false"
+		) Mantenimiento
+		.dropdown-menu(aria-labelledby='operaciones')
+			a.dropdown-item.disabled(href='#') Categoria
+			a.dropdown-item.disabled(href='#') Documento
+
+	//- Informes
+	li.nav-item.dropdown
+		a#operaciones.nav-link.dropdown-toggle(
+			href='/#'
+			data-toggle="dropdown"
+			aria-haspopup="true"
+			aria-expanded="false"
+		) Informes
+		.dropdown-menu(aria-labelledby='operaciones')
+			a.dropdown-item.disabled(href='#') Ventas
+			a.dropdown-item.disabled(href='#') Compras
+
+ul.nav.navbar-nav.right
+	li.nav-item
+		a.nav-link.disabled(href='#') Login
+	li.nav-item
+		a.nav-link.disabled(href='#') Registrarse
