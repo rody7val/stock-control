@@ -1,6 +1,16 @@
 html{
   background-color: #373a3c;
 }
+@font-face {
+  font-family: "lato-light";
+  font-style: normal;
+  font-weight: 300;
+  src: local("Lato Light"), local("Lato-Light"), url("/fonts/Lato-Light.ttf") format("ttf");
+  unicode-range: U+0-FF, U+131, U+152-153, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+.light{
+  font-family: 'lato-light'
+}
 .right{
   float: right;
 }
@@ -54,6 +64,9 @@ table > thead {
 }
 
 @media (max-width: 34em){
+  html{
+    background-color: #fff;
+  }
   .navbar-brand{
     display: inline-block;
     float: none;
@@ -119,4 +132,10 @@ input:focus {
 }
 #background-item{
   padding: 20px
+}
+.stock{
+
+}
+.no-stock{
+
 }
