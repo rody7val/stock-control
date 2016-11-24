@@ -42,7 +42,6 @@ exports.find = function(req, res) {
 
 }
 
-
 // Home
 exports.index = function(req, res){
 	Item.find({}, function (err, items) {
@@ -92,9 +91,6 @@ exports.edit = function (req, res) {
 	item.edit = true;
 
 	Item.find({}, function (err, items) {
-		console.log(err)
-		console.log(items)
-		console.log(item)
 		res.render('item/new', { item: item, items: items, errors: errors });
 	});
 }
