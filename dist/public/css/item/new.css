@@ -1,0 +1,11 @@
+#item-form{
+	
+}
+
+#item-form > table{
+	margin-bottom: -3px!important;
+	border-bottom: 0px;
+}
+#item-form > fieldset{
+	border-top: 2px solid #eceeef!important;
+}

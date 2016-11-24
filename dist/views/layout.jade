@@ -1,0 +1,45 @@
+//- layout.jade
+- var title = title ? title : "Stock-control";
+doctype html
+html(lang='es')
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1')
+		block meta
+		script(src='/js/jquery-3.1.1.min.js', type="text/javascript")
+		script(src='/js/tether.min.js', type="text/javascript")
+		script(src='/js/bootstrap.min.js', type="text/javascript")
+		block js
+		link(href='/css/bootstrap.min.css', rel="stylesheet", type="text/css")
+		link(href='/css/style.css', rel="stylesheet", type="text/css")
+		block css
+		block title
+			title #{title}
+	body
+		#main
+			nav.container.navbar.navbar-fixed-top.navbar-dark.bg-success
+				a.navbar-brand(href='/') Stock-control
+				button.navbar-toggler.hidden-sm-up.right(
+					data-toggle='collapse'
+					data-target='#collapsing-navbar'
+					aria-controls='collapsing-navbar'
+					aria-expanded='true'
+					aria-label="Toggle navigation"
+				)
+				#collapsing-navbar.collapse
+					#e.bg-inverse
+						include ./nav/nav_collapse.jade
+				#noCollapsing-navbar
+					include ./nav/nav
+			block background-item
+			#index
+				block msjFlash
+				block content
+		#footer
+			.title-form.container
+				hr
+				br
+				h4.text-center.light Stock-control
+				br
+		block js_footer
+		script(src='/js/bundle.js', type="text/javascript")

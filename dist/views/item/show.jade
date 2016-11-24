@@ -1,0 +1,79 @@
+//- item/show.jade
+extends ../layout.jade
+block background-item
+	#background-item(style='background:url(#{item.url_img})')
+		if item
+			.item-show
+				a.left.btn.btn-success(href='/item/#{item._id}/edit') Editar
+				form.show-form(method='post', action='/item/#{item._id}?_method=delete')
+					input.left.btn.btn-danger(
+						type='submit'
+						value='Borrar'
+						onClick='return confirm("Eliminar: #{item.name ? item.name : "Sin nombre"}?")'
+					)
+		.content-title-item
+			h1.title-item.text-center.light #{item.name ? item.name : "Sin nombre"}
+block content
+	#show.container
+		.row
+			.col-md-12
+					table.table
+						thead
+							tr
+								th Nombre
+								th $
+								th Código
+								th Descripción
+								th Stock
+								th Inversión Total
+						tbody
+							tr
+								td #{item.name}
+								td #{item.price}
+								td #{item.code}
+								td #{item.desc}
+								td #{item.qty}
+								- var total = item.qty > 0 ? item.price * item.qty : 0;
+								td #{total.toFixed(2)}
+		.row
+			.col-md-4.col-sm-12
+				//- carro
+				hr
+				br
+				h3.text-center.light.center Presentacion:
+				br
+				.card
+					.card-block
+						h3.card-title #{item.name}
+						- var stocked = item.qty > 0 ? true : false;
+						a.card-subtitle.btn(
+							class='#{stocked ? "btn-success btn-sm" : "btn-danger btn-sm"}'
+						) #{stocked ? "En stock" : "Agotado"}
+					img.img-fluid(style='width:100%',src='/img/img.svg', alt='#{item.name}')
+					.card-block
+						p #{item.desc}
+						a.card-link(href='#') Añadir al carro
+						a.card-link(href='#') Ver más
+			.col-md-4.col-sm-12
+				//- oferta
+				hr
+				br
+				h3.text-center.light.center Oferta:
+				br
+				.card
+					h3.card-header Oferta #[span.text-muted 30%]
+					.card-block
+						h4.card-title #{item.name}
+						p.card-text #{item.desc}
+						a.btn.btn-primary(href='#') Ver más
+			.col-md-4.col-sm-12
+				//- nuevo
+				hr
+				br
+				h3.text-center.light.center Nuevo:
+				br
+				.card.card-inverse(style='background-color: #333; border-color: #333;')
+					.card-block
+						h3.light.card-title #{item.name}
+						p.card-text #{item.desc}
+						a(href='#').btn.btn-primary Ver mas
