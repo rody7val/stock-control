@@ -32,11 +32,11 @@ block content
 									//- Items
 									td: a.btn.btn-link.btn-sm(href='/item/#{item._id}') #{item.name ? item.name : "Sin nombre"}
 									//- Stock
-									td #{item.code}
+									td(class="#{item.qty === 0 ? 'alert-danger' : 'alert-success'}") #{item.qty}
 									//- $/u
 									td #{item.price}
 									//- Código
-									td #{item.qty}
+									td #{item.code}
 									//- Acciones
 									td
 										a.left.btn.btn-outline-secondary.btn-sm(href='/item/#{item._id}/edit') Editar
