@@ -128,36 +128,3 @@ exports.delete = function (req, res) {
 		res.redirect('/item/new');
 	});
 }
-
-// Stock
-exports.stock = function(req, res){
-	var nodeExcel = require('excel-export');
-
-	Item.find({}, function (err, items) {
-  		var conf = {};
-    	conf.name = "Insumax";
-
-  		conf.cols = [
-    	  { caption:'Nombre', type:'string' },
-    	  { caption:'Stock', type:'number'},
-    	  { caption:'Precio', type:'number' },
-    	  { caption:'Código', type:'number'}
-    	];
-
-    	conf.rows = [];
-
-    	items.forEach(function(item, key){
-			conf.rows.push([ 
-				item.name, 
-				item.qty,
-				item.price, 
-				item.code
-			]);
-    	});
-
-  		var result = nodeExcel.execute(conf);
-  		res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-  		res.setHeader('Content-Disposition', 'attachment; filename=' + 'Report.xlsx');
-  		res.end(result, 'binary');
-	});
-}
