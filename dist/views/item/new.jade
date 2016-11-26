@@ -1,7 +1,12 @@
 //- item/index.jade
 extends ../layout.jade
+
+block title 
+	title Nuevo Producto
+
 block css
 	link(href='/css/item/new.css', rel="stylesheet", type="text/css")
+
 block content
 	if errors.length
 		- var err = errors[0].message
@@ -16,18 +21,23 @@ block content
 					thead.thead-inverse
 						tr
 							th Items
-							th Código
-							th $
 							th Stock
+							th $/u
+							th Código
 							th Acciones
 					tbody
 						if items.length
 							each item in items
 								tr
+									//- Items
 									td: a.btn.btn-link.btn-sm(href='/item/#{item._id}') #{item.name ? item.name : "Sin nombre"}
+									//- Stock
 									td #{item.code}
+									//- $/u
 									td #{item.price}
+									//- Código
 									td #{item.qty}
+									//- Acciones
 									td
 										a.left.btn.btn-outline-secondary.btn-sm(href='/item/#{item._id}/edit') Editar
 										form(method='post', action='/item/#{item._id}?_method=delete')

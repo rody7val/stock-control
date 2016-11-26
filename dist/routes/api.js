@@ -12,14 +12,15 @@ module.exports = function (app, express) {
     api.param('itemId', itemController.load);
 
     // item
-    api.get('/find', itemController.find);
-    api.get('/items', itemController.all);
+    api.get('/item/find', itemController.find);
     api.get('/item/new', itemController.new);
     api.post('/item/new', itemController.create);
     api.get('/item/:itemId', itemController.show);
     api.get('/item/:itemId/edit', itemController.edit);
     api.put('/item/:itemId/edit', itemController.update);
     api.delete('/item/:itemId', itemController.delete);
+    api.get('/items', itemController.all);
+    api.get('/items/stock', itemController.stock);
 
     // Retornar rutas API.
     return api;

@@ -1,5 +1,9 @@
 //- item/show.jade
 extends ../layout.jade
+
+block title
+	title #{item.name}
+
 block background-item
 	#background-item(style='background:url(#{item.url_img})')
 		if item
@@ -13,6 +17,7 @@ block background-item
 					)
 		.content-title-item
 			h1.title-item.text-center.light #{item.name ? item.name : "Sin nombre"}
+			
 block content
 	#show.container
 		.row
