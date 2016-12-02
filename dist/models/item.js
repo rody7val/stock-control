@@ -21,15 +21,15 @@ var ItemSchema = new Schema({
             return price >= 0;
         }, 'El "Precio" debe ser mayor que 0']
     },
-    qty: {
-    	type: Number,
-    	validate: [function(qty){
-            return qty >= 0;
-        }, 'El "Stock" debe ser mayor que 0']
-    },
+    qty: Number,
     desc: String,
     image: String,
-    created: {type: Date, default: Date.now}
 });
+
+ItemSchema.virtual('motions', {
+    ref: 'Motion',
+    localField: 'created',
+    foreignField: 'type'
+})
 
 module.exports = mongoose.model('Item', ItemSchema);

@@ -112,7 +112,7 @@ exports.update = function (req, res) {
 	});
 }
 
-// Obtener todos los items
+// Obtener todos los items en json
 exports.all = function (req, res) {
 	Item.find({}, function (err, items) {
 		res.json(items);
