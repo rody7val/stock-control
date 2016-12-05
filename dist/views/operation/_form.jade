@@ -1,25 +1,43 @@
 //- item/_form.jade
 form(method='post', action='/operation/new')
-	fieldset.none
-		label(for='type'): b Tipo
-		input(
+
+	fieldset(ng-if='cart.sale.items > 0')
+		input.none(
 			id='type'
 			type='text'
 			name='operation[type]'
 			value='#{type}'
+			placeholder='type'
 		)
-		label(for='total'): b Total
-		input(
+		input.none(
+			id='type'
+			type='text'
+			name='operation[items_qty]'
+			value='{{cart.sale.items}}'
+			placeholder='items_qty'
+		)
+		input.none(
+			id='type'
+			type='text'
+			name='operation[sale_value]'
+			value='{{cart.priceFixed(cart.sale.sale_value)}}'
+			placeholder='sale_value'
+		)
+		input.none(
 			id='total'
 			type='text'
 			name='operation[total]'
-			value="{{cart.toFixed(cart.sale.total)}}"
+			value="{{cart.priceFixed(cart.sale.total)}}"
+			placeholder='total'
 		)
-		label(for='_items'): b Items
-		input(
+		input.none(
 			id='_items'
 			type='text'
 			name='operation[_items]'
 			value="{{cart.getSelected()}}"
+			placeholder='_items'
 		)
-	input.btn.btn-lg.btn-outline-success(id='submit', type='submit', value="Guardar")
+		input.btn.btn-lg.btn-success.right(id='submit', type='submit', value="Guardar")
+
+	fieldset(ng-if='cart.sale.items == 0', disabled="")
+		input.btn.btn-lg.btn-outline-success.right(id='submit', type='submit', value="Guardar")

@@ -11,21 +11,26 @@ block js
 block content
 	if errors.length
 		- var err = errors[0].message
-	div(ng-app='todoApp')
+	div(ng-app='stock-control')
 		.head-title
 			h1.text-center.light Nuevo Movimiento
 		.container
-			div(ng-controller="CartController")
+			div(ng-controller="OperationController")
 				.row.row-space
 					.col-md-6
 						.row
-							hr
+							br
 							include ./templates/buscador.jade
 						.row
-							hr
+							br
 							include ./templates/carro.jade
 					.col-md-6
-						#sale
-							hr
+						#affix
+							br
 							include ./templates/operacion.jade
 							include ./_form.jade
+block js_footer							
+script(type="text/javascript").
+	$('#not-submit').popover({
+	  trigger: 'focus'
+	})

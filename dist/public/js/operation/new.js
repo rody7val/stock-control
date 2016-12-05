@@ -1,6 +1,6 @@
-angular.module('todoApp', [])
+angular.module('stock-control', [])
 
-  .controller('CartController', function($scope, $http) {
+  .controller('OperationController', function($scope, $http) {
     
     $scope.cart = {
       items: [],      // productos de la base de datos
@@ -28,6 +28,7 @@ angular.module('todoApp', [])
       angular.forEach(items, function(item){
         sale_value += item.qty_motion * item.price;
       });
+      console.log(typeof sale_value)
       return sale_value;
     }
 
@@ -98,9 +99,8 @@ angular.module('todoApp', [])
       calculate();
     }
 
-
-    $scope.cart.toFixed = function(num) {
-      return num.toFixed(2);
+    $scope.cart.priceFixed = function(num) {
+      return parseFloat(num.toFixed(2)).toLocaleString();
     }
 
     $scope.cart.calculate = function(Item) {

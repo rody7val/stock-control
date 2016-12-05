@@ -1,11 +1,12 @@
 var Item = require('../models/item');
+var Motion = require('../models/motion');
 var config = require('../../config');
 
 // Autoload - factoriza el código si la ruta incluye :itemId
 exports.load = function(req, res, next, itemId) {
 	Item.findOne({
 		_id: itemId
-	}).select('name code price qty desc image created').exec(function (err, item){
+	}).exec(function (err, item){
 		if (item){
 			req.item = item;
 			next();
@@ -44,22 +45,17 @@ exports.find = function(req, res) {
 
 // Home
 exports.index = function(req, res){
-	Item.find({}, function (err, items) {
-		res.render('index', { items: items });
-	});
+	res.render('index');
 }
 
-// Formulario new item y devuelve todos los items
+// Formulario new item
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
-  req.session.errors = {};
-
-	Item.find({}, function (err, items) {
-    	res.render('item/new', { item: new Item(), items: items, errors: errors });
-	});
+	req.session.errors = {};
+	res.render('item/new', { item: new Item(), errors: errors });
 }
 
-// Guardar nuevo item en la Base de Datos y devuelve todos los items
+// Guardar nuevo item en la Base de Datos
 exports.create = function (req, res) {
 	var item = new Item({
 		name: req.body.item.name,
@@ -67,19 +63,24 @@ exports.create = function (req, res) {
 		price: Number(req.body.item.price),
 		qty: Number(req.body.item.qty),
 		desc: req.body.item.desc
-	});
+	})
 
 	item.save(function (err) {
-		Item.find({}, function (errors, items) {
-			if (err) return res.render('item/new', { item: item, items: items, errors: [{message: err.errors}] });
-			else res.redirect('/item/new');
-		});
+		if (err) return res.render('item/new', { item: item, errors: [{message: err.errors}] });
+		res.redirect('/item/new');
 	});
 }
 
 // Muestra un item
 exports.show = function(req, res){
-	res.render('item/show', { item: req.item });
+
+	Motion.find({
+		_id: { $in: req.item._motions } 
+	}, function (err, motions){
+		if (err) console.log(err);
+		res.render('item/show', { item: req.item, motions: motions });
+	});
+
 };
 
 // Formulario edit item
@@ -104,11 +105,9 @@ exports.update = function (req, res) {
 	req.item.desc = req.body.item.desc;
 
 	req.item.save(function (err){
-		Item.find({}, function (errors, items) {
-			if (err) return res.render('item/new', { item: item, items: items, errors: [{message: err.errors}] });
-				req.item = {};
-				res.redirect('/item/new');
-		});
+		if (err) return res.render('item/new', { item: req.item, errors: [{message: err.errors}] });
+		req.item = {};
+		res.redirect('/item/new');
 	});
 }
 

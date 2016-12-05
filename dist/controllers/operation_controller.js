@@ -3,8 +3,22 @@ function getIds(motions){
 	motions.forEach(function(item){
 		_items.push(item._id);
 	});
-	console.log(_items);
 	return _items;
+}
+
+function changeType(type){
+	var _type;
+	switch(type){
+		case 'sale':
+			_type = 'Venta'
+			break;
+		case 'buy':
+			_type = 'Compra'
+			break;
+		default:
+			_type = 'Registro manual'
+	}
+	return _type;
 }
 
 var Operation = require('../models/operation');
@@ -38,36 +52,51 @@ exports.new = function(req, res){
 
 // Guardar nueva operation en la Base de Datos
 exports.create = function (req, res, next) {
-	var motions = JSON.parse(req.body.operation._items);
-	var _items = getIds(motions);
-
-	var operation = new Operation({
-		type: req.body.operation.type,
-		total: Number(req.body.operation.total),
-		_items: _items
-	});
+	var _Motions = JSON.parse(req.body.operation._items);
+	var _Items = getIds(_Motions);
 
 	//una operacion
-	operation.save(function (err) {
+	new Operation({
+		type: changeType(req.body.operation.type),
+		total: Number(req.body.operation.total),
+		_items: _Items
+	})
+	.save(function (err, operation) {
 		if (err) next(new Error('No se pudo realizar la operacion'));
 		var errors = [];
 		//tiene muchos movimientos
-		motions.forEach(function(item){
-			var motion = new Motion({
-				operation_type: req.body.operation.type,
-				_item: item._id,
-				qty_motion: item.qty_motion,
-    			qty: item.qty
-			}).save(function (error){
-				if (error) errors.push(error);
+		_Motions.forEach(function (_motion){
+			new Motion({
+				operation_type: changeType(req.body.operation.type),
+				_item: _motion._id,
+				qty_motion: _motion.qty_motion,
+    		qty: _motion.qty
+			})
+			.save(function (err, motion){
+				if (err) errors.push(err);
 				//y cada movimiento, le pertenece a un item
-				Item.update({_id: item._id}, {
-					qty: item.qty
-				}, function (Err, num, raw){
-					if (Err) errors.push(Err);
-				});
+				Item.findById(_motion._id, function (err, item){
+					if (err) errors.push(err);
+					item.qty = _motion.qty;
+					item._motions.push(motion._id);
+					item.save(function (err, Item){
+						if (err) errors.push(err);
+					});
+				})
 			})
 		});
-		if (!errors.length) res.render('operation/success');
+		if (!errors.length) {
+
+			res.render('operation/success', {
+				options: {
+					type: changeType(req.body.operation.type),
+					items_qty: req.body.operation.items_qty,
+					sale_value: req.body.operation.sale_value,
+					total: req.body.operation.total,
+					remarque: 1.3,
+					_items: _Items
+				}
+			});
+		}
 	});
 }

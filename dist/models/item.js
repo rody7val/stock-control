@@ -6,8 +6,8 @@ var ItemSchema = new Schema({
     name: {
     	type: String,
     	validate: [function(name){
-            return name.length >= 3;
-        }, 'El "Nombre" debe tener tres (3) o más caracteres.']
+            return name.length >= 3 && name.length > 0;
+        }, 'Debe ingresar un "Nombre" con tres (3) o más caracteres.']
     },
     code: {
     	type: Number,
@@ -19,11 +19,12 @@ var ItemSchema = new Schema({
     	type: Float,
     	validate: [function(price){
             return price >= 0;
-        }, 'El "Precio" debe ser mayor que 0']
+        }, 'El "Precio" debe ser mayor o igual que 0']
     },
     qty: Number,
     desc: String,
     image: String,
+    _motions: [{type: Schema.Types.ObjectId, ref: 'Motion'}]
 });
 
 ItemSchema.virtual('motions', {

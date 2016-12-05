@@ -2,10 +2,10 @@
 table.table.table-hover.body-form
   thead.thead-inverse
     tr
-      th: h3.light Buscador
+      th: h4.light Buscador
       th
         div.right
-          button.btn.btn-outline-primary(
+          button.btn.btn-primary(
             type="button" 
             data-toggle="modal" 
             data-target="#buscador"
@@ -35,6 +35,7 @@ div.modal.fade(
 
         //- input search
         input.form-control.form-control-lg(
+          autofocus
           type='search'
           placeholder='Filtrar por nombre'
           ng-model='itemSearch' 
@@ -47,21 +48,21 @@ div.modal.fade(
             class='active-{{item.done}} disabled-{{item.qty}}'
             ng-repeat="item in cart.items | filter:itemSearch | orderBy: 'name'"
           )
-            input(
+            input.none(
               type="checkbox"
               ng-model="item.done"
               ng-if="item.qty_ref > 0"
             )
-            input(
+            input.none(
               type="checkbox"
               ng-model="item.done"
               ng-if="item.qty_ref == 0"
               disabled
             )
             span {{item.name}} 
-              .alert.alert-info.right(
+              .tag.tag-pill.tag-info.right(
                 ng-if="item.qty_ref > 0") {{item.qty}} u
-              .alert.alert-danger.right(
+              .tag.tag-pill.tag-danger.right(
                 ng-if="item.qty_ref == 0") Agotado
 
       //- acciones

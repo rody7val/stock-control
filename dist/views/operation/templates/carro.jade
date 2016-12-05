@@ -2,10 +2,10 @@
 table.table.table-hover.body-form
 	thead.thead-inverse
 		tr
-			th: h3.light Carro
+			th: h4.light Carro
 			th
 				.right.dropdown
-					a.btn.btn-outline-secondary.dropdown-toggle(
+					a.btn.btn-secondary.dropdown-toggle(
 						id='editar'
 						href=''
 						data-toggle='dropdown'
@@ -23,7 +23,7 @@ div.list-group
 		class='active-{{item.done}}'
 		ng-repeat='item in cart.selected'
 	)
-		input(
+		input.none(
 			type='checkbox'
 			ng-model='item.done'
 		)
@@ -36,5 +36,5 @@ div.list-group
 			style='width:50px'
 			ng-change='cart.calculate({{item}})'
 		)
-		span.done {{item.name}}
-		span.tag.tag-default.tag-pill.right Restan: {{item.qty}}
+		span.done {{item.name ? ' '+item.name : 'sin nombre'}}
+		span.tag.tag-default.tag-pill.right Restan {{item.qty}} u
