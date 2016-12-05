@@ -6,6 +6,10 @@ angular.module('stock-control', [])
       items: []
     }
 
+    $scope.priceFixed = function(num) {
+      return parseFloat(num.toFixed(2)).toLocaleString();
+    }
+
     function getItems(){
       $http.get('/items').success(function(data){
         if (data.length) {
