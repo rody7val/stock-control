@@ -1,0 +1,42 @@
+//- motion/new.jade
+extends ../layout.jade
+
+block title 
+	title Exito
+
+block content
+	br
+	.container
+		.row
+			.col-md-2
+			.col-md-8
+				.alert.alert-success
+					h4.alert-heading #{options.type} realizada con exito!
+					p Detalles a contiunuación:
+			.col-md-2
+		.row
+			.col-md-2
+			.col-md-8
+				table.table.table-hover.body-form
+					thead.thead-inverse
+						tr 
+							th(colspan="2")
+								h4.light #{options.type}
+					tbody 
+						tr 
+							td Cantidad de productos:
+							td.bg-info
+								p.motion-info.right #{options.items_qty} u
+						tr 
+							td Valor de la venta:
+							td.bg-info
+								p.motion-info.right $ #{options.sale_value}
+						tr 
+							td Remarque:
+							td.bg-success
+								p.motion-info.right #{options.remarque} %
+						tr 
+							td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
+							td.bg-warning
+								h3.ligth.right(style="color: #373a3c") $ #{options.total}
+			.col-md-2

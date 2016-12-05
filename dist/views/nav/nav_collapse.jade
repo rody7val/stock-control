@@ -16,39 +16,40 @@ ul.nav.navbar-nav.left
 
 	//- Operaciones
 	li.nav-item.dropdown
-		a#operaciones.nav-link.dropdown-toggle(
+		a#operacion.nav-link.dropdown-toggle(
 			href='/#'
 			data-toggle="dropdown"
 			aria-haspopup="true"
 			aria-expanded="false"
-		) Operaciones
-		.dropdown-menu(aria-labelledby='operaciones')
-			a.dropdown-item.disabled(href='#') Venta
-			a.dropdown-item.disabled(href='#') Compra
+		) Operacion
+		.dropdown-menu(aria-labelledby='operacion')
+			a.dropdown-item(href='/operation/new?type=sale') Nueva venta
+			a.dropdown-item.disabled(href='/operation/new?type=buy') Nueva compra
+			a.dropdown-item.disabled(href='/operation/new?type=manual') Registro Manual
 
 	//- Mantenimiento
 	li.nav-item.dropdown
-		a#operaciones.nav-link.dropdown-toggle(
+		a#mantenimiento.nav-link.dropdown-toggle(
 			href='/#'
 			data-toggle="dropdown"
 			aria-haspopup="true"
 			aria-expanded="false"
 		) Mantenimiento
-		.dropdown-menu(aria-labelledby='operaciones')
-			a.dropdown-item.disabled(href='#') Categoria
-			a.dropdown-item.disabled(href='#') Documento
+		.dropdown-menu(aria-labelledby='mantenimiento')
+			a.dropdown-item.disabled(href='#') Categorias
 
 	//- Informes
 	li.nav-item.dropdown
-		a#operaciones.nav-link.dropdown-toggle(
+		a#informe.nav-link.dropdown-toggle(
 			href='/#'
 			data-toggle="dropdown"
 			aria-haspopup="true"
 			aria-expanded="false"
-		) Informes
-		.dropdown-menu(aria-labelledby='operaciones')
+		) Informe
+		.dropdown-menu(aria-labelledby='informe')
 			a.dropdown-item.disabled(href='#') Ventas
 			a.dropdown-item.disabled(href='#') Compras
+			a.dropdown-item(href='/items/stock') Stock
 
 ul.nav.navbar-nav.right
 	li.nav-item

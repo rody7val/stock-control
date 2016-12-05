@@ -1,118 +1,74 @@
-
 //- item/index.jade
 extends ../layout.jade
+
+block title 
+	title Nuevo Producto
+
 block css
 	link(href='/css/item/new.css', rel="stylesheet", type="text/css")
+
+block js
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/item/new.js', type="text/javascript")
+
 block content
-	if errors.length
-		- var err = errors[0].message
-	.head-title
-		h1.text-center.light #{item.edit ? 'Editar Producto' : 'Registrar Nuevo Producto'}
-	.container
-		.row.row-space
-			.col-md-5
-				form#item-form(method='post', action='#{item.edit ? "/item/"+item._id+"/edit?_method=put" : "/item/new" }')
-					table.table.body-form
-						thead.thead-inverse
-							tr
-								th Formulario
-					fieldset.body-form
-
-						//- name
-						.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
-							label.form-control-label(for='name'): b Nombre
-							input.form-control(
-								id='name'
-								type='text'
-								name='item[name]'
-								placeholder='Puede ser el nombre, marca y la unidad de medida '
-								value='#{errors.length || item.edit ? item.name : ""}'
-							)
-							if errors.length && !(!err.name)
-								.form-control-feedback #{err.name.message}
-
-						//- code
-						.form-group(class='#{errors.length && !(!err.code) ? "has-danger" : ""}')
-							label.form-control-label(for='code'): b Código
-							.input-group
-								span.input-group-addon ││█
-								input.form-control(
-									id='code'
-									type='number'
-									name='item[code]'
-									placeholder='Código de barra'
-									value='#{errors.length || item.edit ? item.code : ""}'
+	div(ng-app='stock-control')
+		div(ng-controller="StockController")
+			if errors.length
+				- var err = errors[0].message
+			div(class='#{item.edit ? "head-title-edit" : "head-title"}')
+				h1.text-center.light #{item.edit ? 'Editar Producto' : 'Nuevo Producto'}
+			.container
+				.row
+					.col-md-12
+						nav#find-bar.navbar.navbar-light.bg-faded
+							.col-md-5
+							.col-md-7
+								//- input search
+								input.form-control.form-control-lg(
+									type='search'
+									placeholder='Filtrar por nombre'
+									ng-model='itemSearch' 
 								)
-							if errors.length && !(!err.code)
-								.form-control-feedback #{err.code.message}
-
-						//- price
-						.form-group(class='#{errors.length && !(!err.price) ? "has-danger" : ""}')
-							label.form-control-label(for='price'): b Precio
-							.input-group
-								span.input-group-addon $
-								input.form-control(
-									id='price'
-									type='text'
-									name='item[price]'
-									placeholder='Precio hasta dos decimales'
-									value='#{errors.length || item.edit ? item.price : ""}'
-								)
-								span.input-group-addon .00
-							if errors.length && !(!err.price)
-								.form-control-feedback #{err.price.message}
-
-						//- qty
-						.form-group(class='#{errors.length && !(!err.qty) ? "has-danger" : ""}')
-							label.form-control-label(for='qty'): b Cantidad
-							input.form-control(
-								id='qty'
-								type='number'
-								name='item[qty]'
-								placeholder='Stock, numeros enteros'
-								value='#{errors.length || item.edit ? item.qty : ""}'
-							)
-							if errors.length && !(!err.qty)
-								.form-control-feedback #{err.qty.message}
-
-						//- desc
-						.form-group(class='#{errors.length && !(!err.desc) ? "has-danger" : ""}')
-							label.form-control-label(for='desc'): b Descripción
-							textarea.form-control(
-								id='desc'
-								type='text'
-								name='item[desc]'
-								placeholder='Puede obviarce o describir información adicional'
-							) #{errors.length || item.edit ? item.desc : ""}
-
-						//- submit
-						.form-group
-							input.right.btn.btn-outline-success(id='submit', type='submit', value="Guardar")
-			.col-md-7
-				table.table.table-hover.body-form
-					thead.thead-inverse
-						tr
-							th Items
-							th Código
-							th $
-							th Stock
-							th Acciones
-					tbody
-						if items.length
-							each item in items
+				.row
+					.col-md-5
+						#affix.item-new
+							include ./_form.jade
+					.col-md-7
+						table.table.table-hover.body-form
+							thead.thead-inverse
 								tr
-									td: a.btn.btn-link.btn-sm(href='/item/#{item._id}') #{item.name ? item.name : "Sin nombre"}
-									td #{item.code}
-									td #{item.price}
-									td #{item.qty}
+									th: h4.light Items
+									th: h4.light Código
+									th: h4.light Stock
+									th: h4.light $/u
+									th: h4.light Acciones
+							tbody
+								tr(
+									ng-repeat="item in stock.items | filter:itemSearch | orderBy: 'name'"
+								)
+									//- Items
+									td: a.btn.btn-link.btn-sm(href='/item/{{item._id}}') {{item.name}}
+									//- Código
+									td.text-center.bg-info {{item.code}}
+									//- Stock
+									td.text-center(class="{{item.qty === 0 ? 'bg-danger' : 'bg-success'}}") {{item.qty}}
+									//- $/u
+									td.bg-info: span.right {{priceFixed(item.price)}}
+									//- Acciones
 									td
-										a.left.btn.btn-outline-secondary.btn-sm(href='/item/#{item._id}/edit') Editar
-										form(method='post', action='/item/#{item._id}?_method=delete')
-											input.left.btn.btn-outline-danger.btn-sm(
+										a.left.btn.btn-warning.btn-sm(href='/item/{{item._id}}/edit') Editar
+										form.left(method='post', action='/item/{{item._id}}?_method=delete')
+											input.btn.btn-danger.btn-sm(
 												type='submit'
 												value='Borrar'
-												onClick='return confirm("Eliminar: #{item.name ? item.name : "Sin nombre"}?")'
+												onClick='return confirm("Eliminar: {{item.name}}?")'
 											)
-						else
-							tr
-								td(colspan="5"): p.text-center No hay ningun item.
+	//- affix
+	script(type="text/javascript").
+		$(window).on('scroll', function(event) {
+			var scrollValue = $(window).scrollTop();
+			console.log(scrollValue)
+			if (scrollValue > 155) $('#affix.item-new').addClass('top');
+			if (scrollValue < 155) $('#affix.item-new').removeClass('top');
+		});

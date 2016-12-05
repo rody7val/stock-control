@@ -1,11 +1,15 @@
 {
   "name": "stock-control",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Aplicación web para controlar el stock de insumos",
+  "author": "Rodolfo Valguarnera <rod7val@gmail.com> (https://github.com/rody7val/)",
+  "repository" : { 
+    "type" : "git",
+    "url" : "https://github.com/rody7val/stock-control.git"
+  },
   "scripts": {
     "build": "browserify ./src/main.js -o ./dist/public/js/bundle.js"
   },
-  "author": "Rodolfo Valguarnera",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.2",
@@ -15,6 +19,7 @@
     "express-session": "^1.14.2",
     "jade": "^1.11.0",
     "method-override": "^2.3.7",
+    "moment": "^2.17.1",
     "mongoose": "^4.6.6",
     "mongoose-float": "^1.0.2",
     "mongoose-unique-validator": "^1.0.2",
