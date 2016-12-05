@@ -1,0 +1,40 @@
+//- carro
+table.table.table-hover.body-form
+	thead.thead-inverse
+		tr
+			th: h4.light Carro
+			th
+				.right.dropdown
+					a.btn.btn-secondary.dropdown-toggle(
+						id='editar'
+						href=''
+						data-toggle='dropdown'
+						aria-haspopup='true'
+						aria-expanded='true'
+					) Acciones
+					.dropdown-menu(aria-labelledby='editar')
+						a.dropdown-item(
+							href=''
+							ng-click='cart.remove()'
+						) Qitar item(s)
+//- lista de items
+div.list-group
+	label.list-group-item.list-group-item-action(
+		class='active-{{item.done}}'
+		ng-repeat='item in cart.selected'
+	)
+		input.none(
+			type='checkbox'
+			ng-model='item.done'
+		)
+		input(
+			type='number'
+			min='0'
+			max='{{item.qty_ref}}'
+			ng-model='item.qty_motion'
+			value='{{item.qty_motion}}'
+			style='width:50px'
+			ng-change='cart.calculate({{item}})'
+		)
+		span.done {{item.name ? ' '+item.name : 'sin nombre'}}
+		span.tag.tag-default.tag-pill.right Restan {{item.qty}} u

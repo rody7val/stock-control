@@ -23,8 +23,9 @@ ul.nav.navbar-nav.left
 			aria-expanded="false"
 		) Operaciones
 		.dropdown-menu(aria-labelledby='operaciones')
-			a.dropdown-item.disabled(href='#') Venta
-			a.dropdown-item.disabled(href='#') Compra
+			a.dropdown-item(href='/operation/new?type=sale') Nueva venta
+			a.dropdown-item.disabled(href='/operation/new?type=buy') Nueva compra
+			a.dropdown-item.disabled(href='/operation/new?type=manual') Registro Manual
 
 	//- Mantenimiento
 	li.nav-item.dropdown
@@ -36,7 +37,6 @@ ul.nav.navbar-nav.left
 		) Mantenimiento
 		.dropdown-menu(aria-labelledby='operaciones')
 			a.dropdown-item.disabled(href='#') Categoria
-			a.dropdown-item.disabled(href='#') Documento
 
 	//- Informes
 	li.nav-item.dropdown

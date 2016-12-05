@@ -1,5 +1,6 @@
 // Controllers
 var itemController = require('../controllers/item_controller');
+var operationController = require('../controllers/operation_controller');
 
 module.exports = function (app, express) {
     // Motor de rutas API
@@ -10,6 +11,7 @@ module.exports = function (app, express) {
 
     // Autoload de comandos 
     api.param('itemId', itemController.load);
+    api.param('operationId', itemController.load);
 
     // item
     api.get('/item/find', itemController.find);
@@ -22,6 +24,16 @@ module.exports = function (app, express) {
     api.get('/items', itemController.all);
     api.get('/items/stock', itemController.stock);
 
+    // operation
+    // api.get('/operation/find', operationController.find);
+    api.get('/operation/new', operationController.new);
+    api.post('/operation/new', operationController.create);
+    // api.get('/operation/:operationId', operationController.show);
+    // api.get('/operation/:operationId/edit', operationController.edit);
+    // api.put('/operation/:operationId/edit', operationController.update);
+    // api.delete('/operation/:itemId', operationController.delete);
+    // api.get('/operations', operationController.all);
+    
     // Retornar rutas API.
     return api;
 };

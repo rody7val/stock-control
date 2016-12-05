@@ -3,8 +3,8 @@ form#item-form(method='post', action='#{item.edit ? "/item/"+item._id+"/edit?_me
 	table.table.body-form
 		thead.thead-inverse
 			tr
-				th Formulario
-	fieldset.body-form
+				th: h4.light Formulario
+	fieldset.body-form.scroll
 		//- name
 		.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
 			label.form-control-label(for='name'): b Nombre
@@ -69,4 +69,9 @@ form#item-form(method='post', action='#{item.edit ? "/item/"+item._id+"/edit?_me
 			) #{errors.length || item.edit ? item.desc : ""}
 		//- submit
 		.form-group
-			input.right.btn.btn-outline-success(id='submit', type='submit', value="Guardar")
+			input.right.btn(
+				class='#{item.edit ? "btn-outline-warning" : "btn-outline-success"}'
+				id='submit'
+				type='submit'
+				value='#{item.edit ? "Editar" : "Guardar"}'
+			)
