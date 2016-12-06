@@ -28,8 +28,9 @@ block content
 								input.form-control.form-control-lg(
 									type='search'
 									placeholder='Filtrar por nombre'
-									ng-model='itemSearch' 
+									ng-model='itemSearch'
 								)
+								{{setDeafaultItemSearch("#{item.edit ? item.name : ''}")}}
 				.row
 					.col-md-5
 						#affix.item-new
