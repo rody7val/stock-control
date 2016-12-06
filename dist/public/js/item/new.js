@@ -7,7 +7,7 @@ angular.module('stock-control', [])
     }
     $scope.itemSearch;
 
-    $scope.setDeafaultItemSearch = function(value){
+    $scope.setItemSearch = function(value){
       $scope.itemSearch = value;
     }
 
