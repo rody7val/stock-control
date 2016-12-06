@@ -18,20 +18,21 @@ html(lang='es')
 			title #{title}
 	body
 		#main
-			nav.container.navbar.navbar-fixed-top.navbar-dark.bg-success
-				a.navbar-brand(href='/') Stock-control
-				button.navbar-toggler.hidden-sm-up.right(
-					data-toggle='collapse'
-					data-target='#collapsing-navbar'
-					aria-controls='collapsing-navbar'
-					aria-expanded='true'
-					aria-label="Toggle navigation"
-				)
-				#collapsing-navbar.collapse
-					#e.bg-inverse
-						include ./nav/nav_collapse.jade
-				#noCollapsing-navbar
-					include ./nav/nav
+			nav#nav.navbar.navbar-fixed-top.navbar-dark.bg-success
+				.container
+					a.navbar-brand(href='/') Stock-control
+					button.navbar-toggler.hidden-sm-up.right(
+						data-toggle='collapse'
+						data-target='#collapsing-navbar'
+						aria-controls='collapsing-navbar'
+						aria-expanded='true'
+						aria-label="Toggle navigation"
+					)
+					#collapsing-navbar.collapse
+						#e.bg-inverse
+							include ./nav/nav_collapse.jade
+					#noCollapsing-navbar
+						include ./nav/nav
 			block background-item
 			#index
 				block msjFlash
