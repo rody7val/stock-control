@@ -9,7 +9,7 @@ table.table.table-hover.body-form
 		if motions.length
 			each motion in motions
 				tr
-					td #{new Date(motion.created).toLocaleDateString()}
+					td #{new Date(motion.created).toLocaleString()}
 					td #{motion.operation_type ? 'Venta' : ''}
 					td - #{motion.qty_motion}
 					td #{motion.qty}

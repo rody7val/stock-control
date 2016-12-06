@@ -73,10 +73,11 @@ exports.create = function (req, res) {
 
 // Muestra un item
 exports.show = function(req, res){
-
-	Motion.find({
-		_id: { $in: req.item._motions } 
-	}, function (err, motions){
+	
+	Motion
+	.find({ _id: { $in: req.item._motions } })
+	.sort({created: -1})
+	.exec(function (err, motions){
 		if (err) console.log(err);
 		res.render('item/show', { item: req.item, motions: motions });
 	});
