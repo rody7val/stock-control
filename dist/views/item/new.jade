@@ -44,8 +44,8 @@ block content
 										$(window).on('scroll', function(event) {
 											var scrollValue = $(window).scrollTop();
 											console.log(scrollValue)
-											if (scrollValue > 155) $('#affix.item-new').addClass('top');
-											if (scrollValue < 155) $('#affix.item-new').removeClass('top');
+											if (scrollValue > 168) $('#affix.item-new').addClass('top');
+											if (scrollValue < 168) $('#affix.item-new').removeClass('top');
 										});
 				.row
 					.col-md-5
@@ -71,12 +71,12 @@ block content
 									td.text-center(class="{{item.qty === 0 ? 'bg-danger' : 'bg-success'}}") {{item.qty}}
 									//- Acciones
 									td
-										a.left.btn.btn-warning.btn-sm(
+										a.left.btn.btn-outline-warning.btn-sm(
 											ng-if='#{!item.edit}'
 											href='/item/{{item._id}}/edit'
 										) Editar
 										form.item-delete.left(method='post', action='/item/{{item._id}}?_method=delete')
-											input.btn.btn-danger.btn-sm(
+											input.btn.btn-outline-danger.btn-sm(
 												type='submit'
 												value='Borrar'
 												onClick='return confirm("Eliminar: {{item.name}}?")'

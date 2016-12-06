@@ -19,7 +19,7 @@ var ItemSchema = new Schema({
     	type: Float,
     	validate: [function(price){
             return price >= 0;
-        }, 'El "Precio" debe ser mayor o igual que 0']
+        }, 'El "Precio" debe ser un numero decimal, mayor o igual que 0']
     },
     qty: Number,
     desc: String,
