@@ -58,8 +58,11 @@ block content
 									td.bg-info: span.right {{priceFixed(item.price)}}
 									//- Acciones
 									td
-										a.left.btn.btn-warning.btn-sm(href='/item/{{item._id}}/edit') Editar
-										form.left(method='post', action='/item/{{item._id}}?_method=delete')
+										a.left.btn.btn-warning.btn-sm(
+											ng-if='#{!item.edit}'
+											href='/item/{{item._id}}/edit'
+										) Editar
+										form.item-delete.left(method='post', action='/item/{{item._id}}?_method=delete')
 											input.btn.btn-danger.btn-sm(
 												type='submit'
 												value='Borrar'
