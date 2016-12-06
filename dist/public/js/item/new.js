@@ -5,6 +5,11 @@ angular.module('stock-control', [])
     $scope.stock = {
       items: []
     }
+    $scope.itemSearch;
+
+    $scope.setItemSearch = function(value){
+      $scope.itemSearch = value;
+    }
 
     $scope.priceFixed = function(num) {
       return parseFloat(num.toFixed(2)).toLocaleString();

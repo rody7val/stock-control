@@ -46,11 +46,12 @@ block content
 							table.table.table-hover
 								thead.thead-inverse
 									tr
-										th: h4.light Items
-										th: h4.light.text-center Código
-										th: h4.light.text-center Stock
-										th: h4.light.right $/u
-										th: h4.light Acciones
+										th: h5.light Items
+										th: h5.light.text-center Código
+										th: h5.light.text-center Stock
+										th: h5.light.right $ costo
+										th: h5.light.right $ venta
+										th: h5.light Acciones
 								tbody
 									//-  | startFrom:currentPage*pageSize | limitTo:pageSize
 									tr(
@@ -62,8 +63,10 @@ block content
 										td.text-center.bg-info {{item.code}}
 										//- Stock
 										td.text-center(class="{{item.qty === 0 ? 'bg-danger' : 'bg-success'}}") {{item.qty}}
-										//- $/u
+										//- $/u Costo
 										td.bg-info: span.right {{stock.priceFixed(item.price)}}
+										//- $/u Venta
+										td.bg-info: span.right {{stock.priceFixed(item.price * 1.3)}}
 										//- Acciones
 										td
 											a.btn.btn-outline-info.btn-sm(href='/item/{{item._id}}') Ver

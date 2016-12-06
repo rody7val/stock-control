@@ -1,15 +1,15 @@
 table.table.table-hover.body-form
 	thead.thead-inverse
 		tr
-			th: h4.light Fecha
-			th: h4.light Operación
-			th: h4.light Cantidad
-			th: h4.light Stock saldo
+			th: h5.light Fecha
+			th: h5.light Operación
+			th: h5.light Cantidad
+			th: h5.light Stock saldo
 	tbody
 		if motions.length
 			each motion in motions
 				tr
-					td #{new Date(motion.created).toLocaleDateString()}
+					td #{new Date(motion.created).toLocaleString()}
 					td #{motion.operation_type ? 'Venta' : ''}
 					td - #{motion.qty_motion}
 					td #{motion.qty}

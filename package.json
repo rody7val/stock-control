@@ -1,11 +1,11 @@
 {
   "name": "stock-control",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Aplicación web para controlar el stock de insumos",
   "author": "Rodolfo Valguarnera <rod7val@gmail.com> (https://github.com/rody7val/)",
-  "repository" : { 
-    "type" : "git",
-    "url" : "https://github.com/rody7val/stock-control.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rody7val/stock-control.git"
   },
   "scripts": {
     "build": "browserify ./src/main.js -o ./dist/public/js/bundle.js"
@@ -15,6 +15,7 @@
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
     "cornershop": "^0.5.0",
+    "excel-export": "^0.5.1",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
     "jade": "^1.11.0",

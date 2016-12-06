@@ -60,23 +60,27 @@ exports.create = function (req, res) {
 	var item = new Item({
 		name: req.body.item.name,
 		code: Number(req.body.item.code),
-		price: Number(req.body.item.price),
+		price: Number(req.body.item.price),   //to number
 		qty: Number(req.body.item.qty),
 		desc: req.body.item.desc
 	})
 
 	item.save(function (err) {
-		if (err) return res.render('item/new', { item: item, errors: [{message: err.errors}] });
+		if (err) {
+			item._price = req.body.item.price;   // to string
+			return res.render('item/new', { item: item, errors: [{message: err.errors}] });
+		}
 		res.redirect('/item/new');
 	});
 }
 
 // Muestra un item
 exports.show = function(req, res){
-
-	Motion.find({
-		_id: { $in: req.item._motions } 
-	}, function (err, motions){
+	
+	Motion
+	.find({ _id: { $in: req.item._motions } })
+	.sort({created: -1})
+	.exec(function (err, motions){
 		if (err) console.log(err);
 		res.render('item/show', { item: req.item, motions: motions });
 	});
@@ -86,14 +90,12 @@ exports.show = function(req, res){
 // Formulario edit item
 exports.edit = function (req, res) {
 	var errors = req.session.errors || {};
-  req.session.errors = {};
+  	req.session.errors = {};
 
-	var item = req.item;
-	item.edit = true;
+	req.item.edit = true;
+	req.item._price = req.item.price;
 
-	Item.find({}, function (err, items) {
-		res.render('item/new', { item: item, items: items, errors: errors });
-	});
+	res.render('item/new', { item: req.item, errors: errors });
 }
 
 // Editar un item
@@ -105,9 +107,14 @@ exports.update = function (req, res) {
 	req.item.desc = req.body.item.desc;
 
 	req.item.save(function (err){
-		if (err) return res.render('item/new', { item: req.item, errors: [{message: err.errors}] });
-		req.item = {};
-		res.redirect('/item/new');
+		if (err) {
+			req.item.edit = true;
+			req.item._price = req.body.item.price;
+			return res.render('item/new', { item: req.item, errors: [{message: err.errors}] });
+		}else{
+			req.item = {};
+			res.redirect('/item/new');
+		}
 	});
 }
 
