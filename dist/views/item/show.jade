@@ -35,16 +35,20 @@ block content
 							thead.thead-inverse
 								tr
 									th(colspan="2")
-										h4.light Propiedades
+										h5.light Propiedades
 							tbody
 								tr 
 									td Nombre
 									td.bg-info
 										p.motion-info.right #{item.name}
 								tr 
-									td Precio:
+									td Precio costo: 
 									td.bg-info
 										p.motion-info.right $ {{priceFixed(#{item.price})}}
+								tr 
+									td Precio venta: 
+									td.bg-info
+										p.motion-info.right $ {{priceFixed(#{item.price * 1.3})}}
 								tr 
 									td Codigo:
 									td.bg-info

@@ -3,7 +3,7 @@ form#item-form(method='post', action='#{item.edit ? "/item/"+item._id+"/edit?_me
 	table.table.body-form
 		thead.thead-inverse
 			tr
-				th: h4.light Formulario
+				th: h5.light Formulario
 	fieldset.body-form.scroll
 		//- name
 		.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
