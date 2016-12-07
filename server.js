@@ -13,7 +13,8 @@ var express = require('express'),
 var app = express();
 
 // Rutas API
-var api = require('./dist/routes/api')(app, express);
+var api_admin = require('./dist/routes/api_admin')(app, express);
+var api_public = require('./dist/routes/api_public')(app, express);
 
 // Motor de vistas
 app.set('views', path.join(__dirname, 'dist/views'));
@@ -56,8 +57,9 @@ app.use(function (req, res, next){
     next();
 });
 
-// Usar rutas API en el directorio raiz
-app.use('/', api);
+// Usar rutas API
+app.use('/admin', api_admin);
+app.use('/', api_public);
 
 // Manejo de errores en desarrollo
 if (app.get('env') === 'development') {

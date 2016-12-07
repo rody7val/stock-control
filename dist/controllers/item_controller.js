@@ -14,45 +14,44 @@ exports.load = function(req, res, next, itemId) {
 	});
 }
 
-// find intem
-exports.find = function(req, res) {
-	var query,
-		key = req.query.key || '',
-		value = req.query.value || '';
-
-	switch(key){
-		case 'name':
-			query = Item.find({ name: new RegExp(value, 'i') })
-				.select('name code price qty desc image created');
-			break;
-
-		case 'code':
-			query = Item.find({ code: value })
-				.select('name code price qty desc image created');
-			break;
-
-		default:
-			query = Item.find({ name: new RegExp(value, 'i') })
-				.select('name code price qty desc image created');
-	}
-
-	query.exec(function (err, items){
-		if (err) return res.redirect('/');
-		else res.render('index', { items: items, key: key, value: value});
-	});
-
+// Informe Stock
+exports.stock = function(req, res){
+	res.render('admin/item/informe_stock');
 }
 
-// Home
+// Admin Home
 exports.index = function(req, res){
-	res.render('index');
+	res.render('admin/');
+}
+
+// Public Home
+exports.public = function(req, res){
+	res.render('public/index');
+}
+
+exports.getRowsItems = function(req, res){
+
+	function getRows(items) {
+	    return items.reduce(function (prev, item, i) {
+	        if(i % 3 === 0)
+	            prev.push([item]);
+	        else
+	            prev[prev.length - 1].push(item);
+	        return prev;
+	    }, []);
+	}
+
+	Item.find({}).exec(function (err, items){
+		res.json( getRows(items) );
+	});
+
 }
 
 // Formulario new item
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
 	req.session.errors = {};
-	res.render('item/new', { item: new Item(), errors: errors });
+	res.render('admin/item/new', { item: new Item(), errors: errors });
 }
 
 // Guardar nuevo item en la Base de Datos
@@ -68,9 +67,9 @@ exports.create = function (req, res) {
 	item.save(function (err) {
 		if (err) {
 			item._price = req.body.item.price;   // to string
-			return res.render('item/new', { item: item, errors: [{message: err.errors}] });
+			return res.render('admin/item/new', { item: item, errors: [{message: err.errors}] });
 		}
-		res.redirect('/item/new');
+		res.redirect('/admin/item/new');
 	});
 }
 
@@ -82,7 +81,7 @@ exports.show = function(req, res){
 	.sort({created: -1})
 	.exec(function (err, motions){
 		if (err) console.log(err);
-		res.render('item/show', { item: req.item, motions: motions });
+		res.render('admin/item/show', { item: req.item, motions: motions });
 	});
 
 };
@@ -95,7 +94,7 @@ exports.edit = function (req, res) {
 	req.item.edit = true;
 	req.item._price = req.item.price;
 
-	res.render('item/new', { item: req.item, errors: errors });
+	res.render('admin/item/new', { item: req.item, errors: errors });
 }
 
 // Editar un item
@@ -110,10 +109,10 @@ exports.update = function (req, res) {
 		if (err) {
 			req.item.edit = true;
 			req.item._price = req.body.item.price;
-			return res.render('item/new', { item: req.item, errors: [{message: err.errors}] });
+			return res.render('admin/item/new', { item: req.item, errors: [{message: err.errors}] });
 		}else{
 			req.item = {};
-			res.redirect('/item/new');
+			res.redirect('/admin/item/new');
 		}
 	});
 }
@@ -125,18 +124,34 @@ exports.all = function (req, res) {
 	});
 }
 
+// Obtener todos los items en cuotas
+exports.load_items = function (req, res, next) {
+	var skip = Number(req.query.skip) || 0;
+	var limit = Number(req.query.limit) || 50;
+
+	Item
+		.find({})
+		.lean()
+		.skip(skip)
+		.limit(limit)
+		.exec(function (err, items) {
+			if (err) next(new Error('a ver que onda los parametros. limit='+ limit + ' skip='+skip+'\n'+err))
+		res.json(items);
+	})
+}
+
 // Borrar un item
 exports.delete = function (req, res) {
 	Item.findOne({
 		_id: req.item._id
 	}).remove().exec(function (err){
 		if (err) console.log(err);
-		res.redirect('/item/new');
+		res.redirect('/admin/item/new');
 	});
 }
 
-// Stock
-exports.stock = function(req, res){
+// Stock excel-exports
+exports.stock_exports = function(req, res){
 	var nodeExcel = require('excel-export');
 
 	Item.find({}, function (err, items) {

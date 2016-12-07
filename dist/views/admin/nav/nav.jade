@@ -10,7 +10,7 @@ ul.nav.navbar-nav.left
 		) Registrar
 		.dropdown-menu(aria-labelledby='registrar')
 			a.dropdown-item.disabled(href='#') Cliente
-			a.dropdown-item(href='/item/new') Producto
+			a.dropdown-item(href='/admin/item/new') Producto
 			a.dropdown-item.disabled(href='#') Proveedor
 			a.dropdown-item.disabled(href='#') Empleado
 
@@ -23,9 +23,9 @@ ul.nav.navbar-nav.left
 			aria-expanded="false"
 		) Operacion
 		.dropdown-menu(aria-labelledby='operacion')
-			a.dropdown-item(href='/operation/new?type=sale') Nueva venta
-			a.dropdown-item.disabled(href='/operation/new?type=buy') Nueva compra
-			a.dropdown-item.disabled(href='/operation/new?type=manual') Registro Manual
+			a.dropdown-item(href='/admin/operation/new?type=sale') Nueva venta
+			a.dropdown-item.disabled(href='/admin/operation/new?type=buy') Nueva compra
+			a.dropdown-item.disabled(href='/admin/operation/new?type=manual') Registro Manual
 
 	//- Mantenimiento
 	li.nav-item.dropdown
@@ -49,7 +49,7 @@ ul.nav.navbar-nav.left
 		.dropdown-menu(aria-labelledby='informe')
 			a.dropdown-item.disabled(href='#') Ventas
 			a.dropdown-item.disabled(href='#') Compras
-			a.dropdown-item(href='/items/stock') Stock
+			a.dropdown-item(href='/admin/stock') Stock
 
 ul.nav.navbar-nav.right
 	li.nav-item

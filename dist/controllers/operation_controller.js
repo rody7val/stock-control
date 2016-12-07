@@ -46,7 +46,7 @@ exports.new = function(req, res){
 	var type = (req.query.type == 'sale' ||  req.query.type == 'buy' || req.query.type == 'manual') ? req.query.type : res.redirect('/');
 
 	Operation.find({}, function (err, operations) {
-    	res.render('operation/new', { operation: new Operation(), operations: operations, type: type, errors: errors });
+    	res.render('admin/operation/new', { operation: new Operation(), operations: operations, type: type, errors: errors });
 	});
 }
 
@@ -87,7 +87,7 @@ exports.create = function (req, res, next) {
 		});
 		if (!errors.length) {
 
-			res.render('operation/success', {
+			res.render('admin/operation/success', {
 				options: {
 					type: changeType(req.body.operation.type),
 					items_qty: req.body.operation.items_qty,

@@ -2,6 +2,12 @@
     border-bottom: 1px solid #4a944a;
     box-shadow: 0px 0px 20px #4c4c4c;
 }
+.card{
+  box-shadow: 4px 4px 15px rgba(0,0,0,0.1);
+}
+#items{
+  height: 800px
+}
 .item-delete{
   margin-top: -1px
 }

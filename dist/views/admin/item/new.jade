@@ -1,5 +1,5 @@
 //- item/index.jade
-extends ../layout.jade
+extends ../../layout.jade
 
 block title 
 	title Nuevo Producto
@@ -64,7 +64,7 @@ block content
 									ng-repeat="item in stock.items | filter:itemSearch | orderBy: 'name'"
 								)
 									//- Items
-									td: a.btn.btn-link.btn-sm(href='/item/{{item._id}}') {{item.name}}
+									td: a.btn.btn-link.btn-sm(href='/admin/item/{{item._id}}') {{item.name}}
 									//- Código
 									td.text-center.bg-info {{item.code}}
 									//- Stock
@@ -73,9 +73,9 @@ block content
 									td
 										a.left.btn.btn-outline-warning.btn-sm(
 											ng-if='#{!item.edit}'
-											href='/item/{{item._id}}/edit'
+											href='/admin/item/{{item._id}}/edit'
 										) Editar
-										form.item-delete.left(method='post', action='/item/{{item._id}}?_method=delete')
+										form.item-delete.left(method='post', action='/admin/item/{{item._id}}?_method=delete')
 											input.btn.btn-outline-danger.btn-sm(
 												type='submit'
 												value='Borrar'

@@ -1,5 +1,5 @@
 //- item/show.jade
-extends ../layout.jade
+extends ../../layout.jade
 
 block title
 	title #{item.name}
@@ -13,8 +13,8 @@ block background-item
 		style='background:url(#{item.url_img ? item.url_img : "/img/cover-default.png"})'
 	)
 		.item-show
-			a.btn.btn-outline-warning(href='/item/#{item._id}/edit') Editar
-			form.show-form(method='post', action='/item/#{item._id}?_method=delete')
+			a.btn.btn-outline-warning(href='/admin/item/#{item._id}/edit') Editar
+			form.show-form(method='post', action='/admin/item/#{item._id}?_method=delete')
 				input.btn.btn-outline-danger(
 					type='submit'
 					value='Borrar'

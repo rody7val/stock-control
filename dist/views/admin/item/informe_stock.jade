@@ -1,4 +1,4 @@
-extends ./layout.jade
+extends ../../layout.jade
 
 block js
 	script(src='/js/lodash.min.js', type="text/javascript")
@@ -33,14 +33,22 @@ block content
 						.col-md-12
 							nav#find-bar.navbar.navbar-light.bg-faded
 								.col-md-7
-									form(action='/item/find',method='get')
-											//- input search
-											input.form-control.form-control-lg(
-          							autofocus
-												type='search'
-												placeholder='Filtrar por nombre'
-												ng-model='itemSearch' 
-											)
+									//- form(action='/admin/item/find',method='get')
+									//- input search
+									input.form-control.form-control-lg(
+          								autofocus
+										type='search'
+										placeholder='Filtrar por nombre'
+										ng-model='itemSearch' 
+									)
+								.col-md-5
+									//- Microsoft_Excel_Icon.svg.png
+									a.right.btn.btn-link(href='/admin/items/stock_exports')
+										img(
+											src='/img/Microsoft_Excel_Icon.svg.png'
+											style='width: 40px;'
+										)
+										#[span Descargar informe]
 					.row
 						.col-md-12
 							table.table.table-hover
@@ -58,7 +66,7 @@ block content
 										ng-repeat="item in stock.items | filter:itemSearch | orderBy: 'name'"
 									)
 										//- Items
-										td: a.btn.btn-link(href='/item/{{item._id}}') {{item.name}}
+										td: a.btn.btn-link(href='/admin/item/{{item._id}}') {{item.name}}
 										//- Código
 										td.text-center.bg-info {{item.code}}
 										//- Stock
@@ -69,8 +77,8 @@ block content
 										td.bg-info: span.right {{stock.priceFixed(item.price * 1.3)}}
 										//- Acciones
 										td
-											a.btn.btn-outline-info.btn-sm(href='/item/{{item._id}}') Ver
-											a.btn.btn-outline-warning.btn-sm(href='/item/{{item._id}}/edit') Editar
+											a.btn.btn-outline-info.btn-sm(href='/admin/item/{{item._id}}') Ver
+											a.btn.btn-outline-warning.btn-sm(href='/admin/item/{{item._id}}/edit') Editar
 							//- pagination:
 							//- button(
 							//- 	ng-disabled='currentPage == 0'

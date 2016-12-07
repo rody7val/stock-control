@@ -1,5 +1,5 @@
 //- item/_form.jade
-form#item-form(method='post', action='#{item.edit ? "/item/"+item._id+"/edit?_method=put" : "/item/new" }')
+form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/edit?_method=put" : "/admin/item/new" }')
 	table.table.body-form
 		thead.thead-inverse
 			tr
