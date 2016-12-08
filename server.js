@@ -26,10 +26,6 @@ mongoose.connect(config.database, function (err) {
     console.log('Conectado a la Base de Datos');
 });
 
-// Motor de vistas
-app.set('views', path.join(__dirname, 'dist/views'));
-app.set('view engine', 'jade');
-
 // Configuraciones
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -41,7 +37,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
 
 // Definir directorio publico
 app.use(express.static(path.join(__dirname, 'dist/public')));
@@ -67,6 +62,7 @@ if (app.get('env') === 'development') {
         res.status(err.status || 500);
         res.render('error', {
             message: err.message,
+            status: err.status || 500,
             error: err
         });
     });

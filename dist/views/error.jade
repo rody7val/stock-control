@@ -1,6 +1,8 @@
 //- session/new.jade
 extends ./layout.jade
 block content
-	h3 #{message}
-	h5 #{error.status}
-	pre #{error.stack}
+	br
+	.container
+		h3 #{message}
+		h5 #{status}
+		pre #{error.stack}
