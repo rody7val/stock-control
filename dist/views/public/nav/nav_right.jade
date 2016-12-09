@@ -11,9 +11,9 @@ if session.user
 			if session.user.admin
 				a.dropdown-item(href='/admin') Administración
 	li.nav-item
-		a.nav-link(href='/session/logout') Logout
+		a.nav-link(href='/session/logout') Salir
 else
 	li.nav-item
-		a.nav-link(href='/session/login') Login
+		a.nav-link(href='/session/login') Entrar
 	li.nav-item
 		a.nav-link(href='/users/new') Registrarse

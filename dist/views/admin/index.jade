@@ -2,6 +2,48 @@ extends ../layout_admin.jade
 
 block content
 	.head-title
-		h1.text-center.light Index admin
+		h1.text-center.light Configuración General
 	.container
-		p index
+		br
+		br
+		.row
+			.col-md-3
+				h6(name='configuracion-del-sitio') # Configuración del sitio
+			.col-md-9
+				form
+					fieldset
+						.form-group
+							label.form-control-label(for='title'): b Titulo
+							input.form-control(
+								id='title'
+								type='text'
+								name='general[title]'
+								value=''
+								placeholder='El nombre de tu comunidad'
+							)
+						.form-group
+							label.form-control-label(for='desc'): b Descripción
+							input.form-control(
+								id='desc'
+								type='text'
+								name='general[desc]'
+								value=''
+								placeholder='Una breve descripción acerca de tu comunidad'
+							)
+		br
+		br
+		.row
+			.col-md-3
+				h6(name='opciones-de-ventas') # Opciones de ventas
+			.col-md-9
+				form
+					fieldset
+						.form-group
+							label.form-control-label(for='rem'): b Rmarque
+							input.form-control(
+								id='rem'
+								type='text'
+								name='general[rem]'
+								value=''
+								placeholder='Porcentaje de ganancia por venta'
+							)
