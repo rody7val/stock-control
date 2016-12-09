@@ -14,21 +14,22 @@ exports.load = function(req, res, next, itemId) {
 	});
 }
 
-// Informe Stock
-exports.stock = function(req, res){
-	res.render('admin/item/informe_stock');
-}
-
 // Admin Home
 exports.index = function(req, res){
-	res.render('admin/');
+	res.render('admin/', {nav: 'general'});
 }
 
 // Public Home
 exports.public = function(req, res){
-	res.render('public/index');
+	res.render('public/');
 }
 
+// Informe Stock
+exports.stock = function(req, res){
+	res.render('admin/item/informe_stock', {nav: 'informe'});
+}
+
+// Devuelve un json con arrays de a 3 items
 exports.getRowsItems = function(req, res){
 
 	function getRows(items) {
@@ -51,7 +52,7 @@ exports.getRowsItems = function(req, res){
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
 	req.session.errors = {};
-	res.render('admin/item/new', { item: new Item(), errors: errors });
+	res.render('admin/item/new', { item: new Item(), errors: errors, nav: 'registrar' });
 }
 
 // Guardar nuevo item en la Base de Datos
@@ -67,7 +68,7 @@ exports.create = function (req, res) {
 	item.save(function (err) {
 		if (err) {
 			item._price = req.body.item.price;   // to string
-			return res.render('admin/item/new', { item: item, errors: [{message: err.errors}] });
+			return res.render('admin/item/new', { item: item, errors: [{message: err.errors}], nav: 'registrar'});
 		}
 		res.redirect('/admin/item/new');
 	});
@@ -81,7 +82,7 @@ exports.show = function(req, res){
 	.sort({created: -1})
 	.exec(function (err, motions){
 		if (err) console.log(err);
-		res.render('admin/item/show', { item: req.item, motions: motions });
+		res.render('admin/item/show', { item: req.item, motions: motions, nav: 'informe' });
 	});
 
 };
@@ -94,7 +95,7 @@ exports.edit = function (req, res) {
 	req.item.edit = true;
 	req.item._price = req.item.price;
 
-	res.render('admin/item/new', { item: req.item, errors: errors });
+	res.render('admin/item/new', { item: req.item, errors: errors, nav: 'registrar' });
 }
 
 // Editar un item
@@ -109,7 +110,7 @@ exports.update = function (req, res) {
 		if (err) {
 			req.item.edit = true;
 			req.item._price = req.body.item.price;
-			return res.render('admin/item/new', { item: req.item, errors: [{message: err.errors}] });
+			return res.render('admin/item/new', { item: req.item, errors: [{message: err.errors}], nav: 'registrar' });
 		}else{
 			req.item = {};
 			res.redirect('/admin/item/new');

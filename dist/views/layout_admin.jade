@@ -1,5 +1,5 @@
-//- layout.jade
-- var title = title ? title : "Stock-control";
+//- layout_admin.jade
+- var title = title ? title : "Dashboard | Stock-control";
 doctype html
 html(lang='es')
 	head
@@ -17,32 +17,19 @@ html(lang='es')
 		block title
 			title #{title}
 	body
-		#main
-			nav#nav.navbar.navbar-fixed-top.navbar-dark.bg-success
+		#main-admin
+			nav#nav.navbar.navbar-dark.bg-inverse
 				.container
-					a.navbar-brand(href='/') Stock-control
-					button.navbar-toggler.hidden-sm-up.right(
-						data-toggle='collapse'
-						data-target='#collapsing-navbar'
-						aria-controls='collapsing-navbar'
-						aria-expanded='true'
-						aria-label="Toggle navigation"
-					)
-					#collapsing-navbar.collapse
-						#e.bg-inverse
-							ul.nav.navbar-nav.left
-								include ./public/nav/nav_left.jade
-							ul.nav.navbar-nav.right
-								include ./public/nav/nav_right.jade
-					#noCollapsing-navbar
-						ul.nav.navbar-nav.left
-							include ./public/nav/nav_left.jade
+					div(style='display: inline-block; width: 100%;')
 						ul.nav.navbar-nav.right
-							include ./public/nav/nav_right.jade
+							include ./admin/nav/nav_right.jade
+					h1.light Administración
+					ul.nav.navbar-nav.left
+						include ./admin/nav/nav_left.jade
 			block background-item
-			#index
+			#admin
 				block msjFlash
-				block content
+					block content
 		#footer
 			.title-form.container
 				hr

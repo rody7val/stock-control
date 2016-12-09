@@ -1,0 +1,50 @@
+//- General
+li.nav-item.nav-admin(class='#{nav == "general" ? "nav-admin-active" : ""}')
+	a#general.nav-link(href='/admin') GENERAL
+//- Registrar
+li.nav-item.nav-admin.dropdown(class='#{nav == "registrar" ? "nav-admin-active" : ""}')
+	a#registrar.nav-link.dropdown-toggle(
+		href='/#'
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="true"
+	) REGISTRAR
+	.dropdown-menu(aria-labelledby='registrar')
+		a.dropdown-item.disabled(href='#') Cliente
+		a.dropdown-item(href='/admin/item/new') Producto
+		a.dropdown-item.disabled(href='#') Proveedor
+		a.dropdown-item.disabled(href='#') Empleado
+//- Operaciones
+li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" : ""}')
+	a#operacion.nav-link.dropdown-toggle(
+		href='/#'
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="false"
+	) OPERACIÓN
+	.dropdown-menu(aria-labelledby='operacion')
+		a.dropdown-item(href='/admin/operation/new?type=sale') Nueva Venta
+		a.dropdown-item.disabled(href='/admin/operation/new?type=buy') Nueva Compra
+		a.dropdown-item.disabled(href='/admin/operation/new?type=manual') Registro Manual
+//- Mantenimiento
+li.nav-item.nav-admin.dropdown(class='#{nav == "mantenimiento" ? "nav-admin-active" : ""}')
+	a#mantenimiento.nav-link.dropdown-toggle(
+		href='/#'
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="false"
+	) MANTENIMIENTO
+	.dropdown-menu(aria-labelledby='mantenimiento')
+		a.dropdown-item.disabled(href='#') Categorias
+//- Informes
+li.nav-item.nav-admin.dropdown(class='#{nav == "informe" ? "nav-admin-active" : ""}')
+	a#informe.nav-link.dropdown-toggle(
+		href='/#'
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="false"
+	) INFORME
+	.dropdown-menu(aria-labelledby='informe')
+		a.dropdown-item.disabled(href='#') Ventas
+		a.dropdown-item.disabled(href='#') Compras
+		a.dropdown-item(href='/admin/stock') Stock

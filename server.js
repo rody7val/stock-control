@@ -44,10 +44,11 @@ app.use(express.static(path.join(__dirname, 'dist/public')));
 // Ayuda dinámica para el control de sesión
 app.use(function (req, res, next){
     // guardar path en session.redir para despues de login
-    if (!req.path.match(/\/login|\/logout/)) {
-        req.session.redir = req.path;
-    }
-    // hacer visible req.session en las vistas
+    // if (!req.path.match(/\/login|\/logout/)) {
+    //     req.session.redir = req.path;
+    // }
+
+    // hacer visible req.session y req.general en las vistas
     res.locals.session = req.session;
     next();
 });

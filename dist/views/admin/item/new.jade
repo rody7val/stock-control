@@ -1,5 +1,5 @@
 //- item/index.jade
-extends ../../layout.jade
+extends ../../layout_admin.jade
 
 block title 
 	title Nuevo Producto
@@ -39,14 +39,6 @@ block content
 										placeholder='Filtrar por nombre'
 										ng-model='itemSearch'
 									)
-									//- affix
-									script(type="text/javascript").
-										$(window).on('scroll', function(event) {
-											var scrollValue = $(window).scrollTop();
-											console.log(scrollValue)
-											if (scrollValue > 168) $('#affix.item-new').addClass('top');
-											if (scrollValue < 168) $('#affix.item-new').removeClass('top');
-										});
 				.row
 					.col-md-5
 						#affix.item-new
