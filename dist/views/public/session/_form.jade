@@ -1,0 +1,36 @@
+form.login-form.center.body-form(method='post', action='/session/login')
+	if errors.length
+		- var err = errors[0].message
+	//- username
+	div.form-group(class='#{errors.length && !(!err.username) ? "has-danger" : ""}')
+		lavel.form-control-label(for='username'): #[b Usuario]
+		input.form-control(
+			class='#{errors.length && !(!err.username) ? "form-control-danger" : ""}'
+			type='text'
+			id='username'
+			name='session[username]'
+			placeholder='Tu nombre de usuario'
+			value='#{errors.length ? session.username : ""}'
+			pattern='.{3,}'
+			title='Tres o mas caracteres como mínimo!'
+		)
+		if errors.length && !(!err.username)
+			div.form-control-feedback #{err.username}
+	//- password
+	div.form-group(class='#{errors.length && !(!err.password) ? "has-danger" : ""}')
+		lavel.form-control-label(for='password'): #[b Contraseña]
+		input.form-control(
+			class='#{errors.length && !(!err.password) ? "form-control-danger" : ""}'
+			type='password'
+			id='password'
+			name='session[password]'
+			placeholder='Tu contraseña'
+			value='#{errors.length ? session.password : ""}'
+			pattern='.{6,}'
+			title='Seis o mas caracteres!'
+		)
+		if errors.length && !(!err.password)
+			div.form-control-feedback #{err.password}
+	input.btn.btn-primary(type='submit', value='Login')
+br
+div.login-form.center.body-form No tienes un usuario? #[a(href='/users/new') Regístrate]

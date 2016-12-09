@@ -1,4 +1,4 @@
-angular.module('items-control', ['duScroll'])
+angular.module('items-control', [])
 
   .controller('ItemsController', function($scope, $http, $document) {
 

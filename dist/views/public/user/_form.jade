@@ -1,0 +1,72 @@
+form.user-form.center.body-form(method='post', action='/users/new')
+	if errors.length
+		- var err = errors[0].message
+	//- nombre
+	.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
+		lavel.form-control-label(for='name'): #[b Nombre]
+		input.form-control(
+			class='#{errors.length && !(!err.name) ? "form-control-danger" : ""}'
+			type='text'
+			id='name'
+			name='user[name]'
+			placeholder='Tu nombre'
+			value='#{errors.length || user.edit ? user.name : ""}'
+		)
+		if errors.length && !(!err.name)
+			.form-control-feedback #{err.name.message}
+	//- email
+	.form-group(class='#{errors.length && !(!err.email) ? "has-danger" : ""}')
+		lavel.form-control-label(for='email') #[b Email]
+		input.form-control(
+			class='#{errors.length && !(!err.email) ? "form-control-danger" : ""}'
+			type='email'
+			id='email'
+			name='user[email]'
+			placeholder='Tu email'
+			value='#{errors.length || user.edit ? user.email : ""}'
+		)
+		if errors.length && !(!err.email)
+			.form-control-feedback #{err.email.message}
+			small.form-text.text-muted Ejemplo: "tuNombre@dominio.com"
+	//- username
+	.form-group(class='#{errors.length && !(!err.username) ? "has-danger" : ""}')
+		lavel.form-control-label(for='username') #[b Usuario]
+		input.form-control(
+			class='#{errors.length && !(!err.username) ? "form-control-danger" : ""}'
+			type='text'
+			id='username'
+			name='user[username]'
+			placeholder='Inventa un nombre de usuario'
+			value='#{errors.length || user.edit ? user.username : ""}'
+		)
+		if errors.length && !(!err.username)
+			.form-control-feedback #{err.username.message}
+	//- password
+	.form-group(class='#{errors.length && !(!err.password) ? "has-danger" : ""}')
+		lavel.form-control-label(for='password') #[b Contraseña]
+		input.form-control(
+			class='#{errors.length && !(!err.password) ? "form-control-danger" : ""}'
+			type='password'
+			id='password'
+			name='user[password]'
+			placeholder='Inventa una contraseña'
+			value='#{errors.length || user.edit ? user.password : ""}'
+			pattern='.{6,}'
+			title='La "Contraseña" debe tener seis o mas caracteres.'
+		)
+		if errors.length && !(!err.password)
+			.form-control-feedback #{err.password.message}
+	.form-group.none
+		lavel.form-control-label(for='admin') #[b Admin]
+		input.form-control(
+			type='checkbox'
+			id='admin'
+			name='user[admin]'
+			placeholder='Inventa una contraseña'
+			value='#{count == 0 ? "true" : "false"}'
+			checked='#{count == 0 ? "true" : "false"}'
+		)
+	//- submit
+	input.btn.btn-primary(type='submit', value='Guardar')
+br
+.user-form.center.body-form Ya estas registrado? #[a(href='/session/login') Inicia sesión]

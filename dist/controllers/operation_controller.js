@@ -46,7 +46,13 @@ exports.new = function(req, res){
 	var type = (req.query.type == 'sale' ||  req.query.type == 'buy' || req.query.type == 'manual') ? req.query.type : res.redirect('/');
 
 	Operation.find({}, function (err, operations) {
-    	res.render('admin/operation/new', { operation: new Operation(), operations: operations, type: type, errors: errors });
+    	res.render('admin/operation/new', {
+    		operation: new Operation(),
+    		operations: operations,
+    		type: type,
+    		errors: errors,
+    		nav: 'operacion'
+    	});
 	});
 }
 

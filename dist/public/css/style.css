@@ -117,7 +117,8 @@ html{
   margin: 0px;
 }
 .light{
-  font-family: 'lato-light'
+  /*font-family: 'lato-light';*/
+  font-weight: 300;
 }
 .right{
   float: right;
@@ -143,7 +144,10 @@ html{
     padding-bottom: .425rem;
 }
 .nav-link{
-  color: rgba(0,0,0,.5)!important;
+  color: rgba(255,255,255,.75)!important;
+}
+.nav-link:hover{
+  color: rgba(255,255,255,.5)!important;
 }
 #e{
   width: 100%;
@@ -153,18 +157,38 @@ html{
 #main{
   margin-top: 54px;
 }
+#main-admin #nav{
+  padding-bottom: 0px!important;
+}
+.nav-admin{
+  border-bottom: 4px solid transparent;
+}
+.nav-admin-active{
+  border-color: #2196F3;
+}
+.navbar-nav.right{
+    position: relative;
+    display: ;
+}
 table > thead {
   color: #5cb85c!important;
 }
-.head-title{
+
+#index .head-title{
   color: #5cb85c;
   background-color: #373a3c;
   padding-top: 24px;
   padding-bottom: 24px;
 }
+#admin .head-title{
+  color: #373a3c;
+  background-color: #5cb85c;
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
 .head-title-edit{
-  color: #f0ad4e;
-  background-color: #373a3c;
+  color: #373a3c;
+  background-color: #f0ad4e;
   padding-top: 24px;
   padding-bottom: 24px;
 }
@@ -256,7 +280,9 @@ table > thead {
 
 /* less than 34 */
 @media (max-width: 33.9em) {
- 
+  .navbar-nav.right{
+    position: relative;
+  }
 }
 
 
