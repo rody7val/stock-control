@@ -87,7 +87,7 @@ label.list-group-item{
 }
 .top{
   position: fixed;
-  top: 48px;
+  top: -13px;
   width: 540px;
 }
 .item-new.top{

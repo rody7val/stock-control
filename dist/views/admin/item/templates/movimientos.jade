@@ -6,11 +6,12 @@ table.table.table-hover.body-form
 			th: h5.light Fecha
 			th: h5.light Operación
 			th: h5.light Cantidad
-			th: h5.light Stock saldo
+			th: h5.light Stock Saldo
 	tbody
 		if motions.length
 			each motion in motions
 				tr
+					- moment.locale('es');
 					td #{moment(motion.created, 'YYYYMMDD').calendar()}
 					td #{motion.operation_type ? 'Venta' : ''}
 					td - #{motion.qty_motion}

@@ -94,14 +94,14 @@ exports.create = function (req, res, next) {
 		if (!errors.length) {
 
 			res.render('admin/operation/success', {
-				options: {
+				options: JSON.stringify({
 					type: changeType(req.body.operation.type),
 					items_qty: req.body.operation.items_qty,
 					sale_value: req.body.operation.sale_value,
 					total: req.body.operation.total,
 					remarque: req.body.operation.rem,
-					_items: _Items
-				}
+					_items: _Motions
+				})
 			});
 		}
 	});

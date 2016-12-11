@@ -1,42 +1,67 @@
-//- motion/new.jade
+//- operation/new.jade
 extends ../../layout_admin.jade
 
 block title 
 	title Exito
 
+block js
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/operation/success.js', type="text/javascript")
+
 block content
 	br
-	.container
-		.row
-			.col-md-2
-			.col-md-8
-				.alert.alert-success
-					h4.alert-heading #{options.type} realizada con exito!
-					p Detalles a contiunuación:
-			.col-md-2
-		.row
-			.col-md-2
-			.col-md-8
-				table.table.table-hover.body-form
-					thead.thead-inverse
-						tr 
-							th(colspan="2")
-								h4.light #{options.type}
-					tbody 
-						tr 
-							td Cantidad de productos:
-							td.bg-info
-								p.motion-info.right #{options.items_qty} u
-						tr 
-							td Valor de la venta:
-							td.bg-info
-								p.motion-info.right $ #{options.sale_value}
-						tr 
-							td Remarque:
-							td.bg-success
-								p.motion-info.right #{options.remarque} %
-						tr 
-							td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
-							td.bg-warning
-								h3.ligth.right(style="color: #373a3c") $ #{options.total}
-			.col-md-2
+	div(ng-app='stock-control')
+		div(ng-controller="SuccessController")
+			{{ setOptions( '#{options}' ) }}
+			.container
+				.row
+					.col-md-2
+					.col-md-8
+						.alert.alert-success
+							h4.alert-heading {{operation.type}} realizada con exito!
+							p Detalles a contiunuación:
+					.col-md-2
+				#OPERATION
+					.row
+						.col-md-2
+						.col-md-8
+							table.table.table-hover.body-form
+								thead.thead-inverse
+									tr 
+										th(colspan="2")
+											h4.light {{operation.type}}
+								tbody 
+									tr 
+										td Cantidad de productos:
+										td.bg-info
+											p.motion-info.right {{operation.items_qty}} u
+									tr 
+										td Valor de la venta:
+										td.bg-info
+											p.motion-info.right $ {{priceFixed(operation.sale_value)}}
+									tr 
+										td Remarque:
+										td.bg-success
+											p.motion-info.right {{operation.remarque}} %
+									tr 
+										td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
+										td.bg-warning
+											h3.ligth.right(style="color: #373a3c") $ {{priceFixed(operation.total)}}
+						.col-md-2
+					.row
+						.col-md-12
+							table.table.table-hover.body-form
+								thead.thead-inverse
+									tr 
+										th: h4.light Producto
+										th: h4.light.right $ Costo
+										th: h4.light.right $ Venta
+										th: h4.light.text-center Cantidad
+										th: h4.light.text-center Stock Saldo
+								tbody 
+									tr(ng-repeat='item in operation._items | orderBy: "name"')
+										td: a(href="/admin/item/{{item._id}}" ) {{item.name}}
+										td: span.right {{priceFixed(item.price)}}
+										td: span.right {{priceFixed(item.price * #{session.global.rem})}}
+										td.text-center - {{item.qty_motion}}
+										td.text-center {{item.qty}}

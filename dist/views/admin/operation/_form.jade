@@ -2,42 +2,42 @@
 form(method='post', action='/admin/operation/new')
 
 	fieldset(ng-if='cart.sale.items > 0')
-		input.none(
+		input(
 			id='type'
 			type='text'
 			name='operation[type]'
 			value='#{type}'
 			placeholder='type'
 		)
-		input.none(
-			id='type'
+		input(
+			id='items_qty'
 			type='text'
 			name='operation[items_qty]'
 			value='{{cart.sale.items}}'
 			placeholder='items_qty'
 		)
-		input.none(
-			id='type'
+		input(
+			id='sale_value'
 			type='text'
 			name='operation[sale_value]'
 			value='{{cart.sale.sale_value.toFixed(2)}}'
 			placeholder='sale_value'
 		)
-		input.none(
+		input(
 			id='total'
 			type='text'
 			name='operation[total]'
 			value="{{cart.sale.total.toFixed(2)}}"
 			placeholder='total'
 		)
-		input.none(
-			id='total'
+		input(
+			id='rem'
 			type='text'
 			name='operation[rem]'
 			value="{{cart.sale.remark}}"
 			placeholder='total'
 		)
-		input.none(
+		input(
 			id='_items'
 			type='text'
 			name='operation[_items]'
