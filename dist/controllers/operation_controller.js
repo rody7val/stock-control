@@ -101,7 +101,8 @@ exports.create = function (req, res, next) {
 					total: req.body.operation.total,
 					remarque: req.body.operation.rem,
 					_items: _Motions
-				})
+				}),
+				nav: 'operacion'
 			});
 		}
 	});

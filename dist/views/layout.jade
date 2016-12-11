@@ -1,5 +1,4 @@
 //- layout.jade
-- var title = title ? title : session.global.title;
 doctype html
 html(lang='es')
 	head
@@ -15,12 +14,12 @@ html(lang='es')
 		link(href='/css/style.css', rel="stylesheet", type="text/css")
 		block css
 		block title
-			title #{title}
+			title #{session.global.title}
 	body
 		#main
 			nav#nav.navbar.navbar-fixed-top.navbar-dark.bg-success
 				.container
-					a.navbar-brand(href='/') #{title}
+					a.navbar-brand(href='/') #{session.global.title}
 					button.navbar-toggler.hidden-sm-up.right(
 						data-toggle='collapse'
 						data-target='#collapsing-navbar'
@@ -47,6 +46,6 @@ html(lang='es')
 			.title-form.container
 				hr
 				br
-				h4.text-center.light #{title}
+				h4.text-center.light #{session.global.title}
 				br
 		block js_footer
