@@ -3,13 +3,15 @@ var userController = require('../controllers/user_controller');
 var sessionController = require('../controllers/session_controller');
 var itemController = require('../controllers/item_controller');
 var operationController = require('../controllers/operation_controller');
+var globalController = require('../controllers/global_controller');
 
 module.exports = function (app, express) {
     // Motor de rutas API
     var api = express.Router();
 
-    // Admin Home
-    api.get('/', sessionController.loginRequired, itemController.index);
+    //global
+    api.get('/', sessionController.loginRequired, globalController.index);
+    api.put('/global/edit', sessionController.loginRequired, globalController.update);
 
     // Informes
     api.get('/stock', sessionController.loginRequired, itemController.stock);
@@ -48,7 +50,7 @@ module.exports = function (app, express) {
     // api.put('/operation/:operationId/edit', operationController.update);
     // api.delete('/operation/:itemId', operationController.delete);
     // api.get('/operations', operationController.all);
-    
+
     // Retornar rutas API.
     return api;
 };

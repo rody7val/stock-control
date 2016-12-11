@@ -142,10 +142,10 @@ html{
     padding-top: .425rem;
     padding-bottom: .425rem;
 }
-.nav-link{
+#nav .nav-link{
   color: rgba(255,255,255,.75)!important;
 }
-.nav-link:hover{
+#nav .nav-link:hover{
   color: rgba(255,255,255,.5)!important;
 }
 #e{

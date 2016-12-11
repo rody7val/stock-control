@@ -8,7 +8,7 @@ angular.module('stock-control', [])
       sale: {
         items: 0,
         sale_value: 0,
-        remark: 1.3,
+        remark: 0,
         total: 0
       }
     }
@@ -78,6 +78,10 @@ angular.module('stock-control', [])
           return 'Registro manual';
           break;
       }
+    }
+
+    $scope.cart.setRemarque = function(remarque){
+      $scope.cart.sale.remark = remarque;
     }
 
     $scope.cart.getSelected = function(){

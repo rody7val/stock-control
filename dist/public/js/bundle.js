@@ -4302,6 +4302,6 @@ return hooks;
 })));
 
 },{}],2:[function(require,module,exports){
-var moment = require('moment');
-moment.format()
+window.moment = require('moment');
+console.log(moment)
 },{"moment":1}]},{},[2]);

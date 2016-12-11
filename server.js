@@ -47,10 +47,17 @@ app.use(function (req, res, next){
     // if (!req.path.match(/\/login|\/logout/)) {
     //     req.session.redir = req.path;
     // }
+    var global_controller = require('./dist/controllers/global_controller.js');
 
-    // hacer visible req.session y req.general en las vistas
-    res.locals.session = req.session;
-    next();
+    global_controller.init(function (err, global){
+        if (err) console.log(err);
+
+        req.session.global = global;
+        // hacer visible req.session en las vistas
+        res.locals.session = req.session;
+        next();
+    });
+
 });
 
 // Usar rutas API

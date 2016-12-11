@@ -14,11 +14,6 @@ exports.load = function(req, res, next, itemId) {
 	});
 }
 
-// Admin Home
-exports.index = function(req, res){
-	res.render('admin/', {nav: 'general'});
-}
-
 // Public Home
 exports.public = function(req, res){
 	res.render('public/');
@@ -82,7 +77,7 @@ exports.show = function(req, res){
 	.sort({created: -1})
 	.exec(function (err, motions){
 		if (err) console.log(err);
-		res.render('admin/item/show', { item: req.item, motions: motions, nav: 'informe' });
+		res.render('admin/item/show', { item: req.item, motions: motions, nav: 'informe', moment: require('moment') });
 	});
 
 };

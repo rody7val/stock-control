@@ -1,49 +1,67 @@
 extends ../layout_admin.jade
 
 block content
+	if errors.length
+		- var err = errors[0].message
 	.head-title
 		h1.text-center.light Configuración General
 	.container
-		br
-		br
-		.row
-			.col-md-3
-				h6(name='configuracion-del-sitio') # Configuración del sitio
-			.col-md-9
-				form
+		form(
+			action='/admin/global/edit?_method=put'
+			method='post'
+		)
+			br
+			br
+			.row
+				.col-md-3
+					h6(name='configuracion-del-sitio') # Configuración del sitio
+				.col-md-9
 					fieldset
-						.form-group
+						//- title
+						.form-group(class='#{errors.length && !(!err.title) ? "has-danger" : ""}')
 							label.form-control-label(for='title'): b Titulo
 							input.form-control(
 								id='title'
 								type='text'
-								name='general[title]'
-								value=''
-								placeholder='El nombre de tu comunidad'
+								name='global[title]'
+								value='#{errors.length ? global.title : session.global.title}'
 							)
-						.form-group
+							if errors.length && !(!err.title)
+								.form-control-feedback #{err.title.message}
+							small.form-text.text-muted El nombre de tu comunidad
+						//- desc
+						.form-group(class='#{errors.length && !(!err.desc) ? "has-danger" : ""}')
 							label.form-control-label(for='desc'): b Descripción
 							input.form-control(
 								id='desc'
 								type='text'
-								name='general[desc]'
-								value=''
-								placeholder='Una breve descripción acerca de tu comunidad'
+								name='global[desc]'
+								value='#{errors.length ? global.desc : session.global.desc}'
 							)
-		br
-		br
-		.row
-			.col-md-3
-				h6(name='opciones-de-ventas') # Opciones de ventas
-			.col-md-9
-				form
+							if errors.length && !(!err.desc)
+								.form-control-feedback #{err.desc.message}
+							small.form-text.text-muted Una breve descripción acerca de tu comunidad
+			br
+			br
+			.row
+				.col-md-3
+					h6(name='opciones-de-ventas') # Opciones de ventas
+				.col-md-9
 					fieldset
-						.form-group
-							label.form-control-label(for='rem'): b Rmarque
+						//- rem
+						.form-group(class='#{errors.length && !(!err.rem) ? "has-danger" : ""}')
+							label.form-control-label(for='rem'): b Remarque
 							input.form-control(
 								id='rem'
 								type='text'
-								name='general[rem]'
-								value=''
-								placeholder='Porcentaje de ganancia por venta'
+								name='global[rem]'
+								value='#{errors.length ? global.rem : session.global.rem}'
 							)
+							if errors.length && !(!err.rem)
+								.form-control-feedback #{err.rem.message}
+							small.form-text.text-muted Porcentaje de ganancia por venta
+			.form-group
+				input.right.btn.btn-outline-primary(
+					type='submit'
+					value='Guardar cambios'
+				)

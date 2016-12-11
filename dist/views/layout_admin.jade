@@ -1,5 +1,5 @@
 //- layout_admin.jade
-- var title = title ? title : "Dashboard | Stock-control";
+- var title = title ? title : "Administración | " + session.global.title;
 doctype html
 html(lang='es')
 	head
@@ -34,6 +34,6 @@ html(lang='es')
 			.title-form.container
 				hr
 				br
-				h4.text-center.light Stock-control
+				h4.text-center.light #{title}
 				br
 		block js_footer

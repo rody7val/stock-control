@@ -10,7 +10,7 @@ form.login-form.center.body-form(method='post', action='/session/login')
 			id='username'
 			name='session[username]'
 			placeholder='Tu nombre de usuario'
-			value='#{errors.length ? session.username : ""}'
+			value='#{errors.length ? _session.username : ""}'
 			pattern='.{3,}'
 			title='Tres o mas caracteres como mínimo!'
 		)
@@ -25,7 +25,7 @@ form.login-form.center.body-form(method='post', action='/session/login')
 			id='password'
 			name='session[password]'
 			placeholder='Tu contraseña'
-			value='#{errors.length ? session.password : ""}'
+			value='#{errors.length ? _session.password : ""}'
 			pattern='.{6,}'
 			title='Seis o mas caracteres!'
 		)

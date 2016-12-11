@@ -99,7 +99,7 @@ exports.create = function (req, res, next) {
 					items_qty: req.body.operation.items_qty,
 					sale_value: req.body.operation.sale_value,
 					total: req.body.operation.total,
-					remarque: 1.3,
+					remarque: req.body.operation.rem,
 					_items: _Items
 				}
 			});

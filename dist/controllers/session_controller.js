@@ -28,7 +28,7 @@ exports.new = function(req, res){
     var errors = req.session.errors || {};
     req.session.errors = {};
     var session = req.body.session || {username: '', password: ''}
-    res.render('public/session/new', {session: session, errors: errors});
+    res.render('public/session/new', {_session: session, errors: errors});
 }
 
 // Crear nueva session
@@ -37,7 +37,7 @@ exports.create = function(req, res){
     var password = req.body.session.password;
     var user_controller = require('./user_controller.js');
     user_controller.autenticar(username, password, function (err, user){
-        if (err) return res.render('public/session/new', { session: req.body.session, errors: [{message: err}] });
+        if (err) return res.render('public/session/new', { _session: req.body.session, errors: [{message: err}] });
         req.session.user = user;
         res.redirect('/');
     });

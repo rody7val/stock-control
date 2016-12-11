@@ -28,7 +28,7 @@ block content
 									h3 #[span.tag.tag-danger $ {{stock.priceFixed(stock.getCostTotal())}}]
 								.col-md-4
 									h3.light Valor de venta total
-									h3 #[span.tag.tag-success $ {{stock.priceFixed(stock.getSaleTotal())}}]
+									h3 #[span.tag.tag-success $ {{stock.priceFixed(stock.getSaleTotal(#{session.global.rem}))}}]
 					.row
 						.col-md-12
 							nav#find-bar.navbar.navbar-light.bg-faded
@@ -74,7 +74,7 @@ block content
 										//- $/u Costo
 										td.bg-info: span.right {{stock.priceFixed(item.price)}}
 										//- $/u Venta
-										td.bg-info: span.right {{stock.priceFixed(item.price * 1.3)}}
+										td.bg-info: span.right {{stock.priceFixed(item.price * #{session.global.rem})}}
 										//- Acciones
 										td
 											a.btn.btn-outline-info.btn-sm(href='/admin/item/{{item._id}}') Ver

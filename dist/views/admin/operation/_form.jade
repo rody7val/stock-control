@@ -31,6 +31,13 @@ form(method='post', action='/admin/operation/new')
 			placeholder='total'
 		)
 		input.none(
+			id='total'
+			type='text'
+			name='operation[rem]'
+			value="{{cart.sale.remark}}"
+			placeholder='total'
+		)
+		input.none(
 			id='_items'
 			type='text'
 			name='operation[_items]'

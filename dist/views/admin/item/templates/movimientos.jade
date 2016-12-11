@@ -1,3 +1,5 @@
+script(src='/js/moment-with-locales.min.js', type="text/javascript")
+
 table.table.table-hover.body-form
 	thead.thead-inverse
 		tr
@@ -9,7 +11,7 @@ table.table.table-hover.body-form
 		if motions.length
 			each motion in motions
 				tr
-					td #{new Date(motion.created).toLocaleString()}
+					td #{moment(motion.created, 'YYYYMMDD').calendar()}
 					td #{motion.operation_type ? 'Venta' : ''}
 					td - #{motion.qty_motion}
 					td #{motion.qty}
