@@ -14,8 +14,8 @@ module.exports = function (app, express) {
     api.put('/global/edit', sessionController.loginRequired, globalController.update);
 
     // Informes
-    api.get('/stock', sessionController.loginRequired, itemController.stock);
-    // api.get('/sale', operationController.sale);
+    api.get('/report/stock', sessionController.loginRequired, itemController.stock);
+    api.get('/report/sale', sessionController.loginRequired, operationController.sale);
     // api.get('/buy', operationController.buy);
 
     // Autoload de comandos 
@@ -49,7 +49,7 @@ module.exports = function (app, express) {
     // api.get('/operation/:operationId/edit', operationController.edit);
     // api.put('/operation/:operationId/edit', operationController.update);
     // api.delete('/operation/:itemId', operationController.delete);
-    // api.get('/operations', operationController.all);
+    api.get('/operations', operationController.all);
 
     // Retornar rutas API.
     return api;

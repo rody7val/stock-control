@@ -24,8 +24,8 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" 
 	) OPERACIÓN
 	.dropdown-menu(aria-labelledby='operacion')
 		a.dropdown-item(href='/admin/operation/new?type=sale') Nueva Venta
-		a.dropdown-item.disabled(href='/admin/operation/new?type=buy') Nueva Compra
-		a.dropdown-item.disabled(href='/admin/operation/new?type=manual') Registro Manual
+		a.dropdown-item.disabled(href='/#') Nueva Compra
+		a.dropdown-item.disabled(href='/#') Registro Manual
 //- Mantenimiento
 li.nav-item.nav-admin.dropdown(class='#{nav == "mantenimiento" ? "nav-admin-active" : ""}')
 	a#mantenimiento.nav-link.dropdown-toggle(
@@ -45,6 +45,6 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "informe" ? "nav-admin-active" : 
 		aria-expanded="false"
 	) INFORME
 	.dropdown-menu(aria-labelledby='informe')
-		a.dropdown-item.disabled(href='#') Ventas
+		a.dropdown-item(href='/admin/report/sale') Ventas
 		a.dropdown-item.disabled(href='#') Compras
-		a.dropdown-item(href='/admin/stock') Stock
+		a.dropdown-item(href='/admin/report/stock') Stock

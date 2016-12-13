@@ -1,2 +1,2 @@
 window.moment = require('moment');
-console.log(moment)
+moment.locale('es');

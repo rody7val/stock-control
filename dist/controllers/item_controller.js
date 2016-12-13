@@ -21,7 +21,7 @@ exports.public = function(req, res){
 
 // Informe Stock
 exports.stock = function(req, res){
-	res.render('admin/item/informe_stock', {nav: 'informe'});
+	res.render('admin/item/report_stock', {nav: 'informe'});
 }
 
 // Devuelve un json con arrays de a 3 items

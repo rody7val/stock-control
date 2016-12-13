@@ -21,14 +21,14 @@ block content
 						.jumbotron.text-center
 							.container
 								.col-md-4
-									h3.light Unidades en stock
 									h3 #[span.tag.tag-default {{stock.getStockTotal()}} u]
+									h3.light Unidades en stock
 								.col-md-4
-									h3.light Costo total
 									h3 #[span.tag.tag-danger $ {{stock.priceFixed(stock.getCostTotal())}}]
+									h3.light Costo total
 								.col-md-4
-									h3.light Valor de venta total
 									h3 #[span.tag.tag-success $ {{stock.priceFixed(stock.getSaleTotal(#{session.global.rem}))}}]
+									h3.light Valor de venta total
 					.row
 						.col-md-12
 							nav#find-bar.navbar.navbar-light.bg-faded

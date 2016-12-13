@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Float = require('mongoose-float').loadType(mongoose, 2);
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var Schema = mongoose.Schema;
 
 var GlobalSchema = new Schema({
@@ -22,5 +23,7 @@ var GlobalSchema = new Schema({
 		}, 'El "Remarque" debe ser un número entero o decimal separado por un punto (ejemplo: "1.3").']
 	}
 });
+
+GlobalSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('Global', GlobalSchema);;

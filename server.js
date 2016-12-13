@@ -77,7 +77,7 @@ if (app.get('env') === 'development') {
 }
 
 // Puerto de escucha
-app.listen(config.port, function (err){
+app.listen(config.port, "0.0.0.0", function (err){
     if (err) console.log(err);
     else console.log('Servidor escuchando en el puerto '+config.port);
 });  

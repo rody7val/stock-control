@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
@@ -58,5 +59,6 @@ UserSchema.methods.comparePassword = function (password) {
 };
 
 UserSchema.plugin(uniqueValidator, { message: 'Lo sentimos, el {PATH} ({VALUE}) ya existe. Prueba con otro?' });
+UserSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('User', UserSchema);

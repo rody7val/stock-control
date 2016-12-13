@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Float = require('mongoose-float').loadType(mongoose, 2);
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var Schema = mongoose.Schema;
 
 var ItemSchema = new Schema({
@@ -27,10 +28,6 @@ var ItemSchema = new Schema({
     _motions: [{type: Schema.Types.ObjectId, ref: 'Motion'}]
 });
 
-ItemSchema.virtual('motions', {
-    ref: 'Motion',
-    localField: 'created',
-    foreignField: 'type'
-})
+ItemSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('Item', ItemSchema);

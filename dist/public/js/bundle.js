@@ -4303,5 +4303,5 @@ return hooks;
 
 },{}],2:[function(require,module,exports){
 window.moment = require('moment');
-console.log(moment)
+moment.locale('es');
 },{"moment":1}]},{},[2]);
