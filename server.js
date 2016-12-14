@@ -1,4 +1,4 @@
-// Obtener dependencias o modulos
+// Obtener dependencias
 var express = require('express'),
 	path = require('path'),
     cookieParser = require('cookie-parser'),
@@ -6,8 +6,10 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     morgan = require('morgan'),
-	mongoose = require('mongoose'),
-	config = require('./config');
+	mongoose = require('mongoose');
+
+require('dotenv').config();         // Obtener variables de entorno (.env)
+var config = require('./config');   // Configuraciones del sitio
 
 // Instancia de nueva applicacion
 var app = express();
