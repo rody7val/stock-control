@@ -40,7 +40,7 @@ angular.module('stock-control', [])
     }
 
     function getItems(){
-      $http.get('/admin/items').success(function(data){
+      $http.get('/api/items').success(function(data){
         if (data.length) {
           angular.forEach(data, function(item){
             $scope.stock.items.push(item);

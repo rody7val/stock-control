@@ -4,6 +4,7 @@ var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var Schema = mongoose.Schema;
 
 var OperationSchema = new Schema({
+	date: String,
 	type: String,
 	items_qty: Number,
 	sale_value: Float,

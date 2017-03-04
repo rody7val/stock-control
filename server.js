@@ -1,12 +1,14 @@
 // Obtener dependencias
 var express = require('express'),
-	path = require('path'),
+    flash = require('express-flash'),
+    path = require('path'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     morgan = require('morgan'),
-	mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    qs = require('querystring');
 
 require('dotenv').config();         // Obtener variables de entorno (.env)
 var config = require('./config');   // Configuraciones del sitio
@@ -28,7 +30,7 @@ mongoose.connect(config.database, function (err) {
     console.log('Conectado a la Base de Datos');
 });
 
-// Configuraciones
+// Configuraciones del servidor
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(methodOverride('_method'));
@@ -39,27 +41,30 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+app.use(flash());
 
 // Definir directorio publico
 app.use(express.static(path.join(__dirname, 'dist/public')));
 
 // Ayuda dinámica para el control de sesión
 app.use(function (req, res, next){
-    // guardar path en session.redir para despues de login
-    // if (!req.path.match(/\/login|\/logout/)) {
-    //     req.session.redir = req.path;
-    // }
     var global_controller = require('./dist/controllers/global_controller.js');
 
     global_controller.init(function (err, global){
         if (err) console.log(err);
 
+        // guardar path en session.redir para despues de login
+        if ( !req.path.match(/\/session\/login|\/session\/logout|\/api|\/session\/success/) && !req.path.match(/^.*\.[^\\]+$/) ){ 
+            var search = req.query ? '?' + qs.stringify(req.query) : '';
+            req.session.redir = search == '?' ? req.path : req.path + search;
+        }else{
+            req.session.redir = '/';
+        }
         req.session.global = global;
         // hacer visible req.session en las vistas
         res.locals.session = req.session;
         next();
     });
-
 });
 
 // Usar rutas API
@@ -77,6 +82,16 @@ if (app.get('env') === 'development') {
         });
     });
 }
+
+// Manejo de errores en producción
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        status: err.status || 500,
+        error: ''
+    });
+});
 
 // Puerto de escucha
 app.listen(config.port, "0.0.0.0", function (err){

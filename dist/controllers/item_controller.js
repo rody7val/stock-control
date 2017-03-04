@@ -65,6 +65,7 @@ exports.create = function (req, res) {
 			item._price = req.body.item.price;   // to string
 			return res.render('admin/item/new', { item: item, errors: [{message: err.errors}], nav: 'registrar'});
 		}
+		req.flash('info', 'Producto ' + item.name + ' creado con exito!');
 		res.redirect('/admin/item/new');
 	});
 }
@@ -85,7 +86,7 @@ exports.show = function(req, res){
 // Formulario edit item
 exports.edit = function (req, res) {
 	var errors = req.session.errors || {};
-  	req.session.errors = {};
+  req.session.errors = {};
 
 	req.item.edit = true;
 	req.item._price = req.item.price;
@@ -108,6 +109,7 @@ exports.update = function (req, res) {
 			return res.render('admin/item/new', { item: req.item, errors: [{message: err.errors}], nav: 'registrar' });
 		}else{
 			req.item = {};
+			req.flash('info', 'Producto editado con exito!');
 			res.redirect('/admin/item/new');
 		}
 	});
@@ -142,6 +144,7 @@ exports.delete = function (req, res) {
 		_id: req.item._id
 	}).remove().exec(function (err){
 		if (err) console.log(err);
+		req.flash('info', 'Producto borrado con exito!');
 		res.redirect('/admin/item/new');
 	});
 }

@@ -20,16 +20,17 @@ module.exports = function (app, express) {
 
     // Autoload de comandos 
     api.param('itemId', itemController.load);
-    api.param('operationId', itemController.load);
-    api.param('userId', itemController.load);
+    api.param('operationId', operationController.load);
+    api.param('userId', userController.load);
     // api.param('motionId', itemController.load);
 
     // users
-    // api.get('/users/new', sessionController.isNotLogin, userController.new);
-    // api.post('/users/new', sessionController.isNotLogin, userController.create);
+    api.get('/users/new', sessionController.loginRequired, userController.new_fromAdmin);
+    api.post('/users/new', sessionController.loginRequired, userController.create_fromAdmin);
     // api.get('/users/:userId', sessionController.loginRequired, userController.show);
-    // api.delete('/users/:id', sessionController.isNotLogin, userController.delete);
-    // api.get('/users', userController.all);
+    api.get('/users/:userId/edit', sessionController.loginRequired, userController.edit);
+    api.put('/users/:userId/edit', sessionController.loginRequired, userController.update);
+    api.delete('/users/:userId', sessionController.loginRequired, userController.delete);
 
     // item
     api.get('/item/new', sessionController.loginRequired, itemController.new);
@@ -38,7 +39,6 @@ module.exports = function (app, express) {
     api.get('/item/:itemId/edit', sessionController.loginRequired, itemController.edit);
     api.put('/item/:itemId/edit', sessionController.loginRequired, itemController.update);
     api.delete('/item/:itemId', sessionController.loginRequired, itemController.delete);
-    api.get('/items', itemController.all);
     api.get('/items/load_items', itemController.load_items);
     api.get('/items/stock_exports', sessionController.loginRequired, itemController.stock_exports);
 
@@ -48,7 +48,7 @@ module.exports = function (app, express) {
     // api.get('/operation/:operationId', operationController.show);
     // api.get('/operation/:operationId/edit', operationController.edit);
     // api.put('/operation/:operationId/edit', operationController.update);
-    // api.delete('/operation/:itemId', operationController.delete);
+    // api.delete('/operation/:operationId', operationController.delete);
     api.get('/operations', operationController.all);
 
     // Retornar rutas API.

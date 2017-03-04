@@ -20,6 +20,10 @@ html(lang='es')
 		#main-admin
 			nav#nav.navbar.navbar-dark.bg-inverse
 				.container
+					//- Alert Flash
+					if (messages.info)
+						.alert.alert-info
+							span= messages.info
 					div(style='display: inline-block; width: 100%;')
 						ul.nav.navbar-nav.right
 							include ./admin/nav/nav_right.jade
@@ -28,8 +32,7 @@ html(lang='es')
 						include ./admin/nav/nav_left.jade
 			block background-item
 			#admin
-				block msjFlash
-					block content
+				block content
 		#footer
 			.title-form.container
 				hr
@@ -37,3 +40,9 @@ html(lang='es')
 				h4.text-center.light #{title}
 				br
 		block js_footer
+		script(type='text/javascript').
+			window.setTimeout(function() {
+			    $('.alert').fadeTo(500, 0).slideUp(500, function(){
+			        $(this).remove(); 
+			    });
+			}, 4000);

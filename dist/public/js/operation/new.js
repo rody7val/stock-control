@@ -9,7 +9,8 @@ angular.module('stock-control', [])
         items: 0,
         sale_value: 0,
         remark: 0,
-        total: 0
+        total: 0,
+        date: moment().format('YYYY-MM-DD')
       }
     }
 
@@ -33,7 +34,7 @@ angular.module('stock-control', [])
     }
 
     function getItems(){
-      $http.get('/admin/items').success(function(data){
+      $http.get('/api/items').success(function(data){
         if (data.length) {
           angular.forEach(data, function(item){
             item.done = false;
@@ -82,6 +83,11 @@ angular.module('stock-control', [])
 
     $scope.cart.setRemarque = function(remarque){
       $scope.cart.sale.remark = remarque;
+    }
+
+    $scope.cart.setDate = function(date){
+      console.log(date)
+      $scope.cart.sale.date = date;
     }
 
     $scope.cart.getSelected = function(){

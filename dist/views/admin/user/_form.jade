@@ -1,0 +1,106 @@
+table.table.body-form
+	thead.thead-inverse
+		if user.edit
+			tr
+				th: h5.light Editar {{getUserType()}}:
+		else
+			tr
+				th: h5.light Nuevo {{getUserType()}}:
+if errors.length
+	- var err = errors[0].message
+fieldset.body-form
+	//- nombre
+	.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
+		label.form-control-label(for='name'): #[b {{getUserType() == 'Administrador' ? 'Nombre' : 'Razon Social'}}]
+		input.form-control(
+			class='#{errors.length && !(!err.name) ? "form-control-danger" : ""}'
+			type='text'
+			id='name'
+			name='user[name]'
+			placeholder= '{{getUserType() == "Administrador" ? "Nombre del Administrador" : "Su denominación o nombre"}}'
+			value='#{errors.length || user.edit ? user.name : ""}'
+		)
+		if errors.length && !(!err.name)
+			.form-control-feedback #{err.name.message}
+	//- email
+	.form-group(class='#{errors.length && !(!err.email) ? "has-danger" : ""}')
+		label.form-control-label(for='email') #[b Email]
+		input.form-control(
+			class='#{errors.length && !(!err.email) ? "form-control-danger" : ""}'
+			type='email'
+			id='email'
+			name='user[email]'
+			placeholder='Su email'
+			value='#{errors.length || user.edit ? user.email : ""}'
+		)
+		if errors.length && !(!err.email)
+			.form-control-feedback #{err.email.message}
+			small.form-text.text-muted Ejemplo: "tuNombre@dominio.com"
+	//- username
+	.form-group(class='#{errors.length && !(!err.username) ? "has-danger" : ""}')
+		label.form-control-label(for='username') #[b Nombre de Usuario]
+		input.form-control(
+			class='#{errors.length && !(!err.username) ? "form-control-danger" : ""}'
+			type='text'
+			id='username'
+			name='user[username]'
+			placeholder='Inventa su nombre de usuario'
+			value='#{errors.length || user.edit ? user.username : ""}'
+		)
+		if errors.length && !(!err.username)
+			.form-control-feedback #{err.username.message}
+	//- telefono
+	.form-group(class='#{errors.length && !(!err.tel) ? "has-danger" : ""}')
+		label.form-control-label(for='tel') #[b Telefono]
+		input.form-control(
+			class='#{errors.length && !(!err.tel) ? "form-control-danger" : ""}'
+			type='tel'
+			id='tel'
+			name='user[tel]'
+			placeholder='El telefono de contacto'
+			value='#{errors.length || user.edit ? user.tel : ""}'
+		)
+		if errors.length && !(!err.tel)
+			.form-control-feedback #{err.tel.message}
+			small.form-text.text-muted Ejemplo: "11 22334455"
+	//- password
+	if !user.edit
+		.form-group(class='#{errors.length && !(!err.password) ? "has-danger" : ""}')
+			label.form-control-label(for='password') #[b Contraseña]
+			.input-group
+				input.form-control(
+					class='#{errors.length && !(!err.password) ? "form-control-danger" : ""}'
+					type='password'
+					id='password'
+					name='user[password]'
+					placeholder='Invéntale una contraseña facil'
+					value='#{errors.length || user.edit ? user.password : ""}'
+					pattern='.{6,}'
+					title='La "Contraseña" debe tener seis o mas caracteres.'
+				)
+				if errors.length && !(!err.password)
+					.form-control-feedback #{err.password.message}
+				span.input-group-addon.pass
+					label #[input(id='pass-ch', type='checkbox', checked=false)] mostrar
+
+	//- type
+	.form-group.none
+		label.form-control-label #[b Tipo]
+		select.form-control.custom-select(name='user[type]', id='type')
+			option(selected, disabled) SELECCIONA EL TIPO DE USUARIO:
+
+			option(ng-if='getUserType() == "Administrador"', selected) Administrador
+			option(ng-if='getUserType() != "Administrador"',) Administrador
+
+			option(value='Cliente', ng-if='getUserType() == "Cliente"', selected) Cliente
+			option(value='Cliente', ng-if='getUserType() != "Cliente"',) Cliente
+			option(value='Proveedor', ng-if='getUserType() == "Proveedor"', selected) Proveedor
+			option(value='Proveedor', ng-if='getUserType() != "Proveedor"',) Proveedor
+	//- admin
+	.form-check.none
+		label(ng-if='getUserType() == "Administrador"').form-check-label #[input.form-check-input(name='user[admin]',type='checkbox',id='admin',value='true',checked=true)] Administrador
+		label(ng-if='getUserType() != "Administrador"').form-check-label #[input.form-check-input(name='user[admin]',type='checkbox',id='admin',value='false')] Administrador
+	//- submit
+	input.btn.btn-primary(type='submit', value='Guardar')
+	if user.edit
+		a.btn.btn-link(href='/admin/users/new?type={{getUserTypeForm()}}') Cancelar

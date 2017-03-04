@@ -47,6 +47,7 @@ exports.update = function (req, res) {
 					return res.render('admin/', { global: req.body.global, errors: [{message: err.errors}], nav: 'registrar' });
 				}else{
 					req.session.global = global;
+					req.flash('info', 'Cambios realizados con exito!');
 					res.redirect('/admin');
 				}
 			});

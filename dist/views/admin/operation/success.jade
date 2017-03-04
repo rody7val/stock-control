@@ -12,14 +12,14 @@ block content
 	br
 	div(ng-app='stock-control')
 		div(ng-controller="SuccessController")
-			{{ setOptions( '#{options}' ) }}
+			.none
+				{{ setOptions( '#{options}' ) }}
 			.container
 				.row
 					.col-md-2
 					.col-md-8
-						.alert.alert-success
-							h4.alert-heading {{operation.type}} realizada con exito!
-							p Detalles a contiunuación:
+						h4.alert-heading {{operation.type}} realizada con exito!
+						p Detalles a contiunuación:
 					.col-md-2
 				#OPERATION
 					.row
@@ -31,6 +31,11 @@ block content
 										th(colspan="2")
 											h4.light {{operation.type}}
 								tbody 
+									tr
+										td Fecha de venta:
+										td.bg-info
+											.motion-info.right
+												p {{operation.date}}
 									tr 
 										td Cantidad de productos:
 										td.bg-info
@@ -50,6 +55,8 @@ block content
 						.col-md-2
 					.row
 						.col-md-12
+							h4.alert-heading {{operation.type}} realizada con exito!
+							p Detalles a contiunuación:
 							table.table.table-hover.body-form
 								thead.thead-inverse
 									tr 

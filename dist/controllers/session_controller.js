@@ -39,14 +39,14 @@ exports.create = function(req, res){
     user_controller.autenticar(username, password, function (err, user){
         if (err) return res.render('public/session/new', { _session: req.body.session, errors: [{message: err}] });
         req.session.user = user;
-        res.redirect('/');
+        res.redirect(req.session.redir.toString());
     });
 }
 
 // Destruir session
 exports.delete = function(req, res){
     delete req.session.user;
-    res.redirect('/');
+    res.redirect(req.session.redir.toString());
 }
 
 // Obtener informacion sobre el usuario registrado.

@@ -4,7 +4,17 @@ table.table.table-hover.body-form
     tr 
       th(colspan="2")
         h5.light {{cart.getOperationType()}}
-  tbody 
+  tbody
+    tr 
+      td Fecha de venta:
+      td.bg-info
+        .motion-info.right
+          input(
+            class='form-control'
+            style='padding:.3rem; font-size:20px'
+            type='date'
+            ng-model='cart.sale.date'
+          )
     tr 
       td Cantidad de productos:
       td.bg-info
@@ -21,7 +31,6 @@ table.table.table-hover.body-form
       td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
       td.bg-warning
         h3.ligth.right(style="color: #373a3c") $ {{cart.priceFixed(cart.sale.total)}}
-
 //- affix
 script(type="text/javascript").
   $(window).on('scroll', function(event) {

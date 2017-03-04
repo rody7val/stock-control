@@ -51,7 +51,8 @@ exports.new = function(req, res){
     		operations: operations,
     		type: type,
     		errors: errors,
-    		nav: 'operacion'
+    		nav: 'operacion',
+    		moment: require('moment')
     	});
 	});
 }
@@ -98,7 +99,9 @@ exports.create = function (req, res, next) {
 				//obtenemos los ids de los movimientos creados
 				var motionsIds = getIds(allMotionSaved);
 				//y creamos una nueva operación
+				console.log(req.body.operation.date)
 				operation.sale = new Operation({
+					date: req.body.operation.date,
 					type: changeType(req.body.operation.type),
 					items_qty: Number(req.body.operation.items_qty),
 					sale_value: Number(req.body.operation.sale_value),
@@ -124,6 +127,7 @@ exports.create = function (req, res, next) {
 					if (!errors.length) {
 						res.render('admin/operation/success', {
 							options: JSON.stringify({
+								date: req.body.operation.date,
 								type: changeType(req.body.operation.type),
 								items_qty: req.body.operation.items_qty,
 								sale_value: req.body.operation.sale_value,

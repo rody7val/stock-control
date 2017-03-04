@@ -1,22 +1,23 @@
-form.user-form.center.body-form(method='post', action='/users/new')
+//- user/_form.jade
+form#user-form.center.body-form(method='post', action='/users/new')
 	if errors.length
 		- var err = errors[0].message
 	//- nombre
 	.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
-		lavel.form-control-label(for='name'): #[b Nombre]
+		label.form-control-label(for='name'): #[b #{count == 0 ? 'Nombre' : 'Razon Social'}]
 		input.form-control(
 			class='#{errors.length && !(!err.name) ? "form-control-danger" : ""}'
 			type='text'
 			id='name'
 			name='user[name]'
-			placeholder='Tu nombre'
+			placeholder='#{count == 0 ? "Tu nombre" : "Su denominación o nombre"}'
 			value='#{errors.length || user.edit ? user.name : ""}'
 		)
 		if errors.length && !(!err.name)
 			.form-control-feedback #{err.name.message}
 	//- email
 	.form-group(class='#{errors.length && !(!err.email) ? "has-danger" : ""}')
-		lavel.form-control-label(for='email') #[b Email]
+		label.form-control-label(for='email') #[b Email]
 		input.form-control(
 			class='#{errors.length && !(!err.email) ? "form-control-danger" : ""}'
 			type='email'
@@ -28,9 +29,24 @@ form.user-form.center.body-form(method='post', action='/users/new')
 		if errors.length && !(!err.email)
 			.form-control-feedback #{err.email.message}
 			small.form-text.text-muted Ejemplo: "tuNombre@dominio.com"
+	//- tel
+	if count > 0 
+		.form-group(class='#{errors.length && !(!err.tel) ? "has-danger" : ""}')
+			label.form-control-label(for='tel') #[b Telefono]
+			input.form-control(
+				class='#{errors.length && !(!err.tel) ? "form-control-danger" : ""}'
+				type='tel'
+				id='tel'
+				name='user[tel]'
+				placeholder='Un telefono de contacto'
+				value='#{errors.length || user.edit ? user.tel : ""}'
+			)
+			if errors.length && !(!err.tel)
+				.form-control-feedback #{err.tel.message}
+				small.form-text.text-muted Ejemplo: "11 22334455"
 	//- username
 	.form-group(class='#{errors.length && !(!err.username) ? "has-danger" : ""}')
-		lavel.form-control-label(for='username') #[b Usuario]
+		label.form-control-label(for='username') #[b Usuario]
 		input.form-control(
 			class='#{errors.length && !(!err.username) ? "form-control-danger" : ""}'
 			type='text'
@@ -43,7 +59,7 @@ form.user-form.center.body-form(method='post', action='/users/new')
 			.form-control-feedback #{err.username.message}
 	//- password
 	.form-group(class='#{errors.length && !(!err.password) ? "has-danger" : ""}')
-		lavel.form-control-label(for='password') #[b Contraseña]
+		label.form-control-label(for='password') #[b Contraseña]
 		input.form-control(
 			class='#{errors.length && !(!err.password) ? "form-control-danger" : ""}'
 			type='password'
@@ -56,17 +72,10 @@ form.user-form.center.body-form(method='post', action='/users/new')
 		)
 		if errors.length && !(!err.password)
 			.form-control-feedback #{err.password.message}
-	.form-group.none
-		lavel.form-control-label(for='admin') #[b Admin]
-		input.form-control(
-			type='checkbox'
-			id='admin'
-			name='user[admin]'
-			placeholder='Inventa una contraseña'
-			value='#{count == 0 ? "true" : "false"}'
-			checked='#{count == 0 ? "true" : "false"}'
-		)
+	//- admin
+	if count == 0
+		.form-group()
+			label.form-check-label(for='admin') #[input.form-check-input(type='checkbox',id='admin',name='user[admin]',placeholder='Inventa una contraseña',value='true',checked=true) ] #[b Administrador] 
+			
 	//- submit
 	input.btn.btn-primary(type='submit', value='Guardar')
-br
-.user-form.center.body-form Ya estas registrado? #[a(href='/session/login') Inicia sesión]

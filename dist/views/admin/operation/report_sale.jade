@@ -45,19 +45,19 @@ block content
 								.card
 									.card-header(ng-if='sales.length == 0')
 										p.text-center #[b No hay ventas ...]
-								.card(ng-repeat='sale in sales')
+								.card(ng-repeat='sale in sales | orderBy: "-created" ')
 									.card-header(id='heading-{{sale._id}}')
 										.container
 											.row
 												.col-md-4
-													b Fecha
+													b Fecha (aaaa-mm-dd)
 												.col-md-4
 													b Total
 												.col-md-4
 													b Acciones
 											.row
 												.col-md-4
-													span {{ setDate(sale.created) }}
+													span {{ sale.date }}
 												.col-md-4
 													span $ {{ priceFixed(sale.total) }}
 												.col-md-4

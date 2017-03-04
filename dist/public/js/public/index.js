@@ -27,7 +27,7 @@ angular.module('items-control', [])
     }
 
     $scope.getItems = function() {
-      $http.get('/itemsRows', {
+      $http.get('/api/itemsRows', {
         // params: {limit: 6, skip: $scope.items.all.length}
       }).success(function(data){
         $scope.items.all = data;

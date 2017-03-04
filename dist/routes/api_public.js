@@ -11,11 +11,13 @@ module.exports = function (app, express) {
     api.get('/', itemController.public);
 
     //items
-    api.get('/itemsRows', itemController.getRowsItems);
+    api.get('/api/itemsRows', itemController.getRowsItems);
+    api.get('/api/items', itemController.all);
 
     // users
     api.get('/users/new', sessionController.isNotLogin, userController.new);
     api.post('/users/new', sessionController.isNotLogin, userController.create);
+    api.get('/api/users', userController.all);
 
     // session
     api.get('/session/login', sessionController.isNotLogin, sessionController.new);

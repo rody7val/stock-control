@@ -10,10 +10,11 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "registrar" ? "nav-admin-active" 
 		aria-expanded="true"
 	) REGISTRAR
 	.dropdown-menu(aria-labelledby='registrar')
-		a.dropdown-item.disabled(href='#') Cliente
 		a.dropdown-item(href='/admin/item/new') Producto
-		a.dropdown-item.disabled(href='#') Proveedor
-		a.dropdown-item.disabled(href='#') Empleado
+		.dropdown-divider
+		a.dropdown-item(href='/admin/users/new?type=client') Cliente
+		a.dropdown-item(href='/admin/users/new?type=provider') Proveedor
+		a.dropdown-item(href='/admin/users/new?type=admin') Administrador
 //- Operaciones
 li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" : ""}')
 	a#operacion.nav-link.dropdown-toggle(
@@ -23,9 +24,9 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" 
 		aria-expanded="false"
 	) OPERACIÓN
 	.dropdown-menu(aria-labelledby='operacion')
-		a.dropdown-item(href='/admin/operation/new?type=sale') Nueva Venta
-		a.dropdown-item.disabled(href='/#') Nueva Compra
 		a.dropdown-item.disabled(href='/#') Registro Manual
+		a.dropdown-item.disabled(href='/#') Nueva Compra
+		a.dropdown-item(href='/admin/operation/new?type=sale') Nueva Venta
 //- Mantenimiento
 li.nav-item.nav-admin.dropdown(class='#{nav == "mantenimiento" ? "nav-admin-active" : ""}')
 	a#mantenimiento.nav-link.dropdown-toggle(
@@ -36,6 +37,8 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "mantenimiento" ? "nav-admin-acti
 	) MANTENIMIENTO
 	.dropdown-menu(aria-labelledby='mantenimiento')
 		a.dropdown-item.disabled(href='#') Categorias
+		a.dropdown-item.disabled(href='#') Pedidos
+		a.dropdown-item.disabled(href='#') Blog
 //- Informes
 li.nav-item.nav-admin.dropdown(class='#{nav == "informe" ? "nav-admin-active" : ""}')
 	a#informe.nav-link.dropdown-toggle(
@@ -45,6 +48,8 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "informe" ? "nav-admin-active" : 
 		aria-expanded="false"
 	) INFORME
 	.dropdown-menu(aria-labelledby='informe')
-		a.dropdown-item(href='/admin/report/sale') Ventas
 		a.dropdown-item.disabled(href='#') Compras
+		a.dropdown-item(href='/admin/report/sale') Ventas
+		.dropdown-divider
 		a.dropdown-item(href='/admin/report/stock') Stock
+		a.dropdown-item.disabled(href='#') Usuarios

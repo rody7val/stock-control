@@ -101,6 +101,10 @@ label.list-group-item{
   border: 1px solid transparent;
   border-radius: .25rem;
 }*/
+.p-m-0{
+  padding: 0px;
+  margin: 0px;
+}
 html{
   background-color: #373a3c;
 }
@@ -158,6 +162,7 @@ html{
 }
 #main-admin #nav{
   padding-bottom: 0px!important;
+  border-radius: 0px;
 }
 .nav-admin{
   border-bottom: 4px solid transparent;

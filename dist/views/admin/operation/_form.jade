@@ -1,7 +1,12 @@
 //- item/_form.jade
 form(method='post', action='/admin/operation/new')
-
 	fieldset(ng-if='cart.sale.items > 0')
+		input.none(
+			id='date'
+			type='datetime'
+			name='operation[date]'
+			ng-model='cart.sale.date'
+		)
 		input.none(
 			id='type'
 			type='text'

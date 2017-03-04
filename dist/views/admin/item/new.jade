@@ -29,12 +29,14 @@ block content
 									{{setItemSearch("#{item.name}")}}
 									fieldset(disabled)
 										input.form-control.form-control-lg(
+											autofocus
 											type='search'
 											placeholder='Filtrar por nombre'
 											ng-model='itemSearch'
 										)
 								else
 									input.form-control.form-control-lg(
+										autofocus
 										type='search'
 										placeholder='Filtrar por nombre'
 										ng-model='itemSearch'
