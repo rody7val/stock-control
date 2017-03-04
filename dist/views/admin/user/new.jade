@@ -1,0 +1,98 @@
+//- user/index.jade
+extends ../../layout_admin.jade
+
+block title 
+	title Nuevo Usuario
+
+block css
+	link(href='/css/user/new.css', rel="stylesheet", type="text/css")
+
+block js
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/user/new.js', type="text/javascript")
+
+block content
+	div(ng-app='stock-control')
+		div(ng-controller="UsersController")
+			.none
+				{{setUser("#{user.edit}")}}
+			if errors.length
+				- var err = errors[0].message
+			div(class='#{user.edit ? "head-title-edit" : "head-title"}')
+				if user.edit
+					h1.text-center.light Editar {{getUserType()}}
+				else
+					h1.text-center.light Nuevo {{getUserType()}}
+			.container
+				.row
+					.col-md-12
+						nav#find-bar.navbar.navbar-light.bg-faded
+							.col-md-5
+							.col-md-7
+								//- input search
+								if user.edit
+									.none
+										{{ setUserSearch("#{user.name}", "#{user._id}") }}
+									fieldset(disabled)
+										input.none.form-control.form-control-lg(
+											type='search'
+											placeholder='Filtrar por id'
+											ng-model='idUserSearch'
+										)
+										input.form-control.form-control-lg(
+											type='search'
+											placeholder='Filtrar por nombre'
+											ng-model='userSearch'
+										)
+								else
+									input.form-control.form-control-lg(
+										type='search'
+										placeholder='Filtrar por nombre'
+										ng-model='userSearch'
+									)
+				.row
+					.col-md-5
+						#affix
+							if user.edit
+								form#user-form.center(method='post', action='/admin/users/#{user._id}/edit?_method=put&type={{getUserTypeForm()}}')
+									include ./_form.jade
+							else
+								form#user-form.center(method='post', action='/admin/users/new?type={{getUserTypeForm()}}')
+									include ./_form.jade
+								script(type='text/javascript').
+									//generar posible nombre de usuario
+									$('#email').on('input', function(e) {
+										$('#username').val( e.target.value.match(/[^@]+/)[0] );
+									});
+								script(type='text/javascript').
+									//mostrar contraseña
+									$('#pass-ch').click(function(){
+										var value = $('#password').get(0).value;
+										var name = $('#password').get(0).name;
+										if ( $('#password').get(0).type == 'password' ){
+											$('#pass-ch').get(0).checked = true;
+											$('#password').get(0).type = 'text';
+											$('#password').get(0).name = name;
+											$('#password').get(0).value = value;
+										}else if ( $('#password').get(0).type == 'text' ) {
+											$('#pass-ch').get(0).checked = false;
+											$('#password').get(0).type = 'password';
+											$('#password').get(0).name = name;
+											$('#password').get(0).value = value;
+										}
+									})
+					.col-md-7
+						table.table.table-hover.body-form
+							thead.thead-inverse
+								tr
+									th: h5.light Nombe
+									th: h5.light Email
+									th: h5.light Tipo
+									th: h5.light Acciones
+							tbody
+								if user.edit
+									tr(ng-repeat="user in users | filter:idUserSearch | orderBy: '_id'")
+										include ./_table.jade
+								else
+									tr(ng-repeat="user in users | filter:userSearch | orderBy: 'name'")
+										include ./_table.jade

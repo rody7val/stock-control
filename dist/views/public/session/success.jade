@@ -1,0 +1,18 @@
+//- session/success.jade
+extends ../../layout.jade
+block content
+	br
+	.container
+		if msjFlash.length
+			- var user = msjFlash[0].model;
+			.alert.alert-success.form-group.has-success
+				h3 Usuario creado con exito!
+				p Info:
+				small.form-text.text-muted #[b Nombre:] #{user.name},
+				small.form-text.text-muted #[b Nombre de usuario:] #{user.username},
+				small.form-text.text-muted #[b Email:] #{user.email}
+				br
+				hr
+				.form-inline
+					p Ahora puedes iniciar sesión con tu nombre de usuario (#[b #{user.username}]): 
+					a.btn.btn-primary(href='/session/login') Iniciar sesión

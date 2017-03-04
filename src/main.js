@@ -1,2 +1,2 @@
-var moment = require('moment');
-moment.format()
+window.moment = require('moment');
+moment.locale('es');

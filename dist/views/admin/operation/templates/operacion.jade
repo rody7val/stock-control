@@ -1,0 +1,40 @@
+{{cart.setRemarque(#{session.global.rem})}}
+table.table.table-hover.body-form
+  thead.thead-inverse
+    tr 
+      th(colspan="2")
+        h5.light {{cart.getOperationType()}}
+  tbody
+    tr 
+      td Fecha de venta:
+      td.bg-info
+        .motion-info.right
+          input(
+            class='form-control'
+            style='padding:.3rem; font-size:20px'
+            type='date'
+            ng-model='cart.sale.date'
+          )
+    tr 
+      td Cantidad de productos:
+      td.bg-info
+        p.motion-info.right {{cart.sale.items}} u
+    tr 
+      td Valor de la venta:
+      td.bg-info
+        p.motion-info.right $ {{cart.priceFixed(cart.sale.sale_value)}}
+    tr 
+      td Remarque:
+      td.bg-success
+        p.motion-info.right {{cart.sale.remark}} %
+    tr 
+      td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
+      td.bg-warning
+        h3.ligth.right(style="color: #373a3c") $ {{cart.priceFixed(cart.sale.total)}}
+//- affix
+script(type="text/javascript").
+  $(window).on('scroll', function(event) {
+    var scrollValue = $(window).scrollTop();
+    if (scrollValue > 280) $('#affix').addClass('top');
+    if (scrollValue < 280) $('#affix').removeClass('top');
+  });

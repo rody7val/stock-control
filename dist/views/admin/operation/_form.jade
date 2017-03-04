@@ -1,0 +1,55 @@
+//- item/_form.jade
+form(method='post', action='/admin/operation/new')
+	fieldset(ng-if='cart.sale.items > 0')
+		input.none(
+			id='date'
+			type='datetime'
+			name='operation[date]'
+			ng-model='cart.sale.date'
+		)
+		input.none(
+			id='type'
+			type='text'
+			name='operation[type]'
+			value='#{type}'
+			placeholder='type'
+		)
+		input.none(
+			id='items_qty'
+			type='text'
+			name='operation[items_qty]'
+			value='{{cart.sale.items}}'
+			placeholder='items_qty'
+		)
+		input.none(
+			id='sale_value'
+			type='text'
+			name='operation[sale_value]'
+			value='{{cart.sale.sale_value.toFixed(2)}}'
+			placeholder='sale_value'
+		)
+		input.none(
+			id='total'
+			type='text'
+			name='operation[total]'
+			value="{{cart.sale.total.toFixed(2)}}"
+			placeholder='total'
+		)
+		input.none(
+			id='rem'
+			type='text'
+			name='operation[rem]'
+			value="{{cart.sale.remark}}"
+			placeholder='total'
+		)
+		input.none(
+			id='_items'
+			type='text'
+			name='operation[_items]'
+			value="{{cart.getSelected()}}"
+			placeholder='_items'
+		)
+		input.btn.btn-lg.btn-success.right(id='submit', type='submit', value="Guardar")
+
+	fieldset(ng-if='cart.sale.items == 0', disabled="")
+		input.btn.btn-lg.btn-outline-success.right(id='submit', type='submit', value="Guardar")

@@ -1,0 +1,15 @@
+#user-form{
+	max-width: 600px;
+}
+#user-form > table {
+    margin-bottom: -3px!important;
+    border-bottom: 0px;
+}
+.user-delete {
+    margin-top: -1px;
+}
+.pass label{
+	cursor: pointer;
+	padding: 0px;
+	margin: 0px;
+}

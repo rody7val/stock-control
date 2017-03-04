@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var bcrypt = require('bcrypt-nodejs');
 var Schema = mongoose.Schema;
 
@@ -33,6 +34,9 @@ var UserSchema = new Schema({
             return password.length >= 6;
         }, 'La "Contraseña" debe tener seis o mas caracteres.']
     },
+    tel: String,
+    type: String,
+    admin: Boolean,
     created: {
         type: Date,
         default: Date.now
@@ -57,5 +61,6 @@ UserSchema.methods.comparePassword = function (password) {
 };
 
 UserSchema.plugin(uniqueValidator, { message: 'Lo sentimos, el {PATH} ({VALUE}) ya existe. Prueba con otro?' });
+UserSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('User', UserSchema);

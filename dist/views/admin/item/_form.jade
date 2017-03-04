@@ -1,0 +1,77 @@
+//- item/_form.jade
+form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/edit?_method=put" : "/admin/item/new" }')
+	table.table.body-form
+		thead.thead-inverse
+			tr
+				th: h5.light Formulario
+	fieldset.body-form.scroll
+		//- name
+		.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
+			label.form-control-label(for='name'): b Nombre
+			input.form-control(
+				id='name'
+				type='text'
+				name='item[name]'
+				placeholder='Puede ser el nombre, marca y la unidad de medida '
+				value='#{errors.length || item.edit ? item.name : ""}'
+			)
+			if errors.length && !(!err.name)
+				.form-control-feedback #{err.name.message}
+		//- code
+		.form-group(class='#{errors.length && !(!err.code) ? "has-danger" : ""}')
+			label.form-control-label(for='code'): b Código
+			.input-group
+				span.input-group-addon ││█
+				input.form-control(
+					id='code'
+					type='number'
+					name='item[code]'
+					placeholder='Código de barra'
+					value='#{errors.length || item.edit ? item.code : ""}'
+				)
+			if errors.length && !(!err.code)
+				.form-control-feedback #{err.code.message}
+		//- price
+		.form-group(class='#{errors.length && !(!err.price) ? "has-danger" : ""}')
+			label.form-control-label(for='price'): b Precio
+			.input-group
+				span.input-group-addon $
+				input.form-control(
+					id='price'
+					type='text'
+					name='item[price]'
+					placeholder='Precio hasta dos decimales'
+					value='#{errors.length || item.edit ? item._price : ""}'
+				)
+				span.input-group-addon mostrar
+			if errors.length && !(!err.price)
+				.form-control-feedback #{err.price.message}
+		//- qty
+		.form-group(class='#{errors.length && !(!err.qty) ? "has-danger" : ""}')
+			label.form-control-label(for='qty'): b Cantidad
+			input.form-control(
+				id='qty'
+				type='number'
+				name='item[qty]'
+				placeholder='Stock, numeros enteros'
+				value='#{errors.length || item.edit ? item.qty : ""}'
+			)
+			if errors.length && !(!err.qty)
+				.form-control-feedback #{err.qty.message}
+		//- desc
+		.form-group(class='#{errors.length && !(!err.desc) ? "has-danger" : ""}')
+			label.form-control-label(for='desc'): b Descripción
+			textarea.form-control(
+				id='desc'
+				type='text'
+				name='item[desc]'
+				placeholder='Puede obviarce o describir información adicional'
+			) #{errors.length || item.edit ? item.desc : ""}
+		//- submit
+		.form-group
+			input.right.btn(
+				class='#{item.edit ? "btn-outline-warning" : "btn-outline-success"}'
+				id='submit'
+				type='submit'
+				value='#{item.edit ? "Guardar cambios" : "Guardar"}'
+			)

@@ -1,0 +1,21 @@
+script(src='/js/moment-with-locales.min.js', type="text/javascript")
+
+table.table.table-hover.body-form
+	thead.thead-inverse
+		tr
+			th: h5.light Fecha
+			th: h5.light Operación
+			th: h5.light Cantidad
+			th: h5.light Stock Saldo
+	tbody
+		if motions.length
+			each motion in motions
+				tr
+					- moment.locale('es');
+					td #{moment(motion.created, 'YYYYMMDD').calendar()}
+					td #{motion.operation_type ? 'Venta' : ''}
+					td - #{motion.qty_motion}
+					td #{motion.qty}
+		else
+			tr
+				td.text-center(colspan='4') No hay ningun movimiento ...

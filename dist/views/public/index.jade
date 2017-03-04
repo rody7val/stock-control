@@ -1,0 +1,28 @@
+extends ../layout.jade
+
+block js
+	script(src='/js/lodash.min.js', type="text/javascript")
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/angular-scroll.min.js', type="text/javascript")
+	script(src='/js/public/index.js', type="text/javascript")
+
+block content
+	.head-title
+		h1.text-center.light Nuestros Productos
+	div(ng-app='items-control')
+		div(ng-controller="ItemsController")
+			.container
+				#items
+					.row(ng-repeat='row in items.all')
+						.col-md-4(ng-repeat='item in row')
+							//- card
+							br
+							.card
+								.card-block
+									h4.card-title {{item.name}} 
+										span.tag(class='{{item.qty > 0 ? "tag-success" : "tag-danger"}}') {{item.qty > 0 ? "Stock" : "Agotado"}}
+								img.img-fluid(style='width:100%',src='/img/img.svg', alt='{{item.name}}')
+								.card-block
+									p {{item.desc}}
+									a.card-link(href='#') Añadir al carro
+									a.card-link(href='#') Ver

@@ -1,0 +1,94 @@
+extends ../../layout_admin.jade
+
+block js
+	script(src='/js/moment-with-locales.min.js', type="text/javascript")
+	script.
+		moment.locale('es')
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/operation/report_sale.js', type="text/javascript")
+
+block css
+	link(href='/css/operation/report_sale.css', rel="stylesheet", type="text/css")
+
+block content
+	.head-title
+		h1.text-center.light Informe de Ventas
+	div(ng-app='stock-control')
+		div(ng-controller="SalesController")
+			#report-sale
+				.container
+					.row
+						br
+						br
+						.jumbotron.text-center
+							.container
+									.col-md-3
+										h3 #[span.tag.tag-default $ {{ priceFixed(total) }}]
+										h3.light Total Ventas
+									.col-md-3
+										h3 #[span.tag.tag-success {{ items_qty }} u]
+										h3.light Cantidad de Productos
+									.col-md-3
+										h3 #[span.tag.tag-success {{ sales_qty }}]
+										h3.light Cantidad de Ventas 
+									.col-md-3
+											h3 #[span.tag.tag-warning $ {{ priceFixed(sale_promedio) }}]
+											h3.light Venta Promedio
+					.row
+						.col-md-12
+							table.table.table-hover
+								thead.thead-inverse
+									tr
+										th: h5.light Ventas
+							#acordion(aria-multiselectable='true')
+								//- repeat
+								.card
+									.card-header(ng-if='sales.length == 0')
+										p.text-center #[b No hay ventas ...]
+								.card(ng-repeat='sale in sales | orderBy: "-created" ')
+									.card-header(id='heading-{{sale._id}}')
+										.container
+											.row
+												.col-md-4
+													b Fecha (aaaa-mm-dd)
+												.col-md-4
+													b Total
+												.col-md-4
+													b Acciones
+											.row
+												.col-md-4
+													span {{ sale.date }}
+												.col-md-4
+													span $ {{ priceFixed(sale.total) }}
+												.col-md-4
+													span
+														a.btn.btn-outline-primary.btn-sm(
+															data-toggle="collapse"
+															data-parent="#accordion"
+															href="#collapse-{{sale._id}}"
+															aria-expanded="true"
+															aria-controls="collapse-{{sale._id}}"
+															ng-click="changeBtn({{sale.key}})"
+														) {{sale.btn}}
+									.collapse(aria-labelledby='heading-{{sale._id}}', id="collapse-{{sale._id}}")
+										.card-block
+											.container
+												.row
+													.col-md-7
+														b Producto
+													.col-md-1
+														p.text-center #[b Cant].
+													.col-md-2
+														b.right Precio Unitario
+													.col-md-2
+														b.right Total Venta x Prod.
+												div(ng-repeat='motion in sale._motions')
+													.row
+														.col-md-7
+															span: a(href='/admin/item/{{motion._item._id}}', target='_blank') {{motion._item.name}}
+														.col-md-1
+															p.text-center: {{motion.qty_motion}}
+														.col-md-2
+															p.right: ${{ priceFixed(motion.item_price * sale.rem) }}
+														.col-md-2
+															p.right: ${{ priceFixed((motion.qty_motion * motion.item_price) * sale.rem) }}

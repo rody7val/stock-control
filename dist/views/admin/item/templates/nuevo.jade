@@ -1,0 +1,10 @@
+.tab-pane(
+	class='{{currentPage == 3 ? "active" : ""}}'
+)
+	br
+	.card.card-inverse(style='background-color: #333; border-color: #333;')
+		.card-block
+			h3.light.card-title #{item.name} #[span.tag.tag-default New]
+			p.card-text #{item.desc}
+			a(href='#').btn.btn-primary Ver mas
+		

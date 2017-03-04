@@ -1,5 +1,4 @@
 //- layout.jade
-- var title = title ? title : "Stock-control";
 doctype html
 html(lang='es')
 	head
@@ -10,17 +9,21 @@ html(lang='es')
 		script(src='/js/jquery-3.1.1.min.js', type="text/javascript")
 		script(src='/js/tether.min.js', type="text/javascript")
 		script(src='/js/bootstrap.min.js', type="text/javascript")
+		script(src='/js/moment.js', type="text/javascript")
+		script(src='/js/moment-with-locales.min.js', type="text/javascript")
+		script.
+			moment.locales('es')
 		block js
 		link(href='/css/bootstrap.min.css', rel="stylesheet", type="text/css")
 		link(href='/css/style.css', rel="stylesheet", type="text/css")
 		block css
 		block title
-			title #{title}
+			title #{session.global.title}
 	body
 		#main
 			nav#nav.navbar.navbar-fixed-top.navbar-dark.bg-success
 				.container
-					a.navbar-brand(href='/') Stock-control
+					a.navbar-brand(href='/') #{session.global.title}
 					button.navbar-toggler.hidden-sm-up.right(
 						data-toggle='collapse'
 						data-target='#collapsing-navbar'
@@ -30,9 +33,15 @@ html(lang='es')
 					)
 					#collapsing-navbar.collapse
 						#e.bg-inverse
-							include ./nav/nav_collapse.jade
+							ul.nav.navbar-nav.left
+								include ./public/nav/nav_left.jade
+							ul.nav.navbar-nav.right
+								include ./public/nav/nav_right.jade
 					#noCollapsing-navbar
-						include ./nav/nav
+						ul.nav.navbar-nav.left
+							include ./public/nav/nav_left.jade
+						ul.nav.navbar-nav.right
+							include ./public/nav/nav_right.jade
 			block background-item
 			#index
 				block msjFlash
@@ -41,6 +50,6 @@ html(lang='es')
 			.title-form.container
 				hr
 				br
-				h4.text-center.light Stock-control
+				h4.text-center.light #{session.global.title}
 				br
 		block js_footer

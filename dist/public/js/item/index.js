@@ -27,8 +27,8 @@ angular.module('stock-control', [])
       return stock_total;
     }
 
-    $scope.stock.getSaleTotal = function(){
-      return $scope.stock.getCostTotal() * 1.3;
+    $scope.stock.getSaleTotal = function(remarque){
+      return $scope.stock.getCostTotal() * remarque;
     }
 
     $scope.stock.getCostTotal = function(){
@@ -40,7 +40,7 @@ angular.module('stock-control', [])
     }
 
     function getItems(){
-      $http.get('/items').success(function(data){
+      $http.get('/api/items').success(function(data){
         if (data.length) {
           angular.forEach(data, function(item){
             $scope.stock.items.push(item);
