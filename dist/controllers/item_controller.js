@@ -1,6 +1,7 @@
 var Item = require('../models/item');
 var Motion = require('../models/motion');
 var config = require('../../config');
+var moment = require('moment');
 
 // Autoload - factoriza el código si la ruta incluye :itemId
 exports.load = function(req, res, next, itemId) {
@@ -152,16 +153,17 @@ exports.delete = function (req, res) {
 // Stock excel-exports
 exports.stock_exports = function(req, res){
 	var nodeExcel = require('excel-export');
+	var rem = req.query.rem || 0;
+	console.log(req.query.rem);
 
-	Item.find({}, function (err, items) {
+	Item.find({}, null, {sort: {name: 1}}, function (err, items) {
   		var conf = {};
     	conf.name = "Insumax";
 
   		conf.cols = [
     	  { caption:'Nombre', type:'string' },
     	  { caption:'Stock', type:'number'},
-    	  { caption:'Precio', type:'number' },
-    	  { caption:'Código', type:'number'}
+    	  { caption:'Final', type:'number' }
     	];
 
     	conf.rows = [];
@@ -170,14 +172,13 @@ exports.stock_exports = function(req, res){
 			conf.rows.push([ 
 				item.name, 
 				item.qty,
-				item.price, 
-				item.code
+				Number( (item.price * rem).toFixed(2) )
 			]);
     	});
 
   		var result = nodeExcel.execute(conf);
   		res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-  		res.setHeader('Content-Disposition', 'attachment; filename=' + 'Report.xlsx');
+  		res.setHeader('Content-Disposition', 'attachment; filename=' + 'LISTA_INSUMAX_' + moment().format('DD-MM-YYYY_h:mm-a') + '.xlsx');
   		res.end(result, 'binary');
 	});
 }
