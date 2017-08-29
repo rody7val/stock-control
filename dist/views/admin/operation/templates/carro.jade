@@ -18,7 +18,7 @@ table.table.table-hover.body-form
 							ng-click='cart.remove()'
 						) Qitar item(s)
 //- lista de items
-div.list-group
+div.list-group(style='min-height:200px;')
 	label.list-group-item.list-group-item-action(
 		class='active-{{item.done}}'
 		ng-repeat='item in cart.selected'

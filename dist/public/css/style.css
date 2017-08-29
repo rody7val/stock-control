@@ -254,7 +254,7 @@ table > thead {
 @media (max-width: 74.9em) {
   .top{
     position: fixed;
-    top: 48px;
+    /*top: 48px;*/
     width: 440px;
   }
   .item-new.top{

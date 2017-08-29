@@ -9,7 +9,8 @@ var OperationSchema = new Schema({
 	items_qty: Number,
 	sale_value: Float,
     total: Float,
-    // _user: { type: Schema.Types.ObjectId, ref: 'User' },
+    _user: { type: Schema.Types.ObjectId, ref: 'User' },
+    _client: { type: Schema.Types.ObjectId, ref: 'Client' },
     _motions: [{ type: Schema.Types.ObjectId, ref: 'Motion' }],
     rem: Float,
     created: {type: Date, default: Date.now}

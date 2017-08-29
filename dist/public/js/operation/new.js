@@ -3,16 +3,27 @@ angular.module('stock-control', [])
   .controller('OperationController', function($scope, $http) {
     
     $scope.cart = {
+      user: null,
       items: [],      // productos de la base de datos
-      selected: [],   // productos del carro
+      selected: [],
+      clients: [],
+      client: null,   // productos del carro
       sale: {
         items: 0,
         sale_value: 0,
-        remark: 0,
+        remark: 1.3,
         total: 0,
         date: moment().format('YYYY-MM-DD')
       }
     }
+
+    function getClients(){
+      $http.get('/api/clients').success(function(data){
+        $scope.cart.clients = data;
+      });
+    }
+    
+    getClients();
 
     function selected(item){
       var ret = item.done == false;
@@ -85,6 +96,10 @@ angular.module('stock-control', [])
       $scope.cart.sale.remark = remarque;
     }
 
+    $scope.cart.setUserId = function(id){
+      $scope.cart.user = id;
+    }
+
     $scope.cart.setDate = function(date){
       console.log(date)
       $scope.cart.sale.date = date;
@@ -99,14 +114,14 @@ angular.module('stock-control', [])
       itemsToCart();
       // filtrar
       $scope.cart.items = $scope.cart.items.filter(selected);
-      calculate();
+      $scope.cart.cartCalculate();
     }
 
     $scope.cart.remove = function() {
       cartToItems();
       // filtrar
       $scope.cart.selected = $scope.cart.selected.filter(selected);
-      calculate();
+      $scope.cart.cartCalculate();
     }
 
     $scope.cart.priceFixed = function(num) {
@@ -121,10 +136,10 @@ angular.module('stock-control', [])
       });
       // cantidad de productos
       $scope.cart.sale.items = items_motions;
-      calculate();
+      $scope.cart.cartCalculate();
     }
 
-    function calculate() {
+    $scope.cart.cartCalculate = function() {
       var items_motions = 0;
       angular.forEach($scope.cart.selected, function(item) {
         item.qty = item.qty_ref - item.qty_motion;

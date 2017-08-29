@@ -2,8 +2,6 @@ extends ../../layout_admin.jade
 
 block js
 	script(src='/js/moment-with-locales.min.js', type="text/javascript")
-	script.
-		moment.locale('es')
 	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
 	script(src='/js/operation/report_sale.js', type="text/javascript")
 
@@ -49,19 +47,33 @@ block content
 									.card-header(id='heading-{{sale._id}}')
 										.container
 											.row
-												.col-md-4
-													b Fecha (aaaa-mm-dd)
-												.col-md-4
-													b Total
-												.col-md-4
-													b Acciones
+												.col-md-2
+													b Fecha
+												.col-md-2
+													b Cliente
+												.col-md-2
+													b Creado por
+												.col-md-3
+													b.right Total
+												.col-md-3
+													b.right Acciones
 											.row
-												.col-md-4
-													span {{ sale.date }}
-												.col-md-4
-													span $ {{ priceFixed(sale.total) }}
-												.col-md-4
-													span
+												.col-md-2
+													span(title='{{setDateAndHour(sale.created)}}') {{setDate(sale.created)}}
+												.col-md-2
+													span 
+														a(href='/admin/clients/{{sale._client._id}}'
+															target='_blank'
+															title='{{sale._client.email}}'){{ sale._client.name }}
+												.col-md-2
+													span 
+														a(href='/admin/users/{{sale._user._id}}'
+															target='_blank'
+															title='{{sale._user.name}}'){{ sale._user.username }}
+												.col-md-3
+													span.right $ {{ priceFixed(sale.total) }}
+												.col-md-3
+													span.right
 														a.btn.btn-outline-primary.btn-sm(
 															data-toggle="collapse"
 															data-parent="#accordion"

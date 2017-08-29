@@ -107,6 +107,8 @@ exports.create = function (req, res, next) {
 					sale_value: Number(req.body.operation.sale_value),
 					total: Number(req.body.operation.total),
 					rem: Number(req.body.operation.rem),
+					_user: req.body.operation.user,
+					_client: req.body.operation.client,
 					_motions: motionsIds
 				})
 				.save(function (err, operation) {
@@ -125,18 +127,19 @@ exports.create = function (req, res, next) {
 					});
 
 					if (!errors.length) {
-						res.render('admin/operation/success', {
-							options: JSON.stringify({
-								date: req.body.operation.date,
-								type: changeType(req.body.operation.type),
-								items_qty: req.body.operation.items_qty,
-								sale_value: req.body.operation.sale_value,
-								total: req.body.operation.total,
-								remarque: req.body.operation.rem,
-								_items: _ItemsCart // allMotionSaved
-							}),
-							nav: 'operacion'
-						});
+						Operation.findOne(operation)
+						.deepPopulate('_user _client _motions._item')
+						.exec(function(err, operation) {
+
+							console.log(operation);
+							res.render('admin/operation/success', {
+
+								options: JSON.stringify(operation),
+								nav: 'operacion',
+								moment: require('moment')
+							});
+
+						})
 					}
 				});
 			}
@@ -154,7 +157,7 @@ exports.sale = function(req, res) {
 exports.all = function(req, res) {
 	Operation
 		.find()
-		.deepPopulate('_motions._item')
+		.deepPopulate('_user _client _motions._item')
 		.exec(function (err, operations){
 			res.json(operations);
 		});

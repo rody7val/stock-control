@@ -1,11 +1,23 @@
 //- item/_form.jade
 form(method='post', action='/admin/operation/new')
-	fieldset(ng-if='cart.sale.items > 0')
+	fieldset(ng-if='cart.sale.items > 0 && cart.client != null && cart.sale.remark != "" && cart.sale.date != ""')
 		input.none(
 			id='date'
 			type='datetime'
 			name='operation[date]'
 			ng-model='cart.sale.date'
+		)
+		input.none(
+			id='client'
+			type='text'
+			name='operation[client]'
+			ng-model='cart.client'
+		)
+		input.none(
+			id='user'
+			type='text'
+			name='operation[user]'
+			ng-model='cart.user'
 		)
 		input.none(
 			id='type'
@@ -38,9 +50,10 @@ form(method='post', action='/admin/operation/new')
 		input.none(
 			id='rem'
 			type='text'
+			step=0.1
 			name='operation[rem]'
-			value="{{cart.sale.remark}}"
-			placeholder='total'
+			ng-model='cart.sale.remark'
+			placeholder='remarque'
 		)
 		input.none(
 			id='_items'
@@ -51,5 +64,5 @@ form(method='post', action='/admin/operation/new')
 		)
 		input.btn.btn-lg.btn-success.right(id='submit', type='submit', value="Guardar")
 
-	fieldset(ng-if='cart.sale.items == 0', disabled="")
+	fieldset(ng-if='cart.sale.items == 0 || cart.client == null || cart.sale.remark == "" || cart.sale.date == ""', disabled="")
 		input.btn.btn-lg.btn-outline-success.right(id='submit', type='submit', value="Guardar")

@@ -1,17 +1,3 @@
-function changeType(type){
-	switch(type){
-		case 'client':
-			return 'Cliente'
-			break;
-		case 'admin':
-			return 'Administrador'
-			break;
-		case 'provider':
-			return 'Proveedor'
-			break;
-	}
-}
-
 var User = require('../models/user');
 
 // Autoload - factoriza el código si la ruta incluye :userId
@@ -56,9 +42,7 @@ exports.new_fromAdmin = function(req, res){
 	var errors = req.session.errors || {};
 	req.session.errors = {};
 
-	var type = (req.query.type == 'client' ||  req.query.type == 'admin' || req.query.type == 'provider') ? req.query.type : res.redirect('/admin');
-
-	res.render('admin/user/new', { user: new User(), type: type, nav: 'registrar', errors: errors});
+	res.render('admin/user/new', { user: new User(), nav: 'registrar', errors: errors});
 }
 
 // Guardar nuevo usuario en la BD desde administración
@@ -73,7 +57,7 @@ exports.create_fromAdmin = function (req, res) {
     		});
 		} else {
 			req.flash('info', 'Usuario Administrador creado con exito!');
-			res.redirect('/admin');
+			res.redirect('/admin/users/new');
 			// req.session.msjFlash = [{message: null, model: req.body.user}];
 			// res.redirect('/admin/users/new?type='+req.query.type);
 		}
@@ -84,8 +68,6 @@ exports.create_fromAdmin = function (req, res) {
 exports.edit = function (req, res) {
 	var errors = req.session.errors || {};
 	req.session.errors = {};
-
-	var type = (req.query.type == 'admin' || req.query.type == 'client' || req.query.type == 'provider') ? req.query.type : res.redirect('/admin');
 
 	req.user.edit = true;
 	console.log(req.user)
@@ -98,8 +80,6 @@ exports.update = function (req, res) {
 	req.user.name = req.body.user.name;
 	req.user.email = req.body.user.email;
 	req.user.username = req.body.user.username;
-	req.user.tel = req.body.user.tel;
-	req.user.type = req.body.user.type;
 	req.user.admin = req.body.user.admin;
 
 	req.user.save(function (err){
@@ -109,7 +89,7 @@ exports.update = function (req, res) {
 		}else{
 			req.user = {};
 			req.flash('info', 'Usuario editado con exito!');
-			res.redirect('/admin');
+			res.redirect('/admin/users/new');
 		}
 	});
 }

@@ -1,3 +1,4 @@
+moment.locale('es');
 angular.module('stock-control', [])
 
   .controller('SalesController', function($scope, $http) {
@@ -31,7 +32,11 @@ angular.module('stock-control', [])
     }
 
     $scope.setDate = function(date){
-    	return moment(date).calendar();
+    	return moment(date).format('DD/MM/YYYY');
+    }
+    
+    $scope.setDateAndHour = function(date){
+        return moment(date).format('lll');
     }
 
     $scope.priceFixed = function(num) {

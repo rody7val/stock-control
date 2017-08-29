@@ -12,7 +12,7 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 				id='name'
 				type='text'
 				name='item[name]'
-				placeholder='Puede ser el nombre, marca y la unidad de medida '
+				placeholder='Nombre'
 				value='#{errors.length || item.edit ? item.name : ""}'
 			)
 			if errors.length && !(!err.name)
@@ -26,7 +26,7 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 					id='code'
 					type='number'
 					name='item[code]'
-					placeholder='Código de barra'
+					placeholder='Código'
 					value='#{errors.length || item.edit ? item.code : ""}'
 				)
 			if errors.length && !(!err.code)
@@ -40,7 +40,7 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 					id='price'
 					type='text'
 					name='item[price]'
-					placeholder='Precio hasta dos decimales'
+					placeholder='Precio'
 					value='#{errors.length || item.edit ? item._price : ""}'
 				)
 				span.input-group-addon mostrar
@@ -53,7 +53,7 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 				id='qty'
 				type='number'
 				name='item[qty]'
-				placeholder='Stock, numeros enteros'
+				placeholder='Stock'
 				value='#{errors.length || item.edit ? item.qty : ""}'
 			)
 			if errors.length && !(!err.qty)
@@ -65,7 +65,7 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 				id='desc'
 				type='text'
 				name='item[desc]'
-				placeholder='Puede obviarce o describir información adicional'
+				placeholder='Descripción'
 			) #{errors.length || item.edit ? item.desc : ""}
 		//- submit
 		.form-group

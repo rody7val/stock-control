@@ -1,0 +1,18 @@
+//- name
+td: a.btn.btn-link.btn-sm(href='/admin/clients/{{client._id}}') {{client.name}}
+//- email
+td.text-center.bg-info {{client.email}}
+//- Telefono
+td {{client.tel}}
+//- Acciones
+td
+	a.left.btn.btn-outline-warning.btn-sm(
+		ng-if='#{!client.edit}'
+		href='/admin/clients/{{client._id}}/edit'
+	) Editar
+	form.user-delete.left(method='post', action='/admin/clients/{{client._id}}?_method=delete')
+		input.btn.btn-outline-danger.btn-sm(
+			type='submit'
+			value='Borrar'
+			onClick='return confirm("Eliminar: {{client.name}}?")'
+		)

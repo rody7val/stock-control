@@ -1,6 +1,7 @@
 // Controllers
 var itemController = require('../controllers/item_controller');
 var userController = require('../controllers/user_controller');
+var clientController = require('../controllers/client_controller');
 var sessionController = require('../controllers/session_controller');
 
 module.exports = function (app, express) {
@@ -18,6 +19,9 @@ module.exports = function (app, express) {
     api.get('/users/new', sessionController.isNotLogin, userController.new);
     api.post('/users/new', sessionController.isNotLogin, userController.create);
     api.get('/api/users', userController.all);
+
+    // clients
+    api.get('/api/clients', clientController.all);
 
     // session
     api.get('/session/login', sessionController.isNotLogin, sessionController.new);

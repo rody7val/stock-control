@@ -8,9 +8,9 @@ td {{user.type ? user.type : 'Administrador'}}
 td
 	a.left.btn.btn-outline-warning.btn-sm(
 		ng-if='#{!user.edit}'
-		href='/admin/users/{{user._id}}/edit?type={{ user.type ? getType(user.type) : "admin" }}'
+		href='/admin/users/{{user._id}}/edit'
 	) Editar
-	form.user-delete.left(method='post', action='/admin/users/{{user._id}}?_method=delete&type={{getUserTypeForm()}}')
+	form.user-delete.left(method='post', action='/admin/users/{{user._id}}?_method=delete')
 		input.btn.btn-outline-danger.btn-sm(
 			type='submit'
 			value='Borrar'

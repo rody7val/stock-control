@@ -12,9 +12,9 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "registrar" ? "nav-admin-active" 
 	.dropdown-menu(aria-labelledby='registrar')
 		a.dropdown-item(href='/admin/item/new') Producto
 		.dropdown-divider
-		a.dropdown-item(href='/admin/users/new?type=client') Cliente
-		a.dropdown-item(href='/admin/users/new?type=provider') Proveedor
-		a.dropdown-item(href='/admin/users/new?type=admin') Administrador
+		a.dropdown-item(href='/admin/clients/new') Cliente
+		a.dropdown-item.disabled(href='/#') Proveedor
+		a.dropdown-item(href='/admin/users/new') Administrador
 //- Operaciones
 li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" : ""}')
 	a#operacion.nav-link.dropdown-toggle(

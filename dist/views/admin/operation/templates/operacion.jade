@@ -1,4 +1,5 @@
-{{cart.setRemarque(#{session.global.rem})}}
+//- {{cart.setRemarque(#{session.global.rem})}}
+{{cart.setUserId('#{session.user._id}')}}
 table.table.table-hover.body-form
   thead.thead-inverse
     tr 
@@ -6,7 +7,7 @@ table.table.table-hover.body-form
         h5.light {{cart.getOperationType()}}
   tbody
     tr 
-      td Fecha de venta:
+      td Fecha:
       td.bg-info
         .motion-info.right
           input(
@@ -16,17 +17,33 @@ table.table.table-hover.body-form
             ng-model='cart.sale.date'
           )
     tr 
-      td Cantidad de productos:
-      td.bg-info
-        p.motion-info.right {{cart.sale.items}} u
-    tr 
-      td Valor de la venta:
-      td.bg-info
-        p.motion-info.right $ {{cart.priceFixed(cart.sale.sale_value)}}
+      td Cliente:
+      td.bg-success
+        .motion-info.right
+          select(class='form-control',ng-model='cart.client')
+            option(ng-repeat="client in cart.clients" value="{{client._id}}") {{client.name}}
     tr 
       td Remarque:
       td.bg-success
-        p.motion-info.right {{cart.sale.remark}} %
+        .motion-info.right
+          .input-group(style='border-collapse:unset; width:100px;')
+            input(
+              class='form-control'
+              type='number'
+              min=0.1
+              step=0.1
+              ng-model='cart.sale.remark'
+              ng-change='cart.cartCalculate()'
+            )
+            span.input-group-addon %
+    tr 
+      td Unidades:
+      td.bg-info
+        p.motion-info.right {{cart.sale.items}} u
+    tr 
+      td Valor de venta:
+      td.bg-info
+        p.motion-info.right $ {{cart.priceFixed(cart.sale.sale_value)}}
     tr 
       td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
       td.bg-warning

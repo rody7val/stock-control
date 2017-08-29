@@ -1,5 +1,6 @@
 // Controllers
 var userController = require('../controllers/user_controller');
+var clientController = require('../controllers/client_controller');
 var sessionController = require('../controllers/session_controller');
 var itemController = require('../controllers/item_controller');
 var operationController = require('../controllers/operation_controller');
@@ -22,15 +23,24 @@ module.exports = function (app, express) {
     api.param('itemId', itemController.load);
     api.param('operationId', operationController.load);
     api.param('userId', userController.load);
+    api.param('clientId', clientController.load);
     // api.param('motionId', itemController.load);
 
     // users
     api.get('/users/new', sessionController.loginRequired, userController.new_fromAdmin);
     api.post('/users/new', sessionController.loginRequired, userController.create_fromAdmin);
-    // api.get('/users/:userId', sessionController.loginRequired, userController.show);
+    api.get('/users/:userId', sessionController.loginRequired, userController.show);
     api.get('/users/:userId/edit', sessionController.loginRequired, userController.edit);
     api.put('/users/:userId/edit', sessionController.loginRequired, userController.update);
     api.delete('/users/:userId', sessionController.loginRequired, userController.delete);
+
+    // clients
+    api.get('/clients/new', sessionController.loginRequired, clientController.new);
+    api.post('/clients/new', sessionController.loginRequired, clientController.create);
+    api.get('/clients/:clientId', sessionController.loginRequired, clientController.show);
+    api.get('/clients/:clientId/edit', sessionController.loginRequired, clientController.edit);
+    api.put('/clients/:clientId/edit', sessionController.loginRequired, clientController.update);
+    api.delete('/clients/:clientId', sessionController.loginRequired, clientController.delete);
 
     // item
     api.get('/item/new', sessionController.loginRequired, itemController.new);
