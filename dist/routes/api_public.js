@@ -2,6 +2,8 @@
 var itemController = require('../controllers/item_controller');
 var userController = require('../controllers/user_controller');
 var clientController = require('../controllers/client_controller');
+var providerController = require('../controllers/provider_controller');
+var providersController = require('../controllers/client_controller');
 var sessionController = require('../controllers/session_controller');
 
 module.exports = function (app, express) {
@@ -22,6 +24,9 @@ module.exports = function (app, express) {
 
     // clients
     api.get('/api/clients', clientController.all);
+
+    // providers
+    api.get('/api/providers', providerController.all);
 
     // session
     api.get('/session/login', sessionController.isNotLogin, sessionController.new);

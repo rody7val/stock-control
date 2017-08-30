@@ -1,9 +1,10 @@
 // Controllers
 var userController = require('../controllers/user_controller');
 var clientController = require('../controllers/client_controller');
+var providerController = require('../controllers/provider_controller');
 var sessionController = require('../controllers/session_controller');
 var itemController = require('../controllers/item_controller');
-var operationController = require('../controllers/operation_controller');
+var saleController = require('../controllers/sale_controller');
 var globalController = require('../controllers/global_controller');
 
 module.exports = function (app, express) {
@@ -16,14 +17,15 @@ module.exports = function (app, express) {
 
     // Informes
     api.get('/report/stock', sessionController.loginRequired, itemController.stock);
-    api.get('/report/sale', sessionController.loginRequired, operationController.sale);
-    // api.get('/buy', operationController.buy);
+    api.get('/report/sale', sessionController.loginRequired, saleController.sale);
+    // api.get('/buy', saleController.buy);
 
     // Autoload de comandos 
     api.param('itemId', itemController.load);
-    api.param('operationId', operationController.load);
+    api.param('saleId', saleController.load);
     api.param('userId', userController.load);
     api.param('clientId', clientController.load);
+    api.param('providerId', providerController.load);
     // api.param('motionId', itemController.load);
 
     // users
@@ -42,6 +44,14 @@ module.exports = function (app, express) {
     api.put('/clients/:clientId/edit', sessionController.loginRequired, clientController.update);
     api.delete('/clients/:clientId', sessionController.loginRequired, clientController.delete);
 
+    // provider
+    api.get('/providers/new', sessionController.loginRequired, providerController.new);
+    api.post('/providers/new', sessionController.loginRequired, providerController.create);
+    api.get('/providers/:providerId', sessionController.loginRequired, providerController.show);
+    api.get('/providers/:providerId/edit', sessionController.loginRequired, providerController.edit);
+    api.put('/providers/:providerId/edit', sessionController.loginRequired, providerController.update);
+    api.delete('/providers/:providerId', sessionController.loginRequired, providerController.delete);
+
     // item
     api.get('/item/new', sessionController.loginRequired, itemController.new);
     api.post('/item/new', sessionController.loginRequired, itemController.create);
@@ -52,14 +62,14 @@ module.exports = function (app, express) {
     api.get('/items/load_items', itemController.load_items);
     api.get('/items/stock_exports', sessionController.loginRequired, itemController.stock_exports);
 
-    // operation
-    api.get('/operation/new', sessionController.loginRequired, operationController.new);
-    api.post('/operation/new', sessionController.loginRequired, operationController.create);
-    // api.get('/operation/:operationId', operationController.show);
-    // api.get('/operation/:operationId/edit', operationController.edit);
-    // api.put('/operation/:operationId/edit', operationController.update);
-    // api.delete('/operation/:operationId', operationController.delete);
-    api.get('/operations', operationController.all);
+    // sales
+    api.get('/sales/new', sessionController.loginRequired, saleController.new);
+    api.post('/sales/new', sessionController.loginRequired, saleController.create);
+    api.get('/sales/:saleId',sessionController.loginRequired ,saleController.show);
+    // api.get('/sales/:saleId/edit', saleController.edit);
+    // api.put('/sales/:saleId/edit', saleController.update);
+    // api.delete('/sales/:saleId', saleController.delete);
+    api.get('/sales', saleController.all);
 
     // Retornar rutas API.
     return api;

@@ -1,6 +1,6 @@
 angular.module('stock-control', [])
 
-  .controller('OperationController', function($scope, $http) {
+  .controller('SaleController', function($scope, $http) {
     
     $scope.cart = {
       user: null,

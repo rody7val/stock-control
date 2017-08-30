@@ -25,7 +25,7 @@ angular.module('stock-control', [])
     }
 
     function getItems(){
-      $http.get('/admin/operations').success(function(data){
+      $http.get('/admin/sales').success(function(data){
         $scope.sales = data;
         setValues();
       })

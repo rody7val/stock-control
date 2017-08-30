@@ -1,0 +1,18 @@
+//- name
+td: a.btn.btn-link.btn-sm(href='/admin/providers/{{provider._id}}') {{provider.name}}
+//- email
+td.text-center.bg-info {{provider.email}}
+//- Telefono
+td {{provider.tel}}
+//- Acciones
+td
+	a.left.btn.btn-outline-warning.btn-sm(
+		ng-if='#{!provider.edit}'
+		href='/admin/providers/{{provider._id}}/edit'
+	) Editar
+	form.user-delete.left(method='post', action='/admin/providers/{{provider._id}}?_method=delete')
+		input.btn.btn-outline-danger.btn-sm(
+			type='submit'
+			value='Borrar'
+			onClick='return confirm("Eliminar: {{provider.name}}?")'
+		)

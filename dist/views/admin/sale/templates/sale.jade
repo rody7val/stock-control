@@ -4,7 +4,7 @@ table.table.table-hover.body-form
   thead.thead-inverse
     tr 
       th(colspan="2")
-        h5.light {{cart.getOperationType()}}
+        h5.light Venta
   tbody
     tr 
       td Fecha:
@@ -26,7 +26,7 @@ table.table.table-hover.body-form
       td Remarque:
       td.bg-success
         .motion-info.right
-          .input-group(style='border-collapse:unset; width:100px;')
+          .input-group(style='border-collapse:unset; width:120px;')
             input(
               class='form-control'
               type='number'
@@ -49,9 +49,9 @@ table.table.table-hover.body-form
       td.bg-warning
         h3.ligth.right(style="color: #373a3c") $ {{cart.priceFixed(cart.sale.total)}}
 //- affix
-script(type="text/javascript").
-  $(window).on('scroll', function(event) {
-    var scrollValue = $(window).scrollTop();
-    if (scrollValue > 280) $('#affix').addClass('top');
-    if (scrollValue < 280) $('#affix').removeClass('top');
-  });
+//- script(type="text/javascript").
+//-   $(window).on('scroll', function(event) {
+//-     var scrollValue = $(window).scrollTop();
+//-     if (scrollValue > 280) $('#affix').addClass('top');
+//-     if (scrollValue < 280) $('#affix').removeClass('top');
+//-   });

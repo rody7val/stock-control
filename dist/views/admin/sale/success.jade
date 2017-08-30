@@ -6,7 +6,7 @@ block title
 
 block js
 	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
-	script(src='/js/operation/success.js', type="text/javascript")
+	script(src='/js/sale/success.js', type="text/javascript")
 
 block content
 	br
@@ -18,8 +18,8 @@ block content
 				.row
 					.col-md-2
 					.col-md-8
-						h4.alert-heading.alert-success {{operation.type}} realizada con exito!
-						p Detalles de {{operation.type}}:
+						h4.alert-heading.alert-success {{sale.type}} realizada con exito!
+						p Detalles de Venta:
 					.col-md-2
 				#OPERATION
 					.row
@@ -29,34 +29,34 @@ block content
 								thead.thead-inverse
 									tr 
 										th(colspan="2")
-											h4.light {{operation.type}}
+											h4.light {{sale.type}}
 								tbody 
 									tr
 										td Fecha:
 										td.bg-info
 											.motion-info.right
-												p {{operation.date}}
+												p {{sale.date}}
 									tr
 										td Cliente:
 										td.bg-info
 											.motion-info.right
-												p {{operation._client.name}}
+												p {{sale._client.name}}
 									tr 
 										td Unidades:
 										td.bg-info
-											p.motion-info.right {{operation.items_qty}} u
+											p.motion-info.right {{sale.items_qty}} u
 									tr 
 										td Valor de venta:
 										td.bg-info
-											p.motion-info.right $ {{priceFixed(operation.sale_value)}}
+											p.motion-info.right $ {{priceFixed(sale.sale_value)}}
 									tr 
 										td Remarque:
 										td.bg-success
-											p.motion-info.right {{operation.rem}} %
+											p.motion-info.right {{sale.rem}} %
 									tr 
 										td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
 										td.bg-warning
-											h3.ligth.right(style="color: #373a3c") $ {{priceFixed(operation.total)}}
+											h3.ligth.right(style="color: #373a3c") $ {{priceFixed(sale.total)}}
 						.col-md-2
 					.row
 						.col-md-12
@@ -70,9 +70,9 @@ block content
 										th: h4.light.text-center Cantidad
 										th: h4.light.text-center Stock Saldo
 								tbody 
-									tr(ng-repeat='motion in operation._motions | orderBy: "name"')
+									tr(ng-repeat='motion in sale._motions | orderBy: "name"')
 										td: a(href="/admin/item/{{motion._item._id}}" ) {{motion._item.name}}
 										td: span.right {{priceFixed(motion.item_price)}}
-										td: span.right {{priceFixed(motion.item_price * operation.rem)}}
+										td: span.right {{priceFixed(motion.item_price * sale.rem)}}
 										td.text-center - {{motion.qty_motion}}
 										td.text-center {{motion.qty}}

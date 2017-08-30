@@ -6,50 +6,32 @@ function getIds(motions){
 	return _items;
 }
 
-function changeType(type){
-	var _type;
-	switch(type){
-		case 'sale':
-			_type = 'Venta'
-			break;
-		case 'buy':
-			_type = 'Compra'
-			break;
-		default:
-			_type = 'Registro manual'
-	}
-	return _type;
-}
-
-var Operation = require('../models/operation');
+var Sale = require('../models/sale');
 var Motion = require('../models/motion');
 var Item = require('../models/item');
 var config = require('../../config');
 
 // Autoload - factoriza el código si la ruta incluye :operationId
-exports.load = function(req, res, next, operationId) {
-	Operation.findOne({
-		_id: operationId
-	}).exec(function (err, operation){
-		if (operation){
-			req.operation = operation;
+exports.load = function(req, res, next, saleId) {
+	Sale.findOne({ _id: saleId })
+	.deepPopulate('_user _client _motions._item')
+	.exec(function (err, sale){
+		if (sale){
+			req.sale = sale;
 			next();
-		}else{ next(new Error('No existe operationId = '+ operationId)) }
+		}else{ next(new Error('No existe saleId = '+ saleId)) }
 	});
 }
 
-// Formulario new operation
+// Formulario new venta
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
 	req.session.errors = {};
 
-	var type = (req.query.type == 'sale' ||  req.query.type == 'buy' || req.query.type == 'manual') ? req.query.type : res.redirect('/');
-
-	Operation.find({}, function (err, operations) {
-    	res.render('admin/operation/new', {
-    		operation: new Operation(),
-    		operations: operations,
-    		type: type,
+	Sale.find({}, function (err, sales) {
+    	res.render('admin/sale/new', {
+    		sale: new Sale(),
+    		sales: sales,
     		errors: errors,
     		nav: 'operacion',
     		moment: require('moment')
@@ -57,21 +39,21 @@ exports.new = function(req, res){
 	});
 }
 
-// Guardar nueva operation en la Base de Datos
+// Guardar nueva venta en la Base de Datos
 exports.create = function (req, res, next) {
-	var operation = {
+	var options = {
 		sale: {},
 		motions: [],
 	};
-	var _ItemsCart = JSON.parse(req.body.operation._items);
+	var _ItemsCart = JSON.parse(req.body.sale._items);
 	var allMotionSaved = [];
 	var errors = [];
 
 	//por cada item del carro
 	_ItemsCart.forEach(function (_item){
 
-		operation.motions.push(new Motion({
-			operation_type: changeType(req.body.operation.type),
+		options.motions.push(new Motion({
+			operation_type: "Venta",
 			_item: _item._id,
 			qty_motion: _item.qty_motion,
    			qty: _item.qty,
@@ -93,33 +75,32 @@ exports.create = function (req, res, next) {
 				});
 			})
 
-	
 			//si es el ultimo valor del array (para mantener las variables de entorno)
 			if (_ItemsCart[_ItemsCart.length-1]._id == _item._id){
 				//obtenemos los ids de los movimientos creados
 				var motionsIds = getIds(allMotionSaved);
-				//y creamos una nueva operación
-				console.log(req.body.operation.date)
-				operation.sale = new Operation({
-					date: req.body.operation.date,
-					type: changeType(req.body.operation.type),
-					items_qty: Number(req.body.operation.items_qty),
-					sale_value: Number(req.body.operation.sale_value),
-					total: Number(req.body.operation.total),
-					rem: Number(req.body.operation.rem),
-					_user: req.body.operation.user,
-					_client: req.body.operation.client,
+				//y creamos una nueva venta
+				console.log(req.body.sale.date)
+				options.sale = new Sale({
+					date: req.body.sale.date,
+					items_qty: Number(req.body.sale.items_qty),
+					sale_value: Number(req.body.sale.sale_value),
+					total: Number(req.body.sale.total),
+					rem: Number(req.body.sale.rem),
+					_user: req.body.sale.user,
+					_client: req.body.sale.client,
 					_motions: motionsIds
 				})
-				.save(function (err, operation) {
+				.save(function (err, sale) {
 					if (err) next(new Error('No se pudo realizar la operación'));
 
+					// ahora asociamos el producto a la venta
 					motionsIds.forEach(function(id){
 						Motion.findOne({
 							_id: id
 						}).exec(function (err, motion){
 							if (err) errors.push(err);
-							motion._operation = operation._id;
+							motion._operation = sale._id;
 							motion.save(function (err, Item){
 								if (err) errors.push(err);
 							});
@@ -127,17 +108,12 @@ exports.create = function (req, res, next) {
 					});
 
 					if (!errors.length) {
-						Operation.findOne(operation)
+						Sale.findOne(sale)
 						.deepPopulate('_user _client _motions._item')
-						.exec(function(err, operation) {
+						.exec(function(err, sale) {
 
-							console.log(operation);
-							res.render('admin/operation/success', {
-
-								options: JSON.stringify(operation),
-								nav: 'operacion',
-								moment: require('moment')
-							});
+							req.flash('info', 'Venta realizada con exito!');
+							res.redirect('/admin/sales/' + sale._id);
 
 						})
 					}
@@ -149,16 +125,19 @@ exports.create = function (req, res, next) {
 	});
 }
 
+exports.show = function(req, res){
+	res.render('admin/sale/show', { sale: JSON.stringify(req.sale), nav: 'informe', moment: require('moment') });
+};
 
 exports.sale = function(req, res) {
-	res.render('admin/operation/report_sale', {nav: 'informe', moment: require('moment')});
+	res.render('admin/sale/report_sale', {nav: 'informe', moment: require('moment')});
 }
 
 exports.all = function(req, res) {
-	Operation
+	Sale
 		.find()
 		.deepPopulate('_user _client _motions._item')
-		.exec(function (err, operations){
-			res.json(operations);
+		.exec(function (err, sales){
+			res.json(sales);
 		});
 }

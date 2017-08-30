@@ -13,7 +13,7 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "registrar" ? "nav-admin-active" 
 		a.dropdown-item(href='/admin/item/new') Producto
 		.dropdown-divider
 		a.dropdown-item(href='/admin/clients/new') Cliente
-		a.dropdown-item.disabled(href='/#') Proveedor
+		a.dropdown-item(href='/admin/providers/new') Proveedor
 		a.dropdown-item(href='/admin/users/new') Administrador
 //- Operaciones
 li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" : ""}')
@@ -24,9 +24,8 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" 
 		aria-expanded="false"
 	) OPERACIÓN
 	.dropdown-menu(aria-labelledby='operacion')
-		a.dropdown-item.disabled(href='/#') Registro Manual
-		a.dropdown-item.disabled(href='/#') Nueva Compra
-		a.dropdown-item(href='/admin/operation/new?type=sale') Nueva Venta
+		a.dropdown-item.disabled(href='/#') Compra
+		a.dropdown-item(href='/admin/sales/new') Venta
 //- Mantenimiento
 li.nav-item.nav-admin.dropdown(class='#{nav == "mantenimiento" ? "nav-admin-active" : ""}')
 	a#mantenimiento.nav-link.dropdown-toggle(
@@ -52,4 +51,5 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "informe" ? "nav-admin-active" : 
 		a.dropdown-item(href='/admin/report/sale') Ventas
 		.dropdown-divider
 		a.dropdown-item(href='/admin/report/stock') Stock
+		.dropdown-divider
 		a.dropdown-item.disabled(href='#') Usuarios

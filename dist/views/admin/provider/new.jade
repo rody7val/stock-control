@@ -1,0 +1,76 @@
+//- user/index.jade
+extends ../../layout_admin.jade
+
+block title 
+	title Nuevo Proveedor
+
+block css
+	link(href='/css/user/new.css', rel="stylesheet", type="text/css")
+
+block js
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/provider/new.js', type="text/javascript")
+
+block content
+	div(ng-app='stock-control')
+		div(ng-controller="ProviderController")
+			.none
+				{{setProvider("#{provider.edit}")}}
+			if errors.length
+				- var err = errors[0].message
+			div(class='#{provider.edit ? "head-title-edit" : "head-title"}')
+				if provider.edit
+					h1.text-center.light Editar Proveedor
+				else
+					h1.text-center.light Nuevo Proveedor
+			.container
+				.row
+					.col-md-12
+						nav#find-bar.navbar.navbar-light.bg-faded
+							.col-md-5
+							.col-md-7
+								//- input search
+								if provider.edit
+									.none
+										{{ setProviderSearch("#{provider.name}", "#{provider._id}") }}
+									fieldset(disabled)
+										input.none.form-control.form-control-lg(
+											type='search'
+											placeholder='Filtrar por id'
+											ng-model='idProviderSearch'
+										)
+										input.form-control.form-control-lg(
+											type='search'
+											placeholder='Filtrar por nombre'
+											ng-model='providerSearch'
+										)
+								else
+									input.form-control.form-control-lg(
+										type='search'
+										placeholder='Filtrar por nombre'
+										ng-model='providerSearch'
+									)
+				.row
+					.col-md-5
+						#affix
+							if provider.edit
+								form#user-form.center(method='post', action='/admin/providers/#{provider._id}/edit?_method=put')
+									include ./_form.jade
+							else
+								form#user-form.center(method='post', action='/admin/providers/new')
+									include ./_form.jade
+					.col-md-7
+						table.table.table-hover.body-form
+							thead.thead-inverse
+								tr
+									th: h5.light Nombe
+									th: h5.light Email
+									th: h5.light Telefono
+									th: h5.light Acciones
+							tbody
+								if provider.edit
+									tr(ng-repeat="provider in providers | filter:idClientSearch | orderBy: '_id'")
+										include ./_table.jade
+								else
+									tr(ng-repeat="provider in providers | filter:providerSearch | orderBy: 'name'")
+										include ./_table.jade

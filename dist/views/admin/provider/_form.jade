@@ -1,0 +1,81 @@
+table.table.body-form
+	thead.thead-inverse
+		if provider.edit
+			tr
+				th: h5.light Editar Proveedor:
+		else
+			tr
+				th: h5.light Nuevo Proveedor:
+if errors.length
+	- var err = errors[0].message
+fieldset.body-form
+	//- nombre
+	.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
+		label.form-control-label(for='name'): #[b Nombre]
+		input.form-control(
+			class='#{errors.length && !(!err.name) ? "form-control-danger" : ""}'
+			type='text'
+			id='name'
+			name='provider[name]'
+			placeholder= 'Nombre'
+			value='#{errors.length || provider.edit ? provider.name : ""}'
+		)
+		if errors.length && !(!err.name)
+			.form-control-feedback #{err.name.message}
+	//- email
+	.form-group(class='#{errors.length && !(!err.email) ? "has-danger" : ""}')
+		label.form-control-label(for='email') #[b Email]
+		input.form-control(
+			class='#{errors.length && !(!err.email) ? "form-control-danger" : ""}'
+			type='email'
+			id='email'
+			name='provider[email]'
+			placeholder='Email'
+			value='#{errors.length || provider.edit ? provider.email : ""}'
+		)
+		if errors.length && !(!err.email)
+			.form-control-feedback #{err.email.message}
+			small.form-text.text-muted Ejemplo: "tuNombre@dominio.com"
+	//- telefono
+	.form-group(class='#{errors.length && !(!err.tel) ? "has-danger" : ""}')
+		label.form-control-label(for='tel') #[b Teléfono]
+		input.form-control(
+			class='#{errors.length && !(!err.tel) ? "form-control-danger" : ""}'
+			type='tel'
+			id='tel'
+			name='provider[tel]'
+			placeholder='Telefono'
+			value='#{errors.length || provider.edit ? provider.tel : ""}'
+		)
+		if errors.length && !(!err.tel)
+			.form-control-feedback #{err.tel.message}
+			small.form-text.text-muted Ejemplo: "11 22334455"
+	//- dirección
+	.form-group(class='#{errors.length && !(!err.address) ? "has-danger" : ""}')
+		label.form-control-label(for='address'): #[b Dirección]
+		input.form-control(
+			class='#{errors.length && !(!err.address) ? "form-control-danger" : ""}'
+			type='text'
+			id='address'
+			name='provider[address]'
+			placeholder= 'Dirección'
+			value='#{errors.length || provider.edit ? provider.address : ""}'
+		)
+		if errors.length && !(!err.address)
+			.form-control-feedback #{err.address.message}
+	//- notas
+	.form-group(class='#{errors.length && !(!err.note) ? "has-danger" : ""}')
+		label.form-control-label(for='note'): #[b Notas]
+		input.form-control(
+			class='#{errors.length && !(!err.note) ? "form-control-danger" : ""}'
+			type='text'
+			id='note'
+			name='provider[note]'
+			placeholder= 'Notas'
+			value='#{errors.length || provider.edit ? provider.note : ""}'
+		)
+		if errors.length && !(!err.note)
+			.form-control-feedback #{err.note.message}
+	input.btn.btn-primary(type='submit', value='Guardar')
+	if provider.edit
+		a.btn.btn-link(href='/admin/providers/new') Cancelar

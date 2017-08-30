@@ -1,49 +1,42 @@
 //- item/_form.jade
-form(method='post', action='/admin/operation/new')
+form(method='post', action='/admin/sales/new')
 	fieldset(ng-if='cart.sale.items > 0 && cart.client != null && cart.sale.remark != "" && cart.sale.date != ""')
 		input.none(
 			id='date'
 			type='datetime'
-			name='operation[date]'
+			name='sale[date]'
 			ng-model='cart.sale.date'
 		)
 		input.none(
 			id='client'
 			type='text'
-			name='operation[client]'
+			name='sale[client]'
 			ng-model='cart.client'
 		)
 		input.none(
 			id='user'
 			type='text'
-			name='operation[user]'
+			name='sale[user]'
 			ng-model='cart.user'
-		)
-		input.none(
-			id='type'
-			type='text'
-			name='operation[type]'
-			value='#{type}'
-			placeholder='type'
 		)
 		input.none(
 			id='items_qty'
 			type='text'
-			name='operation[items_qty]'
+			name='sale[items_qty]'
 			value='{{cart.sale.items}}'
 			placeholder='items_qty'
 		)
 		input.none(
 			id='sale_value'
 			type='text'
-			name='operation[sale_value]'
+			name='sale[sale_value]'
 			value='{{cart.sale.sale_value.toFixed(2)}}'
 			placeholder='sale_value'
 		)
 		input.none(
 			id='total'
 			type='text'
-			name='operation[total]'
+			name='sale[total]'
 			value="{{cart.sale.total.toFixed(2)}}"
 			placeholder='total'
 		)
@@ -51,14 +44,14 @@ form(method='post', action='/admin/operation/new')
 			id='rem'
 			type='text'
 			step=0.1
-			name='operation[rem]'
+			name='sale[rem]'
 			ng-model='cart.sale.remark'
 			placeholder='remarque'
 		)
 		input.none(
 			id='_items'
 			type='text'
-			name='operation[_items]'
+			name='sale[_items]'
 			value="{{cart.getSelected()}}"
 			placeholder='_items'
 		)

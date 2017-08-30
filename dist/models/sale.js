@@ -3,9 +3,8 @@ var Float = require('mongoose-float').loadType(mongoose, 2);
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var Schema = mongoose.Schema;
 
-var OperationSchema = new Schema({
+var SaleSchema = new Schema({
 	date: String,
-	type: String,
 	items_qty: Number,
 	sale_value: Float,
     total: Float,
@@ -16,6 +15,6 @@ var OperationSchema = new Schema({
     created: {type: Date, default: Date.now}
 });
 
-OperationSchema.plugin(deepPopulate);
+SaleSchema.plugin(deepPopulate);
 
-module.exports = mongoose.model('Operation', OperationSchema);
+module.exports = mongoose.model('Operation', SaleSchema);

@@ -2,20 +2,20 @@
 extends ../../layout_admin.jade
 
 block title 
-	title Nuevo Movimiento
+	title Nueva Venta
 
 block js
 	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
-	script(src='/js/operation/new.js', type="text/javascript")
+	script(src='/js/sale/new.js', type="text/javascript")
 
 block content
 	if errors.length
 		- var err = errors[0].message
 	div(ng-app='stock-control')
 		.head-title
-			h1.text-center.light Nuevo Movimiento
+			h1.text-center.light Nueva Venta
 		.container
-			div(ng-controller="OperationController")
+			div(ng-controller="SaleController")
 				.row.row-space
 					.col-md-6
 						.row
@@ -27,7 +27,7 @@ block content
 					.col-md-6
 						#affix
 							br
-							include ./templates/operacion.jade
+							include ./templates/sale.jade
 							include ./_form.jade
 block js_footer
 script(type="text/javascript").
