@@ -1,0 +1,46 @@
+//- item/_form.jade
+form(method='post', action='/admin/buys/new')
+	fieldset(ng-if='cart.buy.items > 0 && cart.provider != null && cart.buy.date != ""')
+		input.none(
+			id='date'
+			type='datetime'
+			name='buy[date]'
+			ng-model='cart.buy.date'
+		)
+		input.none(
+			id='provider'
+			type='text'
+			name='buy[provider]'
+			ng-model='cart.provider'
+		)
+		input.none(
+			id='user'
+			type='text'
+			name='buy[user]'
+			ng-model='cart.user'
+		)
+		input.none(
+			id='items_qty'
+			type='text'
+			name='buy[items_qty]'
+			value='{{cart.buy.items}}'
+			placeholder='items_qty'
+		)
+		input.none(
+			id='total'
+			type='text'
+			name='buy[total]'
+			value="{{cart.buy.total.toFixed(2)}}"
+			placeholder='total'
+		)
+		input.none(
+			id='_items'
+			type='text'
+			name='buy[_items]'
+			value="{{cart.getSelected()}}"
+			placeholder='_items'
+		)
+		input.btn.btn-lg.btn-success.right(id='submit', type='submit', value="Guardar")
+
+	fieldset(ng-if='cart.buy.items == 0 || cart.provider == null || cart.buy.date == ""', disabled="")
+		input.btn.btn-lg.btn-outline-success.right(id='submit', type='submit', value="Guardar")

@@ -6,32 +6,31 @@ function getIds(motions){
 	return _items;
 }
 
-var Sale = require('../models/sale');
+var Buy = require('../models/buy');
 var Motion = require('../models/motion');
 var Item = require('../models/item');
 var config = require('../../config');
 
-// Autoload - factoriza el código si la ruta incluye :operationId
-exports.load = function(req, res, next, saleId) {
-	Sale.findOne({ _id: saleId })
-	.deepPopulate('_user _client _motions._item')
-	.exec(function (err, sale){
-		if (sale){
-			req.sale = sale;
+exports.load = function(req, res, next, buyId) {
+	Buy.findOne({ _id: buyId })
+	.deepPopulate('_user _provider _motions._item')
+	.exec(function (err, buy){
+		if (buy){
+			req.buy = buy;
 			next();
-		}else{ next(new Error('No existe saleId = '+ saleId)) }
+		}else{ next(new Error('No existe buyId = '+ buyId)) }
 	});
 }
 
-// Formulario new venta
+// Formulario new compra
 exports.new = function(req, res){
 	var errors = req.session.errors || {};
 	req.session.errors = {};
 
-	Sale.find({}, function (err, sales) {
-    	res.render('admin/sale/new', {
-    		sale: new Sale(),
-    		sales: sales,
+	Buy.find({}, function (err, buys) {
+    	res.render('admin/buy/new', {
+    		buy: new Buy(),
+    		buys: buys,
     		errors: errors,
     		nav: 'operacion',
     		moment: require('moment')
@@ -39,13 +38,13 @@ exports.new = function(req, res){
 	});
 }
 
-// Guardar nueva venta en la Base de Datos
+// Guardar nueva compra en la Base de Datos
 exports.create = function (req, res, next) {
 	var options = {
-		sale: {},
+		buy: {},
 		motions: [],
 	};
-	var _ItemsCart = JSON.parse(req.body.sale._items);
+	var _ItemsCart = JSON.parse(req.body.buy._items);
 	var allMotionSaved = [];
 	var errors = [];
 
@@ -53,8 +52,8 @@ exports.create = function (req, res, next) {
 	_ItemsCart.forEach(function (_item){
 
 		options.motions.push(new Motion({
-			operation_type: "Venta",
-			_user: req.body.sale.user,
+			operation_type: "Compra",
+			_user: req.body.buy.user,
 			_item: _item._id,
 			qty_motion: _item.qty_motion,
    			qty: _item.qty,
@@ -80,28 +79,26 @@ exports.create = function (req, res, next) {
 			if (_ItemsCart[_ItemsCart.length-1]._id == _item._id){
 				//obtenemos los ids de los movimientos creados
 				var motionsIds = getIds(allMotionSaved);
-				//y creamos una nueva venta
-				console.log(req.body.sale.date)
-				options.sale = new Sale({
-					date: req.body.sale.date,
-					items_qty: Number(req.body.sale.items_qty),
-					sale_value: Number(req.body.sale.sale_value),
-					total: Number(req.body.sale.total),
-					rem: Number(req.body.sale.rem),
-					_user: req.body.sale.user,
-					_client: req.body.sale.client,
+				//y creamos una nueva compra
+				console.log(req.body.buy.date)
+				options.buy = new Buy({
+					date: req.body.buy.date,
+					items_qty: Number(req.body.buy.items_qty),
+					total: Number(req.body.buy.total),
+					_user: req.body.buy.user,
+					_provider: req.body.buy.provider,
 					_motions: motionsIds
 				})
-				.save(function (err, sale) {
+				.save(function (err, buy) {
 					if (err) next(new Error('No se pudo realizar la operación'));
 
-					// ahora asociamos el producto a la venta
+					// ahora asociamos el producto a la compra
 					motionsIds.forEach(function(id){
 						Motion.findOne({
 							_id: id
 						}).exec(function (err, motion){
 							if (err) errors.push(err);
-							motion._sale = sale._id;
+							motion._buy = buy._id;
 							motion.save(function (err, Item){
 								if (err) errors.push(err);
 							});
@@ -109,12 +106,12 @@ exports.create = function (req, res, next) {
 					});
 
 					if (!errors.length) {
-						Sale.findOne(sale)
-						.deepPopulate('_user _client _motions._item')
-						.exec(function(err, sale) {
+						Buy.findOne(buy)
+						.deepPopulate('_user _provider _motions._item')
+						.exec(function(err, buy) {
 
-							req.flash('info', 'Venta realizada con exito!');
-							res.redirect('/admin/sales/' + sale._id);
+							req.flash('info', 'Compra realizada con exito!');
+							res.redirect('/admin/buys/' + buy._id);
 
 						})
 					}
@@ -127,18 +124,18 @@ exports.create = function (req, res, next) {
 }
 
 exports.show = function(req, res){
-	res.render('admin/sale/show', { sale: JSON.stringify(req.sale), nav: 'informe', moment: require('moment') });
+	res.render('admin/buy/show', { buy: JSON.stringify(req.buy), nav: 'informe', moment: require('moment') });
 };
 
-exports.sale = function(req, res) {
-	res.render('admin/sale/report_sale', {nav: 'informe', moment: require('moment')});
+exports.buy = function(req, res) {
+	res.render('admin/buy/report_buy', {nav: 'informe', moment: require('moment')});
 }
 
 exports.all = function(req, res) {
-	Sale
+	Buy
 		.find()
-		.deepPopulate('_user _client _motions._item')
-		.exec(function (err, sales){
-			res.json(sales);
+		.deepPopulate('_user _provider _motions._item')
+		.exec(function (err, buys){
+			res.json(buys);
 		});
 }

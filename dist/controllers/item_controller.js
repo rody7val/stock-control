@@ -4,9 +4,8 @@ var config = require('../../config');
 
 // Autoload - factoriza el código si la ruta incluye :itemId
 exports.load = function(req, res, next, itemId) {
-	Item.findOne({
-		_id: itemId
-	}).exec(function (err, item){
+	Item.findOne({ _id: itemId })
+	.exec(function (err, item){
 		if (item){
 			req.item = item;
 			next();
@@ -75,6 +74,7 @@ exports.show = function(req, res){
 	
 	Motion
 	.find({ _id: { $in: req.item._motions } })
+	.deepPopulate('_user _item _sale _buy')
 	.sort({created: -1})
 	.exec(function (err, motions){
 		if (err) console.log(err);

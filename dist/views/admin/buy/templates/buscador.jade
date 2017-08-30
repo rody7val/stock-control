@@ -1,0 +1,77 @@
+//- buscador
+table.table.table-hover.body-form
+  thead.thead-inverse
+    tr
+      th: h5.light Buscador
+      th
+        div.right
+          button.btn.btn-primary(
+            type="button" 
+            data-toggle="modal" 
+            data-target="#buscador"
+          ) Buscar productos
+
+//- modal
+div.modal.fade(
+  id="buscador"
+  aria-labelledby="myModalLabel"
+  aria-hidden="true"
+)
+  div.modal-dialog
+    div.modal-content
+
+      //- modal title
+      div.modal-header
+        button.close(
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close"
+        )
+          span(aria-hidden="true") &times;
+        h3.modal-title.light Buscador
+
+      //- modal body
+      div.modal-body.modal-body-scroll
+
+        //- input search
+        input.form-control.form-control-lg(
+          autofocus
+          type='search'
+          placeholder='Filtrar por nombre'
+          ng-model='itemSearch' 
+        )
+        br
+
+        //- lista de items
+        div.list-group
+          label.list-group-item.list-group-item-action(
+            class='active-{{item.done}} disabled-{{item.qty}}'
+            ng-repeat="item in cart.items | filter:itemSearch | orderBy: 'name'"
+          )
+            input.none(
+              type="checkbox"
+              ng-model="item.done"
+              ng-if="item.qty_ref > 0"
+            )
+            input.none(
+              type="checkbox"
+              ng-model="item.done"
+              ng-if="item.qty_ref == 0"
+              disabled
+            )
+            span {{item.name}} 
+              .tag.tag-pill.tag-info.right(
+                ng-if="item.qty_ref > 0") {{item.qty}} u
+              .tag.tag-pill.tag-danger.right(
+                ng-if="item.qty_ref == 0") Agotado
+
+      //- acciones
+      div.modal-footer
+        button.btn.btn-secondary(
+          type="button" 
+          data-dismiss="modal"
+        ) Ocultar
+        button.btn.btn-primary(
+          type="button"
+          ng-click="cart.archive()"
+        ) Añadir al carro

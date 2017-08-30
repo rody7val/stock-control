@@ -1,0 +1,103 @@
+extends ../../layout_admin.jade
+
+block js
+	script(src='/js/moment-with-locales.min.js', type="text/javascript")
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/buy/report_buy.js', type="text/javascript")
+
+block css
+	link(href='/css/operation/report_sale.css', rel="stylesheet", type="text/css")
+
+block content
+	.head-title
+		h1.text-center.light Informe de Compras
+	div(ng-app='stock-control')
+		div(ng-controller="BuysController")
+			#report-sale
+				.container
+					.row
+						br
+						br
+						.jumbotron.text-center
+							.container
+									.col-md-3
+										h3 #[span.tag.tag-default $ {{ priceFixed(total) }}]
+										h3.light Total Compras
+									.col-md-3
+										h3 #[span.tag.tag-success {{ items_qty }} u]
+										h3.light Cantidad de Productos
+									.col-md-3
+										h3 #[span.tag.tag-success {{ buys_qty }}]
+										h3.light Cantidad de Compras 
+									.col-md-3
+											h3 #[span.tag.tag-warning $ {{ priceFixed(buy_promedio) }}]
+											h3.light Compra Promedio
+					.row
+						.col-md-12
+							table.table.table-hover
+								thead.thead-inverse
+									tr
+										th: h5.light Compras
+							#acordion(aria-multiselectable='true')
+								//- repeat
+								.card
+									.card-header(ng-if='buys.length == 0')
+										p.text-center #[b cargando ...]
+								.card(ng-repeat='buy in buys | orderBy: "-created" ')
+									.card-header(id='heading-{{buy._id}}')
+										.container
+											.row
+												.col-md-2
+													b Fecha
+												.col-md-2
+													b Proveedor
+												.col-md-2
+													b Creado por
+												.col-md-3
+													b.right Total
+												.col-md-3
+													b.right Acciones
+											.row
+												.col-md-2
+													span(title='{{setDateAndHour(buy.created)}}') {{setDate(buy.created)}}
+												.col-md-2
+													span 
+														a(href='/admin/providers/{{buy._provider._id}}'
+															title='{{buy._provider.email}}'){{ buy._provider.name }}
+												.col-md-2
+													span 
+														a(href='/admin/users/{{buy._user._id}}'
+															title='{{buy._user.name}}'){{ buy._user.username }}
+												.col-md-3
+													span.right $ {{ priceFixed(buy.total) }}
+												.col-md-3
+													span.right
+														a.btn.btn-outline-primary.btn-sm(
+															data-toggle="collapse"
+															data-parent="#accordion"
+															href="#collapse-{{buy._id}}"
+															aria-expanded="true"
+															aria-controls="collapse-{{buy._id}}"
+															ng-click="changeBtn({{buy.key}})"
+														) {{buy.btn}}
+														a.btn.btn-outline-success.btn-sm(
+															href='/admin/buys/{{buy._id}}'
+														) Ver
+									.collapse(aria-labelledby='heading-{{buy._id}}', id="collapse-{{buy._id}}")
+										.card-block
+											.container
+												.row
+													.col-md-7
+														b Producto
+													.col-md-2
+														p.text-center #[b Cant].
+													.col-md-3
+														b.right Total Compra x Prod.
+												div(ng-repeat='motion in buy._motions')
+													.row
+														.col-md-7
+															span: a(href='/admin/item/{{motion._item._id}}', target='_blank') {{motion._item.name}}
+														.col-md-2
+															p.text-center: {{motion.qty_motion}}
+														.col-md-3
+															p.right: ${{ priceFixed(motion.qty_motion * motion.item_price) }}

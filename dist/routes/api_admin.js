@@ -5,6 +5,7 @@ var providerController = require('../controllers/provider_controller');
 var sessionController = require('../controllers/session_controller');
 var itemController = require('../controllers/item_controller');
 var saleController = require('../controllers/sale_controller');
+var buyController = require('../controllers/buy_controller');
 var globalController = require('../controllers/global_controller');
 
 module.exports = function (app, express) {
@@ -18,11 +19,13 @@ module.exports = function (app, express) {
     // Informes
     api.get('/report/stock', sessionController.loginRequired, itemController.stock);
     api.get('/report/sale', sessionController.loginRequired, saleController.sale);
+    api.get('/report/buy', sessionController.loginRequired, buyController.buy);
     // api.get('/buy', saleController.buy);
 
     // Autoload de comandos 
     api.param('itemId', itemController.load);
     api.param('saleId', saleController.load);
+    api.param('buyId', buyController.load);
     api.param('userId', userController.load);
     api.param('clientId', clientController.load);
     api.param('providerId', providerController.load);
@@ -70,6 +73,15 @@ module.exports = function (app, express) {
     // api.put('/sales/:saleId/edit', saleController.update);
     // api.delete('/sales/:saleId', saleController.delete);
     api.get('/sales', saleController.all);
+
+    // buy
+    api.get('/buys/new', sessionController.loginRequired, buyController.new);
+    api.post('/buys/new', sessionController.loginRequired, buyController.create);
+    api.get('/buys/:buyId',sessionController.loginRequired ,buyController.show);
+    // api.get('/buys/:buyId/edit', saleController.edit);
+    // api.put('/buys/:buyId/edit', saleController.update);
+    // api.delete('/buys/:buyId', saleController.delete);
+    api.get('/buys', buyController.all);
 
     // Retornar rutas API.
     return api;

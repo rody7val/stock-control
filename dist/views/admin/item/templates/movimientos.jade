@@ -5,6 +5,7 @@ table.table.table-hover.body-form
 		tr
 			th: h5.light Fecha
 			th: h5.light Operación
+			th: h5.light Creado por
 			th: h5.light Cantidad
 			th: h5.light Stock Saldo
 	tbody
@@ -13,8 +14,17 @@ table.table.table-hover.body-form
 				tr
 					- moment.locale('es');
 					td #{moment(motion.created, 'YYYYMMDD').calendar()}
-					td #{motion.operation_type ? 'Venta' : ''}
-					td - #{motion.qty_motion}
+					td
+						if motion._buy || motion._sale
+							a(href='/admin/#{motion.operation_type == "Venta" ? "sales/"+motion._sale._id : "buys/"+motion._buy._id }') #{motion.operation_type}
+						else
+							span #{motion.operation_type}
+					td
+						if motion._buy || motion._sale
+							a(title='#{motion._user.name}',href='/admin/users/#{motion._user._id}') #{motion._user.username}
+						else
+							//- span #{motion._user.username}
+					td #{motion.operation_type == 'Venta' ? '-' + motion.qty_motion : motion.qty_motion}
 					td #{motion.qty}
 		else
 			tr

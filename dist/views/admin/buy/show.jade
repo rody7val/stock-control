@@ -1,0 +1,68 @@
+//- operation/new.jade
+extends ../../layout_admin.jade
+
+block title 
+	title Exito
+
+block js
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/buy/show.js', type="text/javascript")
+
+block content
+
+	br
+	div(ng-app='stock-control')
+		div(ng-controller="ShowBuyController")
+			.none
+				{{ setBuy( '!{buy}' ) }}
+			.container
+				.row
+					.col-md-2
+					.col-md-8
+						p Detalles de Compra:
+					.col-md-2
+				#OPERATION
+					.row
+						.col-md-2
+						.col-md-8
+							table.table.table-hover.body-form
+								thead.thead-inverse
+									tr 
+										th(colspan="2")
+											h4.light Compra
+								tbody 
+									tr
+										td Fecha:
+										td.bg-info
+											.motion-info.right
+												p {{buy.date}}
+									tr
+										td Proveedor:
+										td.bg-info
+											.motion-info.right
+												p {{buy._provider.name}}
+									tr 
+										td Unidades:
+										td.bg-info
+											p.motion-info.right {{buy.items_qty}} u
+									tr 
+										td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
+										td.bg-warning
+											h3.ligth.right(style="color: #373a3c") $ {{priceFixed(buy.total)}}
+						.col-md-2
+					.row
+						.col-md-12
+							p Detalles de Movimientos:
+							table.table.table-hover.body-form
+								thead.thead-inverse
+									tr 
+										th: h4.light Producto
+										th: h4.light.right $ Costo
+										th: h4.light.text-center Cantidad
+										th: h4.light.text-center Stock Saldo
+								tbody 
+									tr(ng-repeat='motion in buy._motions | orderBy: "name"')
+										td: a(href="/admin/item/{{motion._item._id}}") {{motion._item.name}}
+										td: span.right {{priceFixed(motion.item_price)}}
+										td.text-center {{motion.qty_motion}}
+										td.text-center {{motion.qty}}

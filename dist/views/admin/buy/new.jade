@@ -1,0 +1,36 @@
+//- motion/new.jade
+extends ../../layout_admin.jade
+
+block title 
+	title Nueva Compra
+
+block js
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/buy/new.js', type="text/javascript")
+
+block content
+	if errors.length
+		- var err = errors[0].message
+	div(ng-app='stock-control')
+		.head-title
+			h1.text-center.light Nueva Compra
+		.container
+			div(ng-controller="BuyController")
+				.row.row-space
+					.col-md-6
+						.row
+							br
+							include ./templates/buscador.jade
+						.row
+							br
+							include ./templates/carro.jade
+					.col-md-6
+						#affix
+							br
+							include ./templates/buy.jade
+							include ./_form.jade
+block js_footer
+script(type="text/javascript").
+	$('#not-submit').popover({
+	  trigger: 'focus'
+	})

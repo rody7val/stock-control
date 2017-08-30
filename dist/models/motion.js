@@ -5,9 +5,10 @@ var Schema = mongoose.Schema;
 
 var MotionSchema = new Schema({
 	operation_type: String,
-    // _user: { type: Schema.Types.ObjectId, ref: 'User' },
+    _user: { type: Schema.Types.ObjectId, ref: 'User' },
     _item: { type: Schema.Types.ObjectId, ref: 'Item' },
-    _operation: { type: Schema.Types.ObjectId, ref: 'Operation' },
+    _sale: { type: Schema.Types.ObjectId, ref: 'Sale' },
+    _buy: { type: Schema.Types.ObjectId, ref: 'Buy' },
     qty_motion: Number,
     qty: Number,
     item_price: Float,
