@@ -34,7 +34,14 @@ var UserSchema = new Schema({
             return password.length >= 6;
         }, 'La "Contraseña" debe tener seis o mas caracteres.']
     },
-    admin: Boolean,
+    admin: {
+        type: Boolean,
+        default: false
+    },
+    active: {
+        type: Boolean,
+        default: false
+    },
     created: {
         type: Date,
         default: Date.now

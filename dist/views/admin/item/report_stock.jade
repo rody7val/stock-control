@@ -58,14 +58,15 @@ block content
 										th: h5.light.text-center Remarque
 										th: h5.light.right $ costo
 										th: h5.light.right $ venta
-										th: h5.light Acciones
+										if session.user.admin
+											th: h5.light Acciones
 								tbody
 									//-  | startFrom:currentPage*pageSize | limitTo:pageSize
 									tr(
 										ng-repeat="item in stock.items | filter:itemSearch | orderBy: 'name'"
 									)
 										//- Items
-										td: a.btn.btn-link(href='/admin/item/{{item._id}}') {{item.name}}
+										td: a(href='/admin/item/{{item._id}}') {{item.name}}
 										//- Stock
 										td.text-center(class="{{(item.qty === 0 ? 'bg-danger' : (item.qty < 7 ? 'bg-warning' : 'bg-success'))}}") {{item.qty}}
 										//- Remarque
@@ -75,9 +76,10 @@ block content
 										//- $/u Venta
 										td.bg-info: span.right {{stock.priceFixed(item.price * #{session.global.rem})}}
 										//- Acciones
-										td
-											a.btn.btn-outline-info.btn-sm(href='/admin/item/{{item._id}}') Ver
-											a.btn.btn-outline-warning.btn-sm(href='/admin/item/{{item._id}}/edit') Editar
+										if session.user.admin
+											td
+												a.btn.btn-outline-info.btn-sm(href='/admin/item/{{item._id}}') Ver
+												a.btn.btn-outline-warning.btn-sm(href='/admin/item/{{item._id}}/edit') Editar
 							//- pagination:
 							//- button(
 							//- 	ng-disabled='currentPage == 0'

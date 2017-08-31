@@ -32,29 +32,27 @@ block content
 									tr 
 										th(colspan="2")
 											h4.light Venta
-								tbody 
+								tbody
 									tr
 										td Fecha:
-										td.bg-info
-											.motion-info.right
-												p {{sale.date}}
+										td.bg-info.text-right
+											.motion-info {{setDate(sale.date)}}
 									tr
 										td Cliente:
-										td.bg-info
-											.motion-info.right
-												p {{sale._client.name}}
+										td.bg-info.text-right
+											.motion-info {{sale._client.name}}
 									tr 
 										td Unidades:
-										td.bg-info
-											p.motion-info.right {{sale.items_qty}} u
+										td.bg-info.text-right
+											.motion-info {{sale.items_qty}} u
 									tr 
 										td Valor de venta:
-										td.bg-info
-											p.motion-info.right $ {{priceFixed(sale.sale_value)}}
+										td.bg-info.text-right
+											.motion-info $ {{priceFixed(sale.sale_value)}}
 									tr 
 										td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
-										td.bg-warning
-											h3.ligth.right(style="color: #373a3c") $ {{priceFixed(sale.total)}}
+										td.bg-warning.text-right
+											h3.ligth(style="color: #373a3c") $ {{priceFixed(sale.total)}}
 						.col-md-2
 					.row
 						.col-md-12

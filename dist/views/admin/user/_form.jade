@@ -70,7 +70,10 @@ fieldset.body-form
 					label #[input(id='pass-ch', type='checkbox', checked=false)] mostrar
 	//- admin
 	.form-check
-		label.form-check-label #[input.form-check-input(name='user[admin]',type='checkbox',id='admin', value='true',checked=true)] Activo?
+		label.form-check-label #[input.form-check-input(name='user[admin]',type='checkbox',id='admin', value='true',checked=true)] Administrador?
+	//- active
+	.form-check
+		label.form-check-label #[input.form-check-input(name='user[active]',type='checkbox',id='active', value='true',checked=true)] Activo?
 	//- submit
 	input.btn.btn-primary(type='submit', value='Guardar')
 	if user.edit

@@ -94,6 +94,74 @@ exports.update = function (req, res) {
 	});
 }
 
+// Activar un usuario
+exports.active = function (req, res) {
+	req.user.active = true;
+
+	req.user.save(function (err){
+		if (err) {
+			console.log(err);
+			req.flash('info', err.errors);
+			return res.redirect('/admin/report/user');
+		}
+
+		req.user = {};
+		req.flash('info', 'Usuario activado!');
+		res.redirect('/admin/report/user');
+	});
+}
+
+// Bloquear un usuario
+exports.block = function (req, res) {
+	req.user.active = false;
+
+	req.user.save(function (err){
+		if (err) {
+			console.log(err);
+			req.flash('info', err.errors);
+			return res.redirect('/admin/report/user');
+		}
+
+		req.user = {};
+		req.flash('info', 'Usuario bloqueado!');
+		res.redirect('/admin/report/user');
+	});
+}
+
+// Setear Administrador
+exports.admin = function (req, res) {
+	req.user.admin = true;
+
+	req.user.save(function (err){
+		if (err) {
+			console.log(err);
+			req.flash('info', err.errors);
+			return res.redirect('/admin/report/user');
+		}
+
+		req.user = {};
+		req.flash('info', 'Nuevo Administrador!');
+		res.redirect('/admin/report/user');
+	});
+}
+
+// Setear Empleado
+exports.employer = function (req, res) {
+	req.user.admin = false;
+
+	req.user.save(function (err){
+		if (err) {
+			console.log(err);
+			req.flash('info', err.errors);
+			return res.redirect('/admin/report/user');
+		}
+
+		req.user = {};
+		req.flash('info', 'Nuevo empledo!');
+		res.redirect('/admin/report/user');
+	});
+}
+
 // Mostrar un usuario
 exports.show = function(req, res){
 	res.json(req.user);
@@ -113,15 +181,19 @@ exports.delete = function (req, res) {
 	}).remove().exec(function (err){
 		if (err) console.log(err);
 		req.flash('info', 'Usuario borrado con exito!');
-		res.redirect('/admin');
+		res.redirect('/admin/report/user');
 	});
+}
+
+exports.user = function(req, res) {
+	res.render('admin/user/report_user', {nav: 'informe', moment: require('moment')});
 }
 
 // Verificar un usuario registrado en la Base de Datos
 exports.autenticar = function (username, password, callback) {
 	User.findOne({
 		username: username
-	}).select('name username email password admin created').exec(function (err, user) {
+	}).select('name username email password admin created active').exec(function (err, user) {
 		if (err) {
 			return callback( {db: 'Error interno de la base de datos. Contacte al administrador del sitio.\n'+err} );
 		} else if (!user) {

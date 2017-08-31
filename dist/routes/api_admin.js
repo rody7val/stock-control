@@ -20,7 +20,7 @@ module.exports = function (app, express) {
     api.get('/report/stock', sessionController.loginRequired, itemController.stock);
     api.get('/report/sale', sessionController.loginRequired, saleController.sale);
     api.get('/report/buy', sessionController.loginRequired, buyController.buy);
-    // api.get('/buy', saleController.buy);
+    api.get('/report/user', sessionController.loginRequired, userController.user);
 
     // Autoload de comandos 
     api.param('itemId', itemController.load);
@@ -38,6 +38,11 @@ module.exports = function (app, express) {
     api.get('/users/:userId/edit', sessionController.loginRequired, userController.edit);
     api.put('/users/:userId/edit', sessionController.loginRequired, userController.update);
     api.delete('/users/:userId', sessionController.loginRequired, userController.delete);
+    api.get('/users', userController.all);
+    api.get('/users/:userId/admin', sessionController.loginRequired, userController.admin);
+    api.get('/users/:userId/employer', sessionController.loginRequired, userController.employer);
+    api.get('/users/:userId/block', sessionController.loginRequired, userController.block);
+    api.get('/users/:userId/active', sessionController.loginRequired, userController.active);
 
     // clients
     api.get('/clients/new', sessionController.loginRequired, clientController.new);

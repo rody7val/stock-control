@@ -115,10 +115,13 @@ html{
   src: local("Lato Light"), local("Lato-Light"), url("/fonts/Lato-Light.ttf") format("ttf");
   unicode-range: U+0-FF, U+131, U+152-153, U+2C6, U+2DA, U+2DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
 }
+a:hover{
+  text-decoration: none !important
+}
 .motion-info{
-  font-family: "lato-light";
-  font-size: 20px;
-  margin: 0px;
+  /*font-family: "lato-light";*/
+  /*font-size: 20px;*/
+  /*margin: 0px;*/
 }
 .light{
   font-weight: 300;
@@ -131,6 +134,12 @@ html{
 }
 .text-center{
   text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+.text-left{
+  text-align: left;
 }
 .center{
   margin: 0 auto

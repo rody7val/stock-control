@@ -1,6 +1,7 @@
 //- General
-li.nav-item.nav-admin(class='#{nav == "general" ? "nav-admin-active" : ""}')
-	a#general.nav-link(href='/admin') GENERAL
+if session.user.admin
+	li.nav-item.nav-admin(class='#{nav == "general" ? "nav-admin-active" : ""}')
+		a#general.nav-link(href='/admin') GENERAL
 //- Registrar
 li.nav-item.nav-admin.dropdown(class='#{nav == "registrar" ? "nav-admin-active" : ""}')
 	a#registrar.nav-link.dropdown-toggle(
@@ -10,11 +11,14 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "registrar" ? "nav-admin-active" 
 		aria-expanded="true"
 	) REGISTRAR
 	.dropdown-menu(aria-labelledby='registrar')
-		a.dropdown-item(href='/admin/item/new') Producto
-		.dropdown-divider
-		a.dropdown-item(href='/admin/clients/new') Cliente
-		a.dropdown-item(href='/admin/providers/new') Proveedor
-		a.dropdown-item(href='/admin/users/new') Administrador
+		if session.user.admin
+			a.dropdown-item(href='/admin/item/new') Producto
+			.dropdown-divider
+			a.dropdown-item(href='/admin/clients/new') Cliente
+			a.dropdown-item(href='/admin/providers/new') Proveedor
+			a.dropdown-item(href='/admin/users/new') Administrador
+		else
+			a.dropdown-item(href='/admin/clients/new') Cliente
 //- Operaciones
 li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" : ""}')
 	a#operacion.nav-link.dropdown-toggle(
@@ -24,8 +28,11 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "operacion" ? "nav-admin-active" 
 		aria-expanded="false"
 	) OPERACIÓN
 	.dropdown-menu(aria-labelledby='operacion')
-		a.dropdown-item(href='/admin/buys/new') Compra
-		a.dropdown-item(href='/admin/sales/new') Venta
+		if session.user.admin
+			a.dropdown-item(href='/admin/buys/new') Compra
+			a.dropdown-item(href='/admin/sales/new') Venta
+		else
+			a.dropdown-item(href='/admin/sales/new') Venta
 //- Informes
 li.nav-item.nav-admin.dropdown(class='#{nav == "informe" ? "nav-admin-active" : ""}')
 	a#informe.nav-link.dropdown-toggle(
@@ -40,4 +47,4 @@ li.nav-item.nav-admin.dropdown(class='#{nav == "informe" ? "nav-admin-active" : 
 		.dropdown-divider
 		a.dropdown-item(href='/admin/report/stock') Stock
 		.dropdown-divider
-		a.dropdown-item.disabled(href='#') Usuarios
+		a.dropdown-item(href='/admin/report/user') Usuarios
