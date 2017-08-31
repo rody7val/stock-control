@@ -76,10 +76,9 @@ block content
 										//- $/u Venta
 										td.bg-info: span.right {{stock.priceFixed(item.price * #{session.global.rem})}}
 										//- Acciones
-										if session.user.admin
-											td
-												a.btn.btn-outline-info.btn-sm(href='/admin/item/{{item._id}}') Ver
-												a.btn.btn-outline-warning.btn-sm(href='/admin/item/{{item._id}}/edit') Editar
+										td
+											a.btn.btn-outline-info.btn-sm(href='/admin/item/{{item._id}}') Ver
+											a.btn.btn-outline-warning.btn-sm(href='/admin/item/{{item._id}}/edit') Editar
 							//- pagination:
 							//- button(
 							//- 	ng-disabled='currentPage == 0'

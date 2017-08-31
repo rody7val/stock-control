@@ -37,21 +37,20 @@ block content
 											span {{ user.active ? 'Activo' : 'Bloqueado' }}
 										td.text-center(class='{{user.admin ? "bg-primary" : "bg-warning"}}')
 											span {{ user.admin ? 'Administrador' : 'Empleado' }}
-
-										if session.user.admin
-											td
-												span(ng-show='user._id != id')
-													a.btn.btn-sm(
-														class='{{user.active ? "btn-outline-danger" : "btn-outline-success"}}'
-														href='/admin/users/{{user._id}}/{{user.active ? "block" : "active"}}'
-													) {{user.active ? "Bloquear" : "Activar"}}
-													a.btn.btn-sm(
-														class='{{user.admin ? "btn-outline-warning" : "btn-outline-primary"}}'
-														href='/admin/users/{{user._id}}/{{user.admin ? "employer" : "admin"}}'
-													) {{user.admin ? "Empleado" : "Administrador"}}
-													form.item-delete.left(method='post', action='/admin/users/{{user._id}}?_method=delete')
-														input.btn.btn-outline-danger.btn-sm(
-															type='submit'
-															value='Borrar'
-															onClick='return confirm("Eliminar usuario: {{user.name}}?")'
-														)
+										td
+											//- ng-show='user._id != id'
+											span
+												a.btn.btn-sm(
+													class='{{user.active ? "btn-outline-danger" : "btn-outline-success"}}'
+													href='/admin/users/{{user._id}}/{{user.active ? "block" : "active"}}'
+												) {{user.active ? "Bloquear" : "Activar"}}
+												a.btn.btn-sm(
+													class='{{user.admin ? "btn-outline-warning" : "btn-outline-primary"}}'
+													href='/admin/users/{{user._id}}/{{user.admin ? "employer" : "admin"}}'
+												) {{user.admin ? "Empleado" : "Administrador"}}
+												form.item-delete.left(method='post', action='/admin/users/{{user._id}}?_method=delete')
+													input.btn.btn-outline-danger.btn-sm(
+														type='submit'
+														value='Borrar'
+														onClick='return confirm("Eliminar usuario: {{user.name}}?")'
+													)
