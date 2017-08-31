@@ -154,7 +154,6 @@ exports.delete = function (req, res) {
 	});
 }
 
-<<<<<<< HEAD
 // excel exports clientes
 exports.export_client = function(req, res){
 
@@ -189,13 +188,6 @@ exports.export_client = function(req, res){
 
 // excel exports interno
 exports.export_interno = function(req, res){
-=======
-// Stock excel-exports
-exports.stock_exports = function(req, res){
-	var nodeExcel = require('excel-export');
-	var rem = req.query.rem || 0;
-	console.log(req.query.rem);
->>>>>>> master
 
 	Item.find({}, null, {sort: {name: 1}}, function (err, items) {
   		var conf = {};
@@ -204,14 +196,10 @@ exports.stock_exports = function(req, res){
   		conf.cols = [
     	  { caption:'Nombre', type:'string' },
     	  { caption:'Stock', type:'number'},
-<<<<<<< HEAD
     	  { caption:'Precio Compra', type:'number'},
     	  { caption:'Remarque', type:'number'},
     	  { caption:'Precio Venta', type:'number' },
     	  { caption:'Movimientos', type:'number' }
-=======
-    	  { caption:'Final', type:'number' }
->>>>>>> master
     	];
 
     	conf.rows = [];
@@ -220,14 +208,10 @@ exports.stock_exports = function(req, res){
 			conf.rows.push([ 
 				item.name,
 				item.qty,
-<<<<<<< HEAD
 				item.price,
 				item.rem,
 				parseFloat( Number(item.price * item.rem).toFixed(2) ),
 				item._motions.length
-=======
-				Number( (item.price * rem).toFixed(2) )
->>>>>>> master
 			]);
     	});
 
@@ -235,11 +219,7 @@ exports.stock_exports = function(req, res){
   		var hoy = moment().format('DD-MM-YYYY');
 
   		res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-<<<<<<< HEAD
   		res.setHeader('Content-Disposition', 'attachment; filename=reporte_interno_' + hoy + '.xlsx');
-=======
-  		res.setHeader('Content-Disposition', 'attachment; filename=' + 'LISTA_INSUMAX_' + moment().format('DD-MM-YYYY_h:mm-a') + '.xlsx');
->>>>>>> master
   		res.end(result, 'binary');
 	});
 }
