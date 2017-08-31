@@ -1,6 +1,8 @@
 var Item = require('../models/item');
 var Motion = require('../models/motion');
 var config = require('../../config');
+var moment  = require('moment');
+var nodeExcel = require('excel-export');
 
 // Autoload - factoriza el código si la ruta incluye :itemId
 exports.load = function(req, res, next, itemId) {
@@ -79,7 +81,7 @@ exports.show = function(req, res){
 	.sort({created: -1})
 	.exec(function (err, motions){
 		if (err) console.log(err);
-		res.render('admin/item/show', { item: req.item, motions: motions, nav: 'informe', moment: require('moment') });
+		res.render('admin/item/show', { item: req.item, motions: motions, nav: 'informe', moment: moment });
 	});
 
 };
@@ -152,35 +154,72 @@ exports.delete = function (req, res) {
 	});
 }
 
-// Stock excel-exports
-exports.stock_exports = function(req, res){
-	var nodeExcel = require('excel-export');
+// excel exports clientes
+exports.export_client = function(req, res){
 
 	Item.find({}, function (err, items) {
   		var conf = {};
-    	conf.name = "Insumax";
+    	conf.name = "InsuMAX";
 
   		conf.cols = [
     	  { caption:'Nombre', type:'string' },
     	  { caption:'Stock', type:'number'},
-    	  { caption:'Precio', type:'number' },
-    	  { caption:'Código', type:'number'}
+    	  { caption:'Precio Venta', type:'number' }
     	];
 
     	conf.rows = [];
 
     	items.forEach(function(item, key){
 			conf.rows.push([ 
-				item.name, 
+				item.name,
 				item.qty,
-				item.price, 
-				item.code
+				parseFloat( Number(item.price * item.rem).toFixed(2) )
 			]);
     	});
 
   		var result = nodeExcel.execute(conf);
+  		var hoy = moment().format('DD-MM-YYYY');
+
   		res.setHeader('Content-Type', 'application/vnd.openxmlformats');
-  		res.setHeader('Content-Disposition', 'attachment; filename=' + 'Report.xlsx');
+  		res.setHeader('Content-Disposition', 'attachment; filename=reporte_cliente_' + hoy + '.xlsx');
+  		res.end(result, 'binary');
+	});
+}
+
+// excel exports interno
+exports.export_interno = function(req, res){
+
+	Item.find({}, function (err, items) {
+  		var conf = {};
+    	conf.name = "BASE_DE_DATOS";
+
+  		conf.cols = [
+    	  { caption:'Nombre', type:'string' },
+    	  { caption:'Stock', type:'number'},
+    	  { caption:'Precio Compra', type:'number'},
+    	  { caption:'Remarque', type:'number'},
+    	  { caption:'Precio Venta', type:'number' },
+    	  { caption:'Movimientos', type:'number' }
+    	];
+
+    	conf.rows = [];
+
+    	items.forEach(function(item, key){
+			conf.rows.push([ 
+				item.name,
+				item.qty,
+				item.price,
+				item.rem,
+				parseFloat( Number(item.price * item.rem).toFixed(2) ),
+				item._motions.length
+			]);
+    	});
+
+  		var result = nodeExcel.execute(conf);
+  		var hoy = moment().format('DD-MM-YYYY');
+
+  		res.setHeader('Content-Type', 'application/vnd.openxmlformats');
+  		res.setHeader('Content-Disposition', 'attachment; filename=reporte_interno_' + hoy + '.xlsx');
   		res.end(result, 'binary');
 	});
 }

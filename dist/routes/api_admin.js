@@ -63,7 +63,8 @@ module.exports = function (app, express) {
     api.put('/item/:itemId/edit', sessionController.loginRequired, itemController.update);
     api.delete('/item/:itemId', sessionController.loginRequired, itemController.delete);
     api.get('/items/load_items', itemController.load_items);
-    api.get('/items/stock_exports', sessionController.loginRequired, itemController.stock_exports);
+    api.get('/items/export_client', sessionController.loginRequired, itemController.export_client);
+    api.get('/items/export_interno', sessionController.loginRequired, itemController.export_interno);
 
     // sales
     api.get('/sales/new', sessionController.loginRequired, saleController.new);

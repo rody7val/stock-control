@@ -104,6 +104,6 @@ block content
 														.col-md-1
 															p.text-center: {{motion.qty_motion}}
 														.col-md-2
-															p.right: ${{ priceFixed(motion.item_price * sale.rem) }}
+															p.right: ${{ priceFixed(motion.item_price * motion.item_rem) }}
 														.col-md-2
-															p.right: ${{ priceFixed((motion.qty_motion * motion.item_price) * sale.rem) }}
+															p.right: ${{ priceFixed(motion.qty_motion * (motion.item_price * motion.item_rem)) }}

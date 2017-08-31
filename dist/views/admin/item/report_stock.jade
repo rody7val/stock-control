@@ -42,13 +42,12 @@ block content
 										ng-model='itemSearch' 
 									)
 								.col-md-5
-									//- Microsoft_Excel_Icon.svg.png
-									a.right.btn.btn-link(href='/admin/items/stock_exports')
-										img(
-											src='/img/Microsoft_Excel_Icon.svg.png'
-											style='width: 40px;'
-										)
-										#[span Descargar informe]
+									a.right.btn.btn-link(href='/admin/items/export_client')
+										img(src='/img/Microsoft_Excel_Icon.svg.png',style='width: 40px;') 
+										#[span Cliente]
+									a.right.btn.btn-link(href='/admin/items/export_interno')
+										img(src='/img/Microsoft_Excel_Icon.svg.png',style='width: 40px;')
+										#[span Interno]
 					.row
 						.col-md-12
 							table.table.table-hover
