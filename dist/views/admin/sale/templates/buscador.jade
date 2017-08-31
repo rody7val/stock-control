@@ -28,11 +28,6 @@ div.modal.fade(
           aria-label="Close"
         )
           span(aria-hidden="true") &times;
-        h3.modal-title.light Buscador
-
-      //- modal body
-      div.modal-body.modal-body-scroll
-
         //- input search
         input.form-control.form-control-lg(
           autofocus
@@ -40,7 +35,9 @@ div.modal.fade(
           placeholder='Filtrar por nombre'
           ng-model='itemSearch' 
         )
-        br
+
+      //- modal body
+      div.modal-body.modal-body-scroll
 
         //- lista de items
         div.list-group

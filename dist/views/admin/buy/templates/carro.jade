@@ -19,7 +19,7 @@ table.table.table-hover.body-form
 						) Qitar item(s)
 //- lista de items
 div.list-group(style='min-height:299px;')
-	label.list-group-item.list-group-item-action(
+	label.list-group-item.list-group-item-action.flex-column.align-items-start(
 		class='active-{{item.done}}'
 		ng-repeat='item in cart.selected'
 	)
@@ -27,14 +27,25 @@ div.list-group(style='min-height:299px;')
 			type='checkbox'
 			ng-model='item.done'
 		)
-		input(
-			type='number'
-			min='0'
-			max='{{item.qty_ref}}'
-			ng-model='item.qty_motion'
-			value='{{item.qty_motion}}'
-			style='width:50px'
-			ng-change='cart.calculate({{item}})'
-		)
-		span.done {{item.name ? ' '+item.name : 'sin nombre'}}
+
+		h6(style='display:inline-block').done {{item.name ? ' '+item.name : 'sin nombre'}}
 		span.tag.tag-default.tag-pill.right Suman {{item.qty}} u
+		.input-group.input-group-sm
+			span.input-group-addon unidades
+			input.form-control(
+				type='number'
+				min='0'
+				ng-model='item.qty_motion'
+				value='{{item.qty_motion}}'
+				style='width:100px'
+				ng-change='cart.calculate({{item}})')
+		.input-group.input-group-sm
+			span(style='margin-bottom:-1px').input-group-addon precio
+			input.form-control(
+				type='number'
+              	min=0
+              	step=0.05
+				ng-model='item.price'
+				value='{{item.price}}'
+				style='width:118px'
+				ng-change='cart.calculate({{item}})')

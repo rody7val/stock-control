@@ -49,14 +49,18 @@ block content
 									td Precio venta: 
 									td.bg-info
 										p.motion-info.right $ {{priceFixed(#{item.price * session.global.rem})}}
+								tr
+									td Stock:
+									td(class="#{(item.qty === 0 ? 'bg-danger' : (item.qty < 7 ? 'bg-warning' : 'bg-success'))}")
+										p.motion-info.right #{item.qty} u
+								tr
+									td Remarque:
+									td(class='bg-info')
+										p.motion-info.right {{priceFixed(#{item.rem})}} %
 								tr 
 									td Codigo:
 									td.bg-info
 										p.motion-info.right #{item.code}
-								tr
-									td Stock:
-									td(class='#{item.qty > 0 ? "bg-info" : "bg-danger"}')
-										p.motion-info.right #{item.qty} u
 								tr
 									td Inversión total:
 									td(class='#{item.qty > 0 ? "bg-warning" : "bg-default"}')

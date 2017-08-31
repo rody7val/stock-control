@@ -22,20 +22,20 @@ table.table.table-hover.body-form
         .motion-info.right
           select(class='form-control',ng-model='cart.client')
             option(ng-repeat="client in cart.clients" value="{{client._id}}") {{client.name}}
-    tr 
-      td Remarque:
-      td.bg-success
-        .motion-info.right
-          .input-group(style='border-collapse:unset; width:120px;')
-            input(
-              class='form-control'
-              type='number'
-              min=0.1
-              step=0.1
-              ng-model='cart.sale.remark'
-              ng-change='cart.cartCalculate()'
-            )
-            span.input-group-addon %
+    //- tr 
+    //-   td Remarque:
+    //-   td.bg-success
+    //-     .motion-info.right
+    //-       .input-group(style='border-collapse:unset; width:120px;')
+    //-         input(
+    //-           class='form-control'
+    //-           type='number'
+    //-           min=0.1
+    //-           step=0.1
+    //-           ng-model='cart.sale.remark'
+    //-           ng-change='cart.cartCalculate()'
+    //-         )
+    //-         span.input-group-addon %
     tr 
       td Unidades:
       td.bg-info
@@ -49,9 +49,9 @@ table.table.table-hover.body-form
       td.bg-warning
         h3.ligth.right(style="color: #373a3c") $ {{cart.priceFixed(cart.sale.total)}}
 //- affix
-//- script(type="text/javascript").
-//-   $(window).on('scroll', function(event) {
-//-     var scrollValue = $(window).scrollTop();
-//-     if (scrollValue > 280) $('#affix').addClass('top');
-//-     if (scrollValue < 280) $('#affix').removeClass('top');
-//-   });
+script(type="text/javascript").
+  $(window).on('scroll', function(event) {
+    var scrollValue = $(window).scrollTop();
+    if (scrollValue > 280) $('#affix').addClass('top');
+    if (scrollValue < 280) $('#affix').removeClass('top');
+  });

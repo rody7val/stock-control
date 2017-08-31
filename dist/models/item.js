@@ -10,21 +10,17 @@ var ItemSchema = new Schema({
             return name.length >= 3 && name.length > 0;
         }, 'Debe ingresar un "Nombre" con tres (3) o más caracteres.']
     },
-    code: {
-    	type: Number,
-    	validate: [function(code){
-            return code >= 1;
-        }, 'El "Codigo de barra" debe tener uno (1) o más caracteres.']
-    },
     price: {
-    	type: Float,
-    	validate: [function(price){
+        type: Float,
+        validate: [function(price){
             return price >= 0;
         }, 'El "Precio" debe ser un numero decimal, mayor o igual que 0']
     },
     qty: Number,
     desc: String,
+    rem: Float,
     image: String,
+    code: Number,
     _motions: [{type: Schema.Types.ObjectId, ref: 'Motion'}]
 });
 

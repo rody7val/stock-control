@@ -17,6 +17,54 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 			)
 			if errors.length && !(!err.name)
 				.form-control-feedback #{err.name.message}
+		//- price
+		.form-group(class='#{errors.length && !(!err.price) ? "has-danger" : ""}')
+			label.form-control-label(for='price'): b Precio
+			.input-group
+				span.input-group-addon $
+				input.form-control(
+					id='price'
+              		type='number'
+              		min=0
+              		step=0.05
+					name='item[price]'
+					placeholder='Precio'
+					value='#{errors.length || item.edit ? item._price : 0}'
+				)
+			if errors.length && !(!err.price)
+				.form-control-feedback #{err.price.message}
+			small.form-text.text-muted Podrás cambiar este precio con cada operacion de compra.
+		//- qty
+		.form-group(class='#{errors.length && !(!err.qty) ? "has-danger" : ""}')
+			label.form-control-label(for='qty'): b Cantidad
+			input.form-control(
+				id='qty'
+				type='number'
+				min=0
+				name='item[qty]'
+				placeholder='Stock'
+				value='#{errors.length || item.edit ? item.qty : 0}'
+			)
+			if errors.length && !(!err.qty)
+				.form-control-feedback #{err.qty.message}
+			small.form-text.text-muted La cantidad de stock debería modificarse solo con operaciones de compra y venta.
+		//- remarque
+		.form-group(class='#{errors.length && !(!err.rem) ? "has-danger" : ""}')
+			label.form-control-label(for='rem'): b Remarque
+			.input-group
+				input.form-control(
+					id='rem'
+            	  	type='number'
+            	  	min=0.00
+            	  	step=0.05
+					name='item[rem]'
+					placeholder='Stock'
+					value='#{errors.length || item.edit ? item.rem : session.global.rem}'
+				)
+				span.input-group-addon %
+			if errors.length && !(!err.rem)
+				.form-control-feedback #{err.rem.message}
+			small.form-text.text-muted Podrás cambiar este remarque con cada operacion de venta.
 		//- code
 		.form-group(class='#{errors.length && !(!err.code) ? "has-danger" : ""}')
 			label.form-control-label(for='code'): b Código
@@ -31,34 +79,7 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 				)
 			if errors.length && !(!err.code)
 				.form-control-feedback #{err.code.message}
-		//- price
-		.form-group(class='#{errors.length && !(!err.price) ? "has-danger" : ""}')
-			label.form-control-label(for='price'): b Precio
-			.input-group
-				span.input-group-addon $
-				input.form-control(
-					id='price'
-					type='text'
-					name='item[price]'
-					placeholder='Precio'
-					value='#{errors.length || item.edit ? item._price : ""}'
-				)
-				span.input-group-addon mostrar
-			if errors.length && !(!err.price)
-				.form-control-feedback #{err.price.message}
-		//- qty
-		.form-group(class='#{errors.length && !(!err.qty) ? "has-danger" : ""}')
-			label.form-control-label(for='qty'): b Cantidad
-			input.form-control(
-				id='qty'
-				type='number'
-				name='item[qty]'
-				placeholder='Stock'
-				value='#{errors.length || item.edit ? item.qty : ""}'
-			)
-			if errors.length && !(!err.qty)
-				.form-control-feedback #{err.qty.message}
-		//- desc
+		//- descripción
 		.form-group(class='#{errors.length && !(!err.desc) ? "has-danger" : ""}')
 			label.form-control-label(for='desc'): b Descripción
 			textarea.form-control(

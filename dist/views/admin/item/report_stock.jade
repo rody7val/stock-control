@@ -54,9 +54,9 @@ block content
 							table.table.table-hover
 								thead.thead-inverse
 									tr
-										th: h5.light Items
-										th: h5.light.text-center Código
+										th: h5.light Productos
 										th: h5.light.text-center Stock
+										th: h5.light.text-center Remarque
 										th: h5.light.right $ costo
 										th: h5.light.right $ venta
 										th: h5.light Acciones
@@ -67,10 +67,10 @@ block content
 									)
 										//- Items
 										td: a.btn.btn-link(href='/admin/item/{{item._id}}') {{item.name}}
-										//- Código
-										td.text-center.bg-info {{item.code}}
 										//- Stock
-										td.text-center(class="{{item.qty === 0 ? 'bg-danger' : 'bg-success'}}") {{item.qty}}
+										td.text-center(class="{{(item.qty === 0 ? 'bg-danger' : (item.qty < 7 ? 'bg-warning' : 'bg-success'))}}") {{item.qty}}
+										//- Remarque
+										td.text-center.bg-info {{stock.priceFixed(item.rem)}}
 										//- $/u Costo
 										td.bg-info: span.right {{stock.priceFixed(item.price)}}
 										//- $/u Venta

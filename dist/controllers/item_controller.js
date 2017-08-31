@@ -56,6 +56,7 @@ exports.create = function (req, res) {
 		code: Number(req.body.item.code),
 		price: Number(req.body.item.price),   //to number
 		qty: Number(req.body.item.qty),
+		rem: Number(req.body.item.rem),
 		desc: req.body.item.desc
 	})
 
@@ -100,10 +101,12 @@ exports.update = function (req, res) {
 	req.item.code = Number(req.body.item.code);
 	req.item.price = Number(req.body.item.price);
 	req.item.qty = Number(req.body.item.qty);
+	req.item.rem = Number(req.body.item.rem);
 	req.item.desc = req.body.item.desc;
 
 	req.item.save(function (err){
 		if (err) {
+			console.log(err)
 			req.item.edit = true;
 			req.item._price = req.body.item.price;
 			return res.render('admin/item/new', { item: req.item, errors: [{message: err.errors}], nav: 'registrar' });

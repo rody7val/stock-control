@@ -12,6 +12,7 @@ var MotionSchema = new Schema({
     qty_motion: Number,
     qty: Number,
     item_price: Float,
+    item_rem: Float,
     created: {type: Date, default: Date.now}
 });
 

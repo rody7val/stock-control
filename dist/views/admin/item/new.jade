@@ -49,20 +49,17 @@ block content
 						table.table.table-hover.body-form
 							thead.thead-inverse
 								tr
-									th: h5.light Items
-									th: h5.light Código
+									th: h5.light Productos
 									th: h5.light Stock
 									th: h5.light Acciones
 							tbody
 								tr(
 									ng-repeat="item in stock.items | filter:itemSearch | orderBy: 'name'"
 								)
-									//- Items
+									//- Productos
 									td: a.btn.btn-link.btn-sm(href='/admin/item/{{item._id}}') {{item.name}}
-									//- Código
-									td.text-center.bg-info {{item.code}}
 									//- Stock
-									td.text-center(class="{{item.qty === 0 ? 'bg-danger' : 'bg-success'}}") {{item.qty}}
+									td.text-center(class="{{(item.qty === 0 ? 'bg-danger' : (item.qty < 7 ? 'bg-warning' : 'bg-success'))}}") {{item.qty}}
 									//- Acciones
 									td
 										a.left.btn.btn-outline-warning.btn-sm(

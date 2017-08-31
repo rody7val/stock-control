@@ -58,7 +58,8 @@ exports.create = function (req, res, next) {
 			_item: _item._id,
 			qty_motion: _item.qty_motion,
    			qty: _item.qty,
-			item_price: Number(_item.price)
+			item_price: Number(_item.price),
+			item_rem: Number(_item.rem)
 		})
 		//guardar un nuevo movimiento
 		.save(function (err, motion){

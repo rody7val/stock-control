@@ -11,7 +11,7 @@ angular.module('stock-control', [])
       sale: {
         items: 0,
         sale_value: 0,
-        remark: 1.3,
+        // remark: 1.3,
         total: 0,
         date: moment().format('YYYY-MM-DD')
       }
@@ -40,7 +40,14 @@ angular.module('stock-control', [])
       angular.forEach(items, function(item){
         sale_value += item.qty_motion * item.price;
       });
-      console.log(typeof sale_value)
+      return sale_value;
+    }
+
+    function sale_value_total(items){
+      var sale_value = 0;
+      angular.forEach(items, function(item){
+        sale_value += item.qty_motion * (item.price * item.rem);
+      });
       return sale_value;
     }
 
@@ -143,6 +150,7 @@ angular.module('stock-control', [])
       var items_motions = 0;
       angular.forEach($scope.cart.selected, function(item) {
         item.qty = item.qty_ref - item.qty_motion;
+
         items_motions += item.qty_motion;
       });
       // cantidad de productos
@@ -150,7 +158,7 @@ angular.module('stock-control', [])
       // valor de la venta
       $scope.cart.sale.sale_value = sale_value($scope.cart.selected);
       // venta total
-      $scope.cart.sale.total = $scope.cart.sale.sale_value * $scope.cart.sale.remark;
+      $scope.cart.sale.total = sale_value_total($scope.cart.selected);
     }
 
 
