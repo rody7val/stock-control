@@ -65,6 +65,21 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 			if errors.length && !(!err.rem)
 				.form-control-feedback #{err.rem.message}
 			small.form-text.text-muted Podrás cambiar este remarque con cada operacion de venta.
+		//- image
+		.form-group
+			label.form-control-laber(for='img'): b Imagen
+			.input-group
+				input.form-control(
+					type='file'
+					nv-file-select=''
+					uploader='upload'
+				)
+				img(style='width:100px' ng-src="{{imgUrl}}")
+				progress(
+						value="{{uploadProgress}}"
+						max="100"
+					)
+			input(class='none', id='img', ng-model='imgUrl' type='text', name='item[url_img]')
 		//- code
 		.form-group(class='#{errors.length && !(!err.code) ? "has-danger" : ""}')
 			label.form-control-label(for='code'): b Código

@@ -12,7 +12,7 @@ table.table.table-hover.body-form
         .motion-info.right
           input(
             class='form-control'
-            style='padding:.3rem; font-size:20px'
+            style='padding:.24rem;'
             type='date'
             ng-model='cart.sale.date'
           )
@@ -20,7 +20,7 @@ table.table.table-hover.body-form
       td Cliente:
       td.bg-success
         .motion-info.right
-          select(class='form-control',ng-model='cart.client')
+          select(class='form-control',ng-model='cart.client', style='padding:.24rem; height:auto!important')
             option(ng-repeat="client in cart.clients" value="{{client._id}}") {{client.name}}
     //- tr 
     //-   td Remarque:
@@ -39,11 +39,11 @@ table.table.table-hover.body-form
     tr 
       td Unidades:
       td.bg-info
-        p.motion-info.right {{cart.sale.items}} u
+        .motion-info.right {{cart.sale.items}} u
     tr 
       td Valor de venta:
       td.bg-info
-        p.motion-info.right $ {{cart.priceFixed(cart.sale.sale_value)}}
+        .motion-info.right $ {{cart.priceFixed(cart.sale.sale_value)}}
     tr 
       td.bg-warning: h3.ligth(style="color: #373a3c") Total a pagar:
       td.bg-warning

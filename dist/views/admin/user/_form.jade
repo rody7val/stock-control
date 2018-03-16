@@ -2,16 +2,16 @@ table.table.body-form
 	thead.thead-inverse
 		if user.edit
 			tr
-				th: h5.light Editar Administrador:
+				th: h5.light Editar Usuario:
 		else
 			tr
-				th: h5.light Nuevo Administrador:
+				th: h5.light Nuevo Usuario:
 if errors.length
 	- var err = errors[0].message
 fieldset.body-form
 	//- nombre
 	.form-group(class='#{errors.length && !(!err.name) ? "has-danger" : ""}')
-		label.form-control-label(for='name'): #[b Administrador]
+		label.form-control-label(for='name'): #[b Nombre]
 		input.form-control(
 			class='#{errors.length && !(!err.name) ? "form-control-danger" : ""}'
 			type='text'

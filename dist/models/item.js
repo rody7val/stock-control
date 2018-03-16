@@ -19,7 +19,7 @@ var ItemSchema = new Schema({
     qty: Number,
     desc: String,
     rem: Float,
-    image: String,
+    url_img: String,
     code: Number,
     _motions: [{type: Schema.Types.ObjectId, ref: 'Motion'}]
 });
