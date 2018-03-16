@@ -1,4 +1,12 @@
-li.nav-item
-	a.nav-link(href='/') Ir al sitio
+li.nav-item.dropdown
+	a#user.nav-link.dropdown-toggle(
+		href='/#'
+		data-toggle="dropdown"
+		aria-haspopup="true"
+		aria-expanded="true"
+	) !{session.user.name}
+	.dropdown-menu(aria-labelledby='user')
+		a.dropdown-item.disabled(href='/users/#{session.user._id}') Tu perfil
+		a.dropdown-item(href='/') Web
 li.nav-item
 	a.nav-link(href='/session/logout') Salir

@@ -8,8 +8,7 @@ if session.user
 		) !{session.user.username}
 		.dropdown-menu(aria-labelledby='user')
 			a.dropdown-item.disabled(href='/users/#{session.user._id}') Tu perfil
-			if session.user.active
-				a.dropdown-item(href='/admin') Administración
+			a.dropdown-item(href='/admin') Administración
 	li.nav-item
 		a.nav-link(href='/session/logout') Salir
 else

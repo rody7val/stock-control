@@ -140,13 +140,13 @@ exports.admin = function (req, res) {
 		}
 
 		req.user = {};
-		req.flash('info', 'Nuevo Administrador!');
+		req.flash('info', 'Echo Administrador');
 		res.redirect('/admin/report/user');
 	});
 }
 
 // Setear Empleado
-exports.employer = function (req, res) {
+exports.employer = function (req, res, userId) {
 	req.user.admin = false;
 
 	req.user.save(function (err){
@@ -157,7 +157,7 @@ exports.employer = function (req, res) {
 		}
 
 		req.user = {};
-		req.flash('info', 'Nuevo empledo!');
+		req.flash('info', 'Echo Usuario!');
 		res.redirect('/admin/report/user');
 	});
 }

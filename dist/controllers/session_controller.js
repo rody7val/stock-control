@@ -12,7 +12,7 @@ exports.isNotLogin = function(req, res, next){
     if(!req.session.user){
         next();
     }else{
-        res.redirect('/');
+        res.redirect('/session/login');
     }
 }
 
@@ -39,14 +39,14 @@ exports.create = function(req, res){
     user_controller.autenticar(username, password, function (err, user){
         if (err) return res.render('public/session/new', { _session: req.body.session, errors: [{message: err}] });
         req.session.user = user;
-        res.redirect(req.session.redir.toString());
+        res.redirect('/admin');
     });
 }
 
 // Destruir session
 exports.delete = function(req, res){
     delete req.session.user;
-    res.redirect(req.session.redir.toString());
+    res.redirect('/');
 }
 
 // Obtener informacion sobre el usuario registrado.

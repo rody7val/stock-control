@@ -21,7 +21,7 @@ block content
 								.card-block
 									h4.card-title {{item.name}} 
 										span.tag(class='{{item.qty > 0 ? "tag-success" : "tag-danger"}}') {{item.qty > 0 ? "Stock" : "Agotado"}}
-								img.img-fluid(style='width:100%',src='/img/img.svg', alt='{{item.name}}')
+								img.img-fluid(style='width:100%',src='{{item.url_img ? item.url_img : "/img/img.svg"}}', alt='{{item.name}}')
 								.card-block
 									p {{item.desc}}
 									a.card-link(href='#') Añadir al carro

@@ -53,14 +53,17 @@ exports.new = function(req, res){
 
 // Guardar nuevo item en la Base de Datos
 exports.create = function (req, res) {
+	var img = req.body.item.url_img;
 	var item = new Item({
 		name: req.body.item.name,
 		code: Number(req.body.item.code),
 		price: Number(req.body.item.price),   //to number
 		qty: Number(req.body.item.qty),
 		rem: Number(req.body.item.rem),
+		url_img: img,
 		desc: req.body.item.desc
 	})
+	console.log(img)
 
 	item.save(function (err) {
 		if (err) {
@@ -105,6 +108,7 @@ exports.update = function (req, res) {
 	req.item.qty = Number(req.body.item.qty);
 	req.item.rem = Number(req.body.item.rem);
 	req.item.desc = req.body.item.desc;
+	req.item.url_img = req.body.item.url_img;
 
 	req.item.save(function (err){
 		if (err) {

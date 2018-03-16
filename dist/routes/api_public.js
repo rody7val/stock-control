@@ -10,9 +10,6 @@ module.exports = function (app, express) {
     // Motor de rutas API
     var api = express.Router();
 
-    // Pagina de inicio
-    api.get('/', itemController.public);
-
     //items
     api.get('/api/itemsRows', itemController.getRowsItems);
     api.get('/api/items', itemController.all);
@@ -27,6 +24,9 @@ module.exports = function (app, express) {
 
     // providers
     api.get('/api/providers', providerController.all);
+
+    // Pagina de inicio
+    api.get('/', itemController.public);
 
     // session
     api.get('/session/login', sessionController.isNotLogin, sessionController.new);
