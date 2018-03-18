@@ -1,0 +1,46 @@
+//- item/show.jade
+extends ../../layout.jade
+
+block title
+	title #{user.name}
+
+block js
+	script(src='/js/angular-1.1.5.min.js', type="text/javascript")
+	script(src='/js/angular-file-upload.min.js', type="text/javascript")
+	script(src='/js/user/show.js', type="text/javascript")
+			
+block content
+	div(ng-app='stock-control')
+		div(ng-controller="ShowUserController")
+			.none
+				{{ setUser('#{user.img}', '#{user.id}') }}
+			br
+			#show.container
+				.card
+					h3.card-header #{user.username}
+					.card-block
+						.row
+							.col.col-md-4
+								.card-title
+									img.img-responsive(
+										width='150px'
+										src='{{userImg}}'
+									)
+									if session.user && session.user._id == user.id
+										input.form-control(
+											type='file'
+											nv-file-select=''
+											uploader='upload'
+										)
+										.progres.center
+											.progress-bar(
+												role="progressbar"
+												aria-valuenow="{{uploadProgress}}"
+												aria-valuemin="0"
+												aria-valuemax="100"
+												style="width:70%"
+											) {{uploadProgress}}
+							.col.col-md-8
+								.card-text
+									b #{user.name}
+								.card-text #{user.email}

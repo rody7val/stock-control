@@ -28,11 +28,16 @@ html(lang='es')
 						ul.nav.navbar-nav.right
 							include ./admin/nav/nav_right.jade
 					h1.light Administración
-					ul.nav.navbar-nav.left
-						include ./admin/nav/nav_left.jade
+					if session.user.admin
+						ul.nav.navbar-nav.left
+							include ./admin/nav/nav_left.jade
 			block background-item
 			#admin
-				block content
+				if session.user.admin
+					block content
+				else
+					.container
+						p Pendiente de moderación
 		#footer
 			.title-form.container
 				hr

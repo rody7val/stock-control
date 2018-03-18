@@ -4,9 +4,9 @@ li.nav-item.dropdown
 		data-toggle="dropdown"
 		aria-haspopup="true"
 		aria-expanded="true"
-	) !{session.user.name}
+	) !{session.user.username}
 	.dropdown-menu(aria-labelledby='user')
-		a.dropdown-item.disabled(href='/users/#{session.user._id}') Tu perfil
+		a.dropdown-item(href='/users/#{session.user._id}') Mi perfil
 		a.dropdown-item(href='/') Web
 li.nav-item
 	a.nav-link(href='/session/logout') Salir

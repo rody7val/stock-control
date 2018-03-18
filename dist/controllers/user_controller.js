@@ -94,6 +94,19 @@ exports.update = function (req, res) {
 	});
 }
 
+// Editar img de usuario
+exports.updateImg = function (req, res) {
+	req.user.img = req.body.img;
+
+	req.user.save(function (err){
+		if (err) {
+			return res.json({success: false});
+		}else{
+			return res.json({success: true});
+		}
+	});
+}
+
 // Activar un usuario
 exports.active = function (req, res) {
 	req.user.active = true;
@@ -164,7 +177,10 @@ exports.employer = function (req, res, userId) {
 
 // Mostrar un usuario
 exports.show = function(req, res){
-	res.json(req.user);
+	var errors = req.session.errors || {};
+	req.session.errors = {};
+
+	res.render('admin/user/show', { user: req.user, errors: errors});
 };
 
 // Obtener todos los usuarios de la BD

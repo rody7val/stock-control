@@ -42,6 +42,9 @@ var UserSchema = new Schema({
         type: Boolean,
         default: false
     },
+    img: {
+        type: String
+    },
     created: {
         type: Date,
         default: Date.now

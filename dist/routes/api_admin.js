@@ -32,9 +32,9 @@ module.exports = function (app, express) {
     // api.param('motionId', itemController.load);
 
     // users
+    api.post('/users/:userId', sessionController.loginRequired, userController.updateImg);
     api.get('/users/new', sessionController.loginRequired, userController.new_fromAdmin);
     api.post('/users/new', sessionController.loginRequired, userController.create_fromAdmin);
-    api.get('/users/:userId', sessionController.loginRequired, userController.show);
     api.get('/users/:userId/edit', sessionController.loginRequired, userController.edit);
     api.put('/users/:userId/edit', sessionController.loginRequired, userController.update);
     api.delete('/users/:userId', sessionController.loginRequired, userController.delete);

@@ -9,12 +9,15 @@ var sessionController = require('../controllers/session_controller');
 module.exports = function (app, express) {
     // Motor de rutas API
     var api = express.Router();
-
+    
+    api.param('userId', userController.load);
+    
     //items
     api.get('/api/itemsRows', itemController.getRowsItems);
     api.get('/api/items', itemController.all);
 
     // users
+    api.get('/users/:userId', userController.show);
     api.get('/users/new', sessionController.isNotLogin, userController.new);
     api.post('/users/new', sessionController.isNotLogin, userController.create);
     api.get('/api/users', userController.all);

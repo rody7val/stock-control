@@ -1,3 +1,15 @@
+
+.center{
+    display: block;
+    margin: 0 auto;
+}
+.img-responsive{
+  margin: 0 auto;
+    border-radius: 50%;
+    -webkit-box-shadow: 2px 11.5px 46px rgba(0,0,0,.35);
+    box-shadow: 2px 11.5px 46px rgba(0,0,0,.35);
+    display: block;
+}
 #nav{
     border-bottom: 1px solid #4a944a;
     box-shadow: 0px 0px 20px #4c4c4c;
