@@ -15,12 +15,6 @@ var GlobalSchema = new Schema({
 		validate: [function(desc){
 			return desc.length > 0;
 		}, 'La "Descripción" no puede estar vacia.']
-	},
-	rem: {
-		type: Float,
-		validate: [function(rem){
-			return typeof rem === 'number' && rem >= 0;
-		}, 'El "Remarque" debe ser un número entero o decimal separado por un punto (ejemplo: "1.3").']
 	}
 });
 

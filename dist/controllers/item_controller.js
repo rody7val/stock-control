@@ -56,11 +56,11 @@ exports.create = function (req, res) {
 	var img = req.body.item.url_img;
 	var item = new Item({
 		name: req.body.item.name,
-		code: Number(req.body.item.code),
-		price: Number(req.body.item.price),   //to number
 		qty: Number(req.body.item.qty),
-		rem: Number(req.body.item.rem),
+		price: Number(req.body.item.price),   //to number
+		salePrice: Number(req.body.item.salePrice),   //to number
 		url_img: img,
+		code: Number(req.body.item.code),
 		desc: req.body.item.desc
 	})
 	console.log(img)
@@ -103,12 +103,12 @@ exports.edit = function (req, res) {
 // Editar un item
 exports.update = function (req, res) {
 	req.item.name = req.body.item.name;
-	req.item.code = Number(req.body.item.code);
-	req.item.price = Number(req.body.item.price);
 	req.item.qty = Number(req.body.item.qty);
-	req.item.rem = Number(req.body.item.rem);
-	req.item.desc = req.body.item.desc;
+	req.item.price = Number(req.body.item.price);
+	req.item.salePrice = Number(req.body.item.salePrice);
 	req.item.url_img = req.body.item.url_img;
+	req.item.code = Number(req.body.item.code);
+	req.item.desc = req.body.item.desc;
 
 	req.item.save(function (err){
 		if (err) {
@@ -226,4 +226,8 @@ exports.export_interno = function(req, res){
   		res.setHeader('Content-Disposition', 'attachment; filename=reporte_interno_' + hoy + '.xlsx');
   		res.end(result, 'binary');
 	});
+}
+
+exports.getOne = function (req, res) {
+	res.json(req.item);
 }

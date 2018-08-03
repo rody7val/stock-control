@@ -16,9 +16,9 @@ var ItemSchema = new Schema({
             return price >= 0;
         }, 'El "Precio" debe ser un numero decimal, mayor o igual que 0']
     },
+    salePrice: Float,
     qty: Number,
     desc: String,
-    rem: Float,
     url_img: String,
     code: Number,
     _motions: [{type: Schema.Types.ObjectId, ref: 'Motion'}]

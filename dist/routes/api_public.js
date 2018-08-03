@@ -11,16 +11,19 @@ module.exports = function (app, express) {
     var api = express.Router();
     
     api.param('userId', userController.load);
+    api.param('itemId', itemController.load);
     
     //items
     api.get('/api/itemsRows', itemController.getRowsItems);
     api.get('/api/items', itemController.all);
+    api.get('/api/items/:itemId', itemController.getOne);
 
-    // users
+    // users view
     api.get('/users/:userId', userController.show);
     api.get('/users/new', sessionController.isNotLogin, userController.new);
     api.post('/users/new', sessionController.isNotLogin, userController.create);
     api.get('/api/users', userController.all);
+
 
     // clients
     api.get('/api/clients', clientController.all);

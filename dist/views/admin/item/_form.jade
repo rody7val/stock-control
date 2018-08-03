@@ -1,4 +1,5 @@
 //- item/_form.jade
+{{getId("#{item._id}")}}
 form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/edit?_method=put" : "/admin/item/new" }')
 	table.table.body-form
 		thead.thead-inverse
@@ -17,23 +18,6 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 			)
 			if errors.length && !(!err.name)
 				.form-control-feedback #{err.name.message}
-		//- price
-		.form-group(class='#{errors.length && !(!err.price) ? "has-danger" : ""}')
-			label.form-control-label(for='price'): b Precio
-			.input-group
-				span.input-group-addon $
-				input.form-control(
-					id='price'
-              		type='number'
-              		min=0
-              		step=0.05
-					name='item[price]'
-					placeholder='Precio'
-					value='#{errors.length || item.edit ? item._price : 0}'
-				)
-			if errors.length && !(!err.price)
-				.form-control-feedback #{err.price.message}
-			small.form-text.text-muted Podrás cambiar este precio con cada operacion de compra.
 		//- qty
 		.form-group(class='#{errors.length && !(!err.qty) ? "has-danger" : ""}')
 			label.form-control-label(for='qty'): b Cantidad
@@ -47,24 +31,56 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 			)
 			if errors.length && !(!err.qty)
 				.form-control-feedback #{err.qty.message}
-			small.form-text.text-muted La cantidad de stock debería modificarse solo con operaciones de compra y venta.
-		//- remarque
-		.form-group(class='#{errors.length && !(!err.rem) ? "has-danger" : ""}')
-			label.form-control-label(for='rem'): b Remarque
+			//- small.form-text.text-muted La cantidad de stock debería modificarse solo con operaciones de compra y venta.
+		//- price
+		.form-group(class='#{errors.length && !(!err.price) ? "has-danger" : ""}')
+			label.form-control-label(for='price'): b Pcio. Compra
 			.input-group
+				span.input-group-addon $
 				input.form-control(
-					id='rem'
-            	  	type='number'
-            	  	min=0.00
-            	  	step=0.05
-					name='item[rem]'
-					placeholder='Stock'
-					value='#{errors.length || item.edit ? item.rem : session.global.rem}'
+					id='price'
+					type='number'
+					min=0
+					step=0.05
+					name='item[price]'
+					placeholder='Precio de Compra'
+					value='#{errors.length || item.edit ? item._price : 0}'
 				)
-				span.input-group-addon %
-			if errors.length && !(!err.rem)
-				.form-control-feedback #{err.rem.message}
-			small.form-text.text-muted Podrás cambiar este remarque con cada operacion de venta.
+				input.form-control(
+					type='number'
+					min=0
+					step=0.05
+					ng-model='buyPrice'
+					value='#{errors.length || item.edit ? item._price : 0}'
+				)
+			if errors.length && !(!err.price)
+				.form-control-feedback #{err.price.message}
+			//- small.form-text.text-muted Podrás cambiar este precio con cada operacion de compra.
+		//- salePrice
+		.form-group(class='#{errors.length && !(!err.salePrice) ? "has-danger" : ""}')
+			label.form-control-label(for='salePrice'): b Pcio. Venta
+			.input-group
+				span.input-group-addon $
+				input.form-control(
+					id='salePrice'
+					type='number'
+					min=0
+					step=0.5
+					name='item[salePrice]'
+					placeholder='Precio de Venta'
+					value='#{errors.length || item.edit ? item.salePrice : session.global.salePrice}'
+				)
+				input.form-control(
+					type='number'
+					min=0
+					step=0.5
+					ng-model='salePrice'
+					value='#{errors.length || item.edit ? item.salePrice : 0}'
+				)
+				span.input-group-addon % {{gain}}
+			if errors.length && !(!err.salePrice)
+				.form-control-feedback #{err.salePrice.message}
+			//- small.form-text.text-muted Podrás cambiar este remarque con cada operacion de venta
 		//- image
 		.form-group
 			label.form-control-laber(for='img'): b Imagen
@@ -79,7 +95,6 @@ form#item-form(method='post', action='#{item.edit ? "/admin/item/"+item._id+"/ed
 						value="{{uploadProgress}}"
 						max="100"
 					)
-			input(class='none', id='img', ng-model='imgUrl' type='text', name='item[url_img]')
 		//- code
 		.form-group(class='#{errors.length && !(!err.code) ? "has-danger" : ""}')
 			label.form-control-label(for='code'): b Código

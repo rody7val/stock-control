@@ -9,8 +9,7 @@ exports.init = function (callback) {
 		} else if (count == 0) {
 			new Global({
 				title: process.env.TITLE || 'Stock-control',
-				desc: process.env.DESC || 'Sistema de administración de stock',
-				rem: Number(process.env.REM) || 1.3,
+				desc: process.env.DESC || 'Sistema de administración de stock'
 			}).save();
 		}
 

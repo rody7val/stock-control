@@ -28,7 +28,6 @@ block content
 							)
 							if errors.length && !(!err.title)
 								.form-control-feedback #{err.title.message}
-							small.form-text.text-muted El nombre de tu comunidad
 						//- desc
 						.form-group(class='#{errors.length && !(!err.desc) ? "has-danger" : ""}')
 							label.form-control-label(for='desc'): b Descripción
@@ -40,26 +39,6 @@ block content
 							)
 							if errors.length && !(!err.desc)
 								.form-control-feedback #{err.desc.message}
-							small.form-text.text-muted Una breve descripción acerca de tu comunidad
-			br
-			br
-			.row
-				.col-md-3
-					h6(name='opciones-de-ventas') # Opciones de ventas
-				.col-md-9
-					fieldset
-						//- rem
-						.form-group(class='#{errors.length && !(!err.rem) ? "has-danger" : ""}')
-							label.form-control-label(for='rem'): b Remarque
-							input.form-control(
-								id='rem'
-								type='text'
-								name='global[rem]'
-								value='#{errors.length ? global.rem : session.global.rem}'
-							)
-							if errors.length && !(!err.rem)
-								.form-control-feedback #{err.rem.message}
-							small.form-text.text-muted Porcentaje de ganancia por venta
 			.form-group
 				input.right.btn.btn-outline-primary(
 					type='submit'
